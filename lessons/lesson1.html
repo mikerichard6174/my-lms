@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1 - Numbers</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <style>
+    .quiz-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .question {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .question-img {
+      max-width: 200px;
+      margin: 1rem auto;
+      display: block;
+    }
+
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      background: #eee;
+      transition: background 0.2s ease;
+    }
+
+    .options button:hover {
+      background: #ddd;
+    }
+
+    .correct {
+      background-color: #4CAF50 !important;
+      color: white;
+    }
+
+    .incorrect {
+      background-color: #f44336 !important;
+      color: white;
+    }
+
+    #score {
+      margin-top: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      width: 100%;
+      background: #ddd;
+      border-radius: 20px;
+      height: 20px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #4CAF50;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lesson 1: Learning Numbers</h1>
+  </header>
+
+  <main>
+    <div class="quiz-container">
+      <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+
+      <div id="quiz"></div>
+      <p id="score"></p>
+      <button id="next-btn" class="button" style="display:none;">Next Question</button>
+    </div>
+    <a href="../index.html" class="button">Back to Home</a>
+  </main>
+
+  <!-- Sound effects -->
+  <audio id="correct-sound" src="../assets/correct.mp3"></audio>
+  <audio id="incorrect-sound" src="../assets/incorrect.mp3"></audio>
+
+  <script>
+    const quizData = [
+      {
+        question: "How many fingers do you have on one hand?",
+        img: "../assets/hand.png",
+        options: ["3", "4", "5", "6"],
+        correct: 2
+      },
+      {
+        question: "What number comes after 4?",
+        img: "../assets/numbers.png",
+        options: ["3", "5", "6", "7"],
+        correct: 1
+      },
+      {
+        question: "If you have 2 apples and add 2 more, how many do you have?",
+        img: "../assets/apples.png",
+        options: ["2", "3", "4", "5"],
+        correct: 2
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const quizEl = document.getElementById("quiz");
+    const scoreEl = document.getElementById("score");
+    const nextBtn = document.getElementById("next-btn");
+    const progressBar = document.getElementById("progress-bar");
+
+    const correctSound = document.getElementById("correct-sound");
+    const incorrectSound = document.getElementById("incorrect-sound");
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      quizEl.innerHTML = `
+        <div class="question">${q.question}</div>
+        <img src="${q.img}" alt="Question Image" class="question-img">
+        <div class="options">
+          ${q.options.map((opt, i) => `<button onclick="checkAnswer(${i})">${opt}</button>`).join("")}
+        </div>
+      `;
+      nextBtn.style.display = "none";
+      scoreEl.textContent = "";
+
+      // Update progress bar
+      progressBar.style.width = ((currentQuestion / quizData.length) * 100) + "%";
+    }
+
+    function checkAnswer(selected) {
+      const q = quizData[currentQuestion];
+      const buttons = document.querySelectorAll(".options button");
+
+      buttons.forEach((btn, i) => {
+        if (i === q.correct) btn.classList.add("correct");
+        if (i === selected && selected !== q.correct) btn.classList.add("incorrect");
+        btn.disabled = true;
+      });
+
+      if (selected === q.correct) {
+        score++;
+        scoreEl.textContent = "✅ Correct!";
+        correctSound.play();
+      } else {
+        scoreEl.textContent = "❌ Try again next time!";
+        incorrectSound.play();
+      }
+
+      nextBtn.style.display = "inline-block";
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        quizEl.innerHTML = `<h2>You finished the quiz!</h2>`;
+        scoreEl.textContent = `Your score: ${score} / ${quizData.length}`;
+        progressBar.style.width = "100%";
+        nextBtn.style.display = "none";
+      }
+    });
+
+    // Start first question
+    loadQuestion();
+  </script>
+</body>
+</html>
