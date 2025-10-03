@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 2 - Counting Objects</title>
+<link rel="stylesheet" href="../styles/style.css">
+<style>
+  .lesson-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    text-align: center;
+  }
+
+  .draggable {
+    width: 80px;
+    margin: 0.5rem;
+    cursor: grab;
+  }
+
+  .drop-box {
+    width: 200px;
+    height: 150px;
+    border: 2px dashed #aaa;
+    display: inline-block;
+    vertical-align: top;
+    margin: 1rem;
+    line-height: 150px;
+    font-size: 1.5rem;
+    color: #555;
+  }
+
+  .drop-box.correct {
+    border-color: #4CAF50;
+    color: #4CAF50;
+  }
+
+  .drop-box.incorrect {
+    border-color: #f44336;
+    color: #f44336;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Lesson 2: Counting Objects</h1>
+</header>
+
+<main>
+  <div class="lesson-container">
+    <p>Drag the correct number of apples into the box!</p>
+
+    <div id="dropBox" class="drop-box">Drop Here</div>
+
+    <div id="objects">
+      <img src="../assets/apple.png" class="draggable" draggable="true" id="apple1">
+      <img src="../assets/apple.png" class="draggable" draggable="true" id="apple2">
+      <img src="../assets/apple.png" class="draggable" id="apple3">
+      <img src="../assets/apple.png" class="draggable" id="apple4">
+    </div>
+
+    <p id="feedback"></p>
+    <button onclick="checkAnswer()" class="button">Check Answer</button>
+  </div>
+
+  <a href="../index.html" class="button">Back to Home</a>
+</main>
+
+<script>
+  const dropBox = document.getElementById("dropBox");
+  const objects = document.querySelectorAll(".draggable");
+  const feedback = document.getElementById("feedback");
+
+  let dragged = null;
+  let countInBox = 0;
+
+  objects.forEach(obj => {
+    obj.addEventListener("dragstart", e => {
+      dragged = e.target;
+    });
+  });
+
+  dropBox.addEventListener("dragover", e => {
+    e.preventDefault();
+  });
+
+  dropBox.addEventListener("drop", e => {
+    e.preventDefault();
+    if(dragged) {
+      dropBox.appendChild(dragged);
+      countInBox++;
+      dragged = null;
+    }
+  });
+
+  function checkAnswer() {
+    const correctNumber = 3; // change as desired
+    if(countInBox === correctNumber) {
+      dropBox.classList.add("correct");
+      dropBox.classList.remove("incorrect");
+      feedback.textContent = "✅ Correct! Well done!";
+    } else {
+      dropBox.classList.add("incorrect");
+      dropBox.classList.remove("correct");
+      feedback.textContent = `❌ Try again. You need ${correctNumber} apples.`;
+    }
+  }
+</script>
+
+</body>
+</html>

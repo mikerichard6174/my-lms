@@ -1,27 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Learning Hub</title>
-  <link rel="stylesheet" href="styles/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My LMS Home</title>
+<link rel="stylesheet" href="styles/style.css">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .lesson-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .lesson-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to My Learning Hub</h1>
-    <p>Fun and interactive lessons for K–6 learners 🎓</p>
-  </header>
 
-  <main>
-    <section class="intro">
-      <h2>Start Learning Today!</h2>
-      <p>Click below to begin your first sample lesson.</p>
-      <a href="lessons/lesson1.html" class="button">Go to Lesson 1</a>
-    </section>
-  </main>
+<header>
+  <h1>Welcome to My LMS</h1>
+  <p>Select a lesson to get started!</p>
+</header>
 
-  <footer>
-    <p>© 2025 My Learning Hub</p>
-  </footer>
+<main>
+  <div class="lesson-list">
+    <a href="lessons/lesson1.html" class="lesson-item">Lesson 1: Learning Numbers (Multiple Choice Quiz)</a>
+    <a href="lessons/lesson2.html" class="lesson-item">Lesson 2: Counting Objects (Drag-and-Drop)</a>
+    <a href="lessons/lesson3.html" class="lesson-item">Lesson 3: Number to Word Matching</a>
+    <!-- Add more lessons here as you create them -->
+  </div>
+</main>
+
 </body>
 </html>

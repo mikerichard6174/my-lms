@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3 - Number to Word</title>
+<link rel="stylesheet" href="../styles/style.css">
+<style>
+  .lesson-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    text-align: center;
+  }
+
+  .draggable {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #4CAF50;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: grab;
+  }
+
+  .drop-box {
+    display: inline-block;
+    width: 150px;
+    height: 60px;
+    border: 2px dashed #aaa;
+    margin: 0.5rem;
+    line-height: 60px;
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  .drop-box.correct {
+    border-color: #4CAF50;
+    color: #4CAF50;
+  }
+
+  .drop-box.incorrect {
+    border-color: #f44336;
+    color: #f44336;
+  }
+
+  #feedback {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Lesson 3: Number to Word Matching</h1>
+</header>
+
+<main>
+  <div class="lesson-container">
+    <p>Drag the number onto the box with the matching word!</p>
+
+    <div id="dropArea">
+      <div class="drop-box" data-number="1">one</div>
+      <div class="drop-box" data-number="2">two</div>
+      <div class="drop-box" data-number="3">three</div>
+    </div>
+
+    <div id="numbers">
+      <div class="draggable" draggable="true" data-number="1">1</div>
+      <div class="draggable" draggable="true" data-number="2">2</div>
+      <div class="draggable" draggable="true" data-number="3">3</div>
+    </div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <a href="../index.html" class="button">Back to Home</a>
+</main>
+
+<script>
+const draggables = document.querySelectorAll(".draggable");
+const dropBoxes = document.querySelectorAll(".drop-box");
+const feedback = document.getElementById("feedback");
+let dragged = null;
+
+draggables.forEach(item => {
+  item.addEventListener("dragstart", e => dragged = e.target);
+});
+
+dropBoxes.forEach(box => {
+  box.addEventListener("dragover", e => e.preventDefault());
+  box.addEventListener("drop", e => {
+    e.preventDefault();
+    if(dragged) {
+      const draggedNumber = dragged.getAttribute("data-number");
+      const boxNumber = box.getAttribute("data-number");
+
+      if(draggedNumber === boxNumber) {
+        box.classList.add("correct");
+        box.classList.remove("incorrect");
+        feedback.textContent = "✅ Correct!";
+        // Optional: remove dragged element
+        dragged.style.display = "none";
+      } else {
+        box.classList.add("incorrect");
+        box.classList.remove("correct");
+        feedback.textContent = "❌ Try again!";
+      }
+      dragged = null;
+    }
+  });
+});
+</script>
+
+</body>
+</html>
