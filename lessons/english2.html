@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5 - Word Builders</title>
   <title>Lesson 5 - Vocabulary Builder</title>
   <link rel="stylesheet" href="../styles/style.css">
 </head>
@@ -42,6 +43,21 @@
 
       <header class="lesson-header">
         <div>
+          <h1>Lesson 5: Word Builders Workshop</h1>
+          <div class="lesson-meta">
+            <p>Use our word tiles to complete each sentence, then read it aloud using your best storyteller voice.</p>
+            <p><strong>Objective:</strong> Blend sounds to build CVC and sight words inside complete sentences.</p>
+            <ul class="lesson-objectives">
+              <li>Sound out and select grade-level vocabulary to finish a sentence.</li>
+              <li>Use drag-and-drop or tap-to-place strategies to fill in blanks.</li>
+              <li>Practice fluency by reading the final sentences aloud.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Word workshop progress">
+          <span>Sentences</span>
+          <strong><span id="sentences-complete">0</span>/3</strong>
+          <p>Build all three sentences to finish.</p>
           <h1>Lesson 5: Vocabulary Builder</h1>
           <div class="lesson-meta">
             <p>Match each sight word with the definition that best fits.</p>
@@ -61,6 +77,65 @@
       </header>
 
       <section class="lesson-content">
+        <article class="story-card workshop-intro" aria-labelledby="workshop-title">
+          <div>
+            <h2 id="workshop-title">Welcome to the Word Builders Workshop</h2>
+            <p>Every sentence has a missing word. Use the tiles to plug in the right word, then tap the megaphone to hear the sentence read aloud.</p>
+          </div>
+          <button id="sound-out-all" class="button tertiary" type="button">🔊 Read All Sentences</button>
+        </article>
+
+        <section class="word-workshop" aria-label="Sentence building activity">
+          <div class="word-bank word-bank-panel" aria-labelledby="word-bank-title">
+            <h3 id="word-bank-title">Word Tiles</h3>
+            <p class="word-bank-hint">Drag a tile onto a blank or tap a blank to choose a word.</p>
+            <div class="tile-grid" role="list">
+              <button class="word-tile" data-word="frog" draggable="true" role="listitem">frog</button>
+              <button class="word-tile" data-word="wave" draggable="true" role="listitem">wave</button>
+              <button class="word-tile" data-word="read" draggable="true" role="listitem">read</button>
+              <button class="word-tile" data-word="skip" draggable="true" role="listitem">skip</button>
+              <button class="word-tile" data-word="blue" draggable="true" role="listitem">blue</button>
+            </div>
+          </div>
+
+          <div class="sentence-board">
+            <article class="sentence-card" data-sentence="frog">
+              <header>
+                <h3>Sentence 1</h3>
+                <button class="button tertiary read-sentence" type="button" data-sentence-index="0">🔊</button>
+              </header>
+              <p>The <span class="blank" data-blank="frog" tabindex="0" aria-label="Blank for sentence one"></span> hops over the log.</p>
+            </article>
+
+            <article class="sentence-card" data-sentence="wave">
+              <header>
+                <h3>Sentence 2</h3>
+                <button class="button tertiary read-sentence" type="button" data-sentence-index="1">🔊</button>
+              </header>
+              <p>We <span class="blank" data-blank="wave" tabindex="0" aria-label="Blank for sentence two"></span> to the bright yellow bus.</p>
+            </article>
+
+            <article class="sentence-card" data-sentence="read">
+              <header>
+                <h3>Sentence 3</h3>
+                <button class="button tertiary read-sentence" type="button" data-sentence-index="2">🔊</button>
+              </header>
+              <p>Mom will <span class="blank" data-blank="read" tabindex="0" aria-label="Blank for sentence three"></span> a book at bedtime.</p>
+            </article>
+          </div>
+        </section>
+
+        <div class="lesson-actions">
+          <button id="check-sentences" class="button" type="button">Check My Sentences</button>
+          <button id="reset-sentences" class="button secondary" type="button">Clear Board</button>
+          <a class="button secondary" href="../index.html">Back to Dashboard</a>
+        </div>
+
+        <div class="progress-track" role="progressbar" aria-label="Sentence completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="sentence-progress" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <p id="sentence-feedback" class="feedback" aria-live="polite"></p>
         <div class="progress-track" role="progressbar" aria-label="Vocabulary completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <div id="vocab-progress" class="progress-bar" style="width: 0%"></div>
         </div>
@@ -145,6 +220,154 @@
   <script src="../scripts/progress.js"></script>
   <script>
     const lessonId = 'english2';
+    const wordTiles = Array.from(document.querySelectorAll('.word-tile'));
+    const blanks = Array.from(document.querySelectorAll('.blank'));
+    const feedback = document.getElementById('sentence-feedback');
+    const progressBar = document.getElementById('sentence-progress');
+    const progressTrack = document.querySelector(".progress-track[aria-label='Sentence completion']");
+    const sentencesComplete = document.getElementById('sentences-complete');
+    const checkBtn = document.getElementById('check-sentences');
+    const resetBtn = document.getElementById('reset-sentences');
+    const readAllBtn = document.getElementById('sound-out-all');
+    const readSentenceBtns = Array.from(document.querySelectorAll('.read-sentence'));
+
+    let lessonStart = performance.now();
+    let activeTile = null;
+
+    function updateProgress() {
+      const filled = blanks.filter((blank) => blank.dataset.word === blank.dataset.blank).length;
+      const percent = Math.round((filled / blanks.length) * 100);
+      sentencesComplete.textContent = filled.toString();
+      progressBar.style.width = `${percent}%`;
+      progressTrack.setAttribute('aria-valuenow', percent.toString());
+    }
+
+    function speakSentence(index) {
+      const sentences = [
+        'The frog hops over the log.',
+        'We wave to the bright yellow bus.',
+        'Mom will read a book at bedtime.'
+      ];
+
+      if (!window.speechSynthesis) {
+        feedback.textContent = 'Read the sentence out loud together!';
+        feedback.classList.remove('success', 'error');
+        return;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(sentences[index]);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.95;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function placeTile(tile, target) {
+      if (!tile || !target) return;
+      const priorWord = target.dataset.word;
+      if (priorWord) {
+        const previousTile = document.querySelector(`.word-tile[data-word="${priorWord}"]`);
+        previousTile?.classList.remove('used');
+      }
+
+      target.dataset.word = tile.dataset.word;
+      target.textContent = tile.dataset.word;
+      tile.classList.add('used');
+      tile.setAttribute('draggable', 'false');
+      tile.setAttribute('aria-disabled', 'true');
+      tile.classList.remove('active');
+      updateProgress();
+    }
+
+    function resetTile(tile) {
+      tile.classList.remove('used');
+      tile.setAttribute('draggable', 'true');
+      tile.removeAttribute('aria-disabled');
+    }
+
+    wordTiles.forEach((tile) => {
+      tile.addEventListener('click', () => {
+        if (tile.classList.contains('used')) return;
+        activeTile?.classList.remove('active');
+        activeTile = tile;
+        tile.classList.add('active');
+      });
+
+      tile.addEventListener('dragstart', (event) => {
+        if (tile.classList.contains('used')) {
+          event.preventDefault();
+          return;
+        }
+        event.dataTransfer.setData('text/plain', tile.dataset.word);
+        event.dataTransfer.effectAllowed = 'move';
+        activeTile = tile;
+        tile.classList.add('active');
+      });
+    });
+
+    blanks.forEach((blank) => {
+      blank.addEventListener('click', () => {
+        if (activeTile) {
+          placeTile(activeTile, blank);
+          activeTile = null;
+        } else {
+          const word = blank.dataset.word;
+          if (word) {
+            const tile = document.querySelector(`.word-tile[data-word="${word}"]`);
+            blank.textContent = '';
+            delete blank.dataset.word;
+            resetTile(tile);
+            updateProgress();
+          }
+        }
+      });
+
+      blank.addEventListener('dragenter', (event) => {
+        event.preventDefault();
+        blank.classList.add('active');
+      });
+
+      blank.addEventListener('dragover', (event) => {
+        event.preventDefault();
+      });
+
+      blank.addEventListener('dragleave', () => {
+        blank.classList.remove('active');
+      });
+
+      blank.addEventListener('drop', (event) => {
+        event.preventDefault();
+        blank.classList.remove('active');
+        const word = event.dataTransfer.getData('text/plain');
+        const tile = document.querySelector(`.word-tile[data-word="${word}"]`);
+        placeTile(tile, blank);
+      });
+    });
+
+    checkBtn.addEventListener('click', () => {
+      const total = blanks.length;
+      let correct = 0;
+      blanks.forEach((blank) => {
+        if (blank.dataset.word === blank.dataset.blank) {
+          blank.classList.add('correct');
+          blank.classList.remove('incorrect');
+          correct += 1;
+        } else {
+          blank.classList.remove('correct');
+          if (blank.dataset.word) {
+            blank.classList.add('incorrect');
+          } else {
+            blank.classList.remove('incorrect');
+          }
+        }
+      });
+
+      const percent = Math.round((correct / total) * 100);
+      updateProgress();
+      const elapsed = performance.now() - lessonStart;
+
+      if (correct === total) {
+        feedback.textContent = 'Brilliant building! Read your sentences aloud to celebrate.';
     const definitionSelects = Array.from(document.querySelectorAll('.definition-list select'));
     const feedback = document.getElementById('matching-feedback');
     const progressBar = document.getElementById('vocab-progress');
@@ -189,6 +412,12 @@
           score: 100,
           durationMs: elapsed
         });
+      } else {
+        feedback.textContent = 'Check the tiles with a red outline. Sound them out and try a different word.';
+        feedback.classList.add('error');
+        feedback.classList.remove('success');
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
         window.LMSProgress?.markLessonComplete('english2');
       } else {
         feedback.textContent = 'Keep trying. Review the story and adjust the matches you are unsure about.';
@@ -203,6 +432,16 @@
     });
 
     resetBtn.addEventListener('click', () => {
+      blanks.forEach((blank) => {
+        blank.textContent = '';
+        delete blank.dataset.word;
+        blank.classList.remove('correct', 'incorrect');
+      });
+      wordTiles.forEach((tile) => {
+        resetTile(tile);
+        tile.classList.remove('active');
+      });
+      activeTile = null;
       definitionSelects.forEach((select) => {
         select.value = '';
         select.classList.remove('correct', 'incorrect');
@@ -212,6 +451,22 @@
       feedback.classList.remove('success', 'error');
       progressBar.style.width = '0%';
       progressTrack.setAttribute('aria-valuenow', '0');
+      sentencesComplete.textContent = '0';
+      lessonStart = performance.now();
+    });
+
+    readAllBtn.addEventListener('click', () => {
+      [0, 1, 2].forEach((index, arrayIndex) => {
+        setTimeout(() => speakSentence(index), arrayIndex * 3000);
+      });
+    });
+
+    readSentenceBtns.forEach((button) => {
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.sentenceIndex);
+        speakSentence(index);
+      });
+    });
       definitionSelects[0].focus();
       lessonStart = performance.now();
     });

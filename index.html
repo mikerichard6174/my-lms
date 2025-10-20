@@ -47,6 +47,70 @@
         </div>
       </section>
 
+      <section id="today" class="dashboard-grid dashboard-grid-stacked" aria-label="Today's highlights">
+        <article class="dashboard-card">
+          <header>
+            <span data-focus-status>Today's Focus</span>
+            <span class="status-pill">Live</span>
+          </header>
+          <div>
+            <h3 data-focus-title>Keep exploring new lessons</h3>
+            <p data-focus-description>Daily recommendations will appear here once lessons are scheduled.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-focus-progress style="width: 0%"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="dashboard-card">
+          <header>
+            <span>Today's Schedule</span>
+          </header>
+          <div>
+            <ul class="lesson-list" data-today-schedule>
+              <li>No scheduled lessons today. Add items from the parent dashboard.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dashboard-card" id="reading-highlight">
+
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="subjects/math.html">Math Adventures</a></li>
+            <li><a href="subjects/english.html">English Explorers</a></li>
+            <li><a href="subjects/science.html">Science Lab</a></li>
+            <li><a href="#progress-tracker">Progress Tracker</a></li>
+            <li><a href="parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="dashboard">
+      <section class="hero-card">
+        <div>
+          <h1>Welcome back, Superstar!</h1>
+          <p>Your learning journey updates in real time with every lesson you complete. Jump into the next activity or review today's schedule crafted by your parent.</p>
+          <div class="lesson-actions">
+            <a class="button" data-next-lesson href="lessons/lesson1.html">
+              Continue <span data-next-lesson-label>Math Adventures • Lesson 1: Learning Numbers</span>
+            </a>
+            <a class="button secondary" href="parent-dashboard.html">Parent Dashboard</a>
+          </div>
+        </div>
+        <div class="hero-illustration" aria-hidden="true">
+          <img src="assets/learning-illustration.svg" alt="Student studying with books and laptop" />
+        </div>
+      </section>
+
       <section id="today" class="dashboard-grid" aria-label="Today's highlights">
         <article class="dashboard-card">
           <header>
@@ -154,6 +218,7 @@
         </article>
       </section>
 
+
       <section id="progress-tracker" class="dashboard-grid" aria-label="Student progress tracker">
         <article class="dashboard-card progress-card" data-attendance-card>
           <header>
@@ -230,6 +295,11 @@
           </header>
           <div>
             <h3>Numbers &amp; Operations</h3>
+            <p>Track growth across counting, comparison, and early operations.</p>
+            <div class="progress-track" role="progressbar" aria-label="Math progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
             <p>You're progressing quickly through counting, comparing, and matching numbers.</p>
             <div class="progress-track" role="progressbar" aria-label="Math progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" data-progress-track>
               <div class="progress-bar" data-progress-bar style="width: 0%"></div>
