@@ -14,6 +14,12 @@
         <h2>Subjects</h2>
         <nav aria-label="Subject navigation">
           <ul class="nav-links">
+            <li><a href="../subjects/math.html">Math Adventures</a></li>
+            <li><a href="../subjects/english.html">English Explorers</a></li>
+            <li><a href="../subjects/science.html" aria-current="page">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
             <li><a href="../index.html#math-lessons">Math Adventures</a></li>
             <li><a href="../index.html#english-lessons">English Explorers</a></li>
             <li><a href="../index.html#science-lessons" aria-current="page">Science Lab</a></li>
@@ -22,6 +28,7 @@
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
         Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
@@ -135,6 +142,7 @@
 
   <script src="../scripts/progress.js"></script>
   <script>
+    const lessonId = 'science2';
     const habitatSelects = Array.from(document.querySelectorAll('.habitat-card select'));
     const feedback = document.getElementById('habitat-feedback');
     const progressBar = document.getElementById('habitat-progress');
@@ -142,6 +150,7 @@
     const matchCount = document.getElementById('habitat-count');
     const checkBtn = document.getElementById('check-habitats');
     const resetBtn = document.getElementById('reset-habitats');
+    let lessonStart = performance.now();
 
     function calculateMatches() {
       let matches = 0;
@@ -168,16 +177,26 @@
       const completion = Math.round((matches / habitatSelects.length) * 100);
       progressBar.style.width = `${completion}%`;
       progressTrack.setAttribute('aria-valuenow', completion.toString());
+      const elapsed = performance.now() - lessonStart;
 
       if (matches === habitatSelects.length) {
         feedback.textContent = 'Excellent observations! You paired every animal with the right habitat.';
         feedback.classList.add('success');
         feedback.classList.remove('error');
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed
+        });
         window.LMSProgress?.markLessonComplete('science2');
       } else {
         feedback.textContent = 'Look closely at the habitat clues and adjust any matches that seem out of place.';
         feedback.classList.add('error');
         feedback.classList.remove('success');
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: completion,
+          durationMs: elapsed,
+          completed: false
+        });
       }
     });
 
@@ -192,6 +211,7 @@
       progressBar.style.width = '0%';
       progressTrack.setAttribute('aria-valuenow', '0');
       habitatSelects[0].focus();
+      lessonStart = performance.now();
     });
   </script>
 </body>

@@ -14,6 +14,12 @@
         <h2>Subjects</h2>
         <nav aria-label="Subject navigation">
           <ul class="nav-links">
+            <li><a href="../subjects/math.html" aria-current="page">Math Adventures</a></li>
+            <li><a href="../subjects/english.html">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
             <li><a href="../index.html#math-lessons" aria-current="page">Math Adventures</a></li>
             <li><a href="../index.html#english-lessons">English Explorers</a></li>
             <li><a href="../index.html#science-lessons">Science Lab</a></li>
@@ -22,6 +28,7 @@
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
         Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
@@ -102,6 +109,7 @@
       }
     ];
 
+    const lessonId = "math1";
     const quizProgress = document.getElementById("quiz-progress");
     const questionText = document.getElementById("question-text");
     const questionImg = document.getElementById("question-img");
@@ -115,6 +123,7 @@
     let currentQuestion = 0;
     let score = 0;
     let hasAnswered = false;
+    const startTime = performance.now();
 
     const startTone = (frequency, duration, type = "sine") => {
       if (typeof window.AudioContext !== "function" && typeof window.webkitAudioContext !== "function") {
@@ -215,10 +224,16 @@
         questionImg.src = "../assets/apples.png";
         questionImg.alt = "Celebratory apples forming a heart";
         questionText.textContent = "Amazing work! You finished the quiz.";
+        const percentScore = Math.round((score / quizData.length) * 100);
         scoreEl.textContent = `Your score: ${score} / ${quizData.length}`;
         quizProgress.style.width = "100%";
         progressTrack.setAttribute("aria-valuenow", "100");
         stepCount.textContent = quizData.length;
+        const durationMs = performance.now() - startTime;
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: percentScore,
+          durationMs
+        });
         window.LMSProgress?.markLessonComplete("math1");
         nextBtn.disabled = true;
         nextBtn.textContent = "All done";

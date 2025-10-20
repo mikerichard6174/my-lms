@@ -14,6 +14,12 @@
         <h2>Subjects</h2>
         <nav aria-label="Subject navigation">
           <ul class="nav-links">
+            <li><a href="../subjects/math.html" aria-current="page">Math Adventures</a></li>
+            <li><a href="../subjects/english.html">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
             <li><a href="../index.html#math-lessons" aria-current="page">Math Adventures</a></li>
             <li><a href="../index.html#english-lessons">English Explorers</a></li>
             <li><a href="../index.html#science-lessons">Science Lab</a></li>
@@ -22,6 +28,7 @@
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
         Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
@@ -81,6 +88,7 @@
 
   <script src="../scripts/progress.js"></script>
   <script>
+    const lessonId = "math3";
     const wordBank = document.getElementById("word-bank");
     const numberTiles = document.querySelectorAll(".number-chip");
     const wordCards = document.querySelectorAll(".word-drop");
@@ -90,12 +98,18 @@
 
     let draggedNumber = null;
     let matches = 0;
+    let activityStart = performance.now();
 
     function updateMatches() {
       matches = wordBank.querySelectorAll(".word-drop.correct").length;
       matchesComplete.textContent = matches;
       if (matches === wordCards.length) {
         feedback.textContent = "🎉 Fantastic! You matched every number.";
+        const duration = performance.now() - activityStart;
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: duration
+        });
         window.LMSProgress?.markLessonComplete("math3");
       } else if (matches > 0) {
         feedback.textContent = "Great job! Keep matching the rest.";
@@ -135,6 +149,12 @@
         dropTarget.classList.add("incorrect");
         dropTarget.classList.remove("correct");
         feedback.textContent = "Keep trying! Check the word again.";
+        const percent = Math.round((matches / wordCards.length) * 100);
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
+          durationMs: performance.now() - activityStart,
+          completed: false
+        });
       }
       draggedNumber = null;
     }
@@ -152,6 +172,7 @@
       feedback.textContent = "";
       matches = 0;
       matchesComplete.textContent = "0";
+      activityStart = performance.now();
     }
 
     numberTiles.forEach(tile => {

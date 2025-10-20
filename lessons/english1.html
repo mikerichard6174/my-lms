@@ -14,6 +14,12 @@
         <h2>Subjects</h2>
         <nav aria-label="Subject navigation">
           <ul class="nav-links">
+            <li><a href="../subjects/math.html">Math Adventures</a></li>
+            <li><a href="../subjects/english.html" aria-current="page">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
             <li><a href="../index.html#math-lessons">Math Adventures</a></li>
             <li><a href="../index.html#english-lessons" aria-current="page">English Explorers</a></li>
             <li><a href="../index.html#science-lessons">Science Lab</a></li>
@@ -22,6 +28,7 @@
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
         Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
@@ -111,6 +118,7 @@
 
   <script src="../scripts/progress.js"></script>
   <script>
+    const lessonId = "english1";
     const answers = {
       beginning: "shell",
       middle: "max",
@@ -128,6 +136,7 @@
     const progressTrack = document.querySelector(".progress-track[aria-label='Story order completion']");
     const checkBtn = document.getElementById("check-sequence");
     const resetBtn = document.getElementById("reset-sequence");
+    let lessonStart = performance.now();
 
     const allValuesSelected = () =>
       Object.values(selects).every((select) => select.value);
@@ -152,6 +161,11 @@
         return;
       }
 
+      const entries = Object.entries(selects);
+      const correctSelections = entries.filter(([key, select]) => select.value === answers[key]).length;
+      const percent = Math.round((correctSelections / entries.length) * 100);
+      const elapsed = performance.now() - lessonStart;
+      const isCorrect = correctSelections === entries.length;
       const isCorrect = Object.entries(selects).every(([key, select]) => select.value === answers[key]);
 
       if (isCorrect) {
@@ -160,11 +174,22 @@
         feedback.classList.add("success");
         progressBar.style.width = "100%";
         progressTrack.setAttribute("aria-valuenow", "100");
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed
+        });
         window.LMSProgress?.markLessonComplete("english1");
       } else {
         feedback.textContent = "Close! Re-read the sentences and try a different order.";
         feedback.classList.remove("success");
         feedback.classList.add("error");
+        progressBar.style.width = `${percent}%`;
+        progressTrack.setAttribute("aria-valuenow", String(percent));
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
+          durationMs: elapsed,
+          completed: false
+        });
         progressBar.style.width = "45%";
         progressTrack.setAttribute("aria-valuenow", "45");
       }
@@ -179,6 +204,7 @@
       progressBar.style.width = "0%";
       progressTrack.setAttribute("aria-valuenow", "0");
       selects.beginning.focus();
+      lessonStart = performance.now();
     });
   </script>
 </body>

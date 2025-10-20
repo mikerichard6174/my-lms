@@ -14,6 +14,12 @@
         <h2>Subjects</h2>
         <nav aria-label="Subject navigation">
           <ul class="nav-links">
+            <li><a href="../subjects/math.html">Math Adventures</a></li>
+            <li><a href="../subjects/english.html">English Explorers</a></li>
+            <li><a href="../subjects/science.html" aria-current="page">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
             <li><a href="../index.html#math-lessons">Math Adventures</a></li>
             <li><a href="../index.html#english-lessons">English Explorers</a></li>
             <li><a href="../index.html#science-lessons" aria-current="page">Science Lab</a></li>
@@ -22,6 +28,7 @@
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
         Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
@@ -112,6 +119,7 @@
 
   <script src="../scripts/progress.js"></script>
   <script>
+    const lessonId = 'science1';
     const correctChoices = {
       sunny: 'shorts',
       rainy: 'umbrella',
@@ -129,6 +137,7 @@
     const forecastCount = document.getElementById('forecast-count');
     const feedback = document.getElementById('weather-feedback');
     const choices = Array.from(document.querySelectorAll('.choice'));
+    let lessonStart = performance.now();
 
     function updateProgress() {
       const solved = Object.values(forecastStatus).filter(Boolean).length;
@@ -141,6 +150,11 @@
         feedback.textContent = 'Weather hero! You matched every outfit to the perfect forecast.';
         feedback.classList.add('success');
         feedback.classList.remove('error');
+        const elapsed = performance.now() - lessonStart;
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed
+        });
         window.LMSProgress?.markLessonComplete('science1');
       } else if (solved > 0) {
         feedback.textContent = 'Great choices so far. Keep matching the remaining forecasts!';
@@ -178,6 +192,13 @@
           feedback.textContent = 'Not quite right. Think about the weather clues and try another outfit.';
           feedback.classList.add('error');
           feedback.classList.remove('success');
+          const solved = Object.values(forecastStatus).filter(Boolean).length;
+          const percent = Math.round((solved / Object.keys(forecastStatus).length) * 100);
+          window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+            score: percent,
+            durationMs: performance.now() - lessonStart,
+            completed: false
+          });
         }
         updateProgress();
       });

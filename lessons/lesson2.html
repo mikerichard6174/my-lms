@@ -14,6 +14,12 @@
         <h2>Subjects</h2>
         <nav aria-label="Subject navigation">
           <ul class="nav-links">
+            <li><a href="../subjects/math.html" aria-current="page">Math Adventures</a></li>
+            <li><a href="../subjects/english.html">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
             <li><a href="../index.html#math-lessons" aria-current="page">Math Adventures</a></li>
             <li><a href="../index.html#english-lessons">English Explorers</a></li>
             <li><a href="../index.html#science-lessons">Science Lab</a></li>
@@ -22,6 +28,7 @@
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
         Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
@@ -82,6 +89,7 @@
 
   <script src="../scripts/progress.js"></script>
   <script>
+    const lessonId = "math2";
     const basket = document.getElementById("basket");
     const orchard = document.getElementById("orchard");
     const tokens = document.querySelectorAll(".drag-token");
@@ -92,6 +100,7 @@
     const targetCount = 3;
 
     let draggedId = null;
+    let activityStart = performance.now();
 
     function updateCount() {
       const count = basket.querySelectorAll(".drag-token").length;
@@ -149,6 +158,24 @@
     checkButton.addEventListener("click", () => {
       const count = updateCount();
       basket.classList.remove("correct", "incorrect");
+      const elapsed = performance.now() - activityStart;
+      const ratio = Math.max(0, Math.min(count / targetCount, 1));
+      const percent = Math.round(ratio * 100);
+      if (count === targetCount) {
+        basket.classList.add("correct");
+        feedback.textContent = "🍏 Correct! You counted perfectly.";
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed
+        });
+      } else {
+        basket.classList.add("incorrect");
+        feedback.textContent = `Try again. You need ${targetCount} apples.`;
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
+          durationMs: elapsed,
+          completed: false
+        });
       if (count === targetCount) {
         basket.classList.add("correct");
         feedback.textContent = "🍏 Correct! You counted perfectly.";
@@ -164,6 +191,7 @@
       basket.classList.remove("correct", "incorrect", "is-active");
       feedback.textContent = "";
       updateCount();
+      activityStart = performance.now();
     });
 
     updateCount();

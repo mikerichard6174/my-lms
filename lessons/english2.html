@@ -14,6 +14,12 @@
         <h2>Subjects</h2>
         <nav aria-label="Subject navigation">
           <ul class="nav-links">
+            <li><a href="../subjects/math.html">Math Adventures</a></li>
+            <li><a href="../subjects/english.html" aria-current="page">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
             <li><a href="../index.html#math-lessons">Math Adventures</a></li>
             <li><a href="../index.html#english-lessons" aria-current="page">English Explorers</a></li>
             <li><a href="../index.html#science-lessons">Science Lab</a></li>
@@ -22,6 +28,7 @@
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
         Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
@@ -137,6 +144,7 @@
 
   <script src="../scripts/progress.js"></script>
   <script>
+    const lessonId = 'english2';
     const definitionSelects = Array.from(document.querySelectorAll('.definition-list select'));
     const feedback = document.getElementById('matching-feedback');
     const progressBar = document.getElementById('vocab-progress');
@@ -144,6 +152,7 @@
     const matchedCount = document.getElementById('matched-count');
     const checkBtn = document.getElementById('check-matches');
     const resetBtn = document.getElementById('reset-matches');
+    let lessonStart = performance.now();
 
     function evaluateMatches() {
       let correct = 0;
@@ -170,16 +179,26 @@
       const completion = Math.round((correct / definitionSelects.length) * 100);
       progressBar.style.width = `${completion}%`;
       progressTrack.setAttribute('aria-valuenow', completion.toString());
+      const elapsed = performance.now() - lessonStart;
 
       if (correct === definitionSelects.length) {
         feedback.textContent = 'Fantastic! Every word is paired with the right meaning.';
         feedback.classList.add('success');
         feedback.classList.remove('error');
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed
+        });
         window.LMSProgress?.markLessonComplete('english2');
       } else {
         feedback.textContent = 'Keep trying. Review the story and adjust the matches you are unsure about.';
         feedback.classList.add('error');
         feedback.classList.remove('success');
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: completion,
+          durationMs: elapsed,
+          completed: false
+        });
       }
     });
 
@@ -194,6 +213,7 @@
       progressBar.style.width = '0%';
       progressTrack.setAttribute('aria-valuenow', '0');
       definitionSelects[0].focus();
+      lessonStart = performance.now();
     });
   </script>
 </body>
