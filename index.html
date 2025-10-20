@@ -74,12 +74,131 @@
         </article>
 
         <article class="dashboard-card" id="reading-highlight">
+
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="subjects/math.html">Math Adventures</a></li>
+            <li><a href="subjects/english.html">English Explorers</a></li>
+            <li><a href="subjects/science.html">Science Lab</a></li>
+            <li><a href="#progress-tracker">Progress Tracker</a></li>
+            <li><a href="parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="dashboard">
+      <section class="hero-card">
+        <div>
+          <h1>Welcome back, Superstar!</h1>
+          <p>Your learning journey updates in real time with every lesson you complete. Jump into the next activity or review today's schedule crafted by your parent.</p>
+          <div class="lesson-actions">
+            <a class="button" data-next-lesson href="lessons/lesson1.html">
+              Continue <span data-next-lesson-label>Math Adventures • Lesson 1: Learning Numbers</span>
+            </a>
+            <a class="button secondary" href="parent-dashboard.html">Parent Dashboard</a>
+          </div>
+        </div>
+        <div class="hero-illustration" aria-hidden="true">
+          <img src="assets/learning-illustration.svg" alt="Student studying with books and laptop" />
+        </div>
+      </section>
+
+      <section id="today" class="dashboard-grid" aria-label="Today's highlights">
+        <article class="dashboard-card">
+          <header>
+            <span data-focus-status>Today's Focus</span>
+            <span class="status-pill">Live</span>
+          </header>
+          <div>
+            <h3 data-focus-title>Keep exploring new lessons</h3>
+            <p data-focus-description>Daily recommendations will appear here once lessons are scheduled.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-focus-progress style="width: 0%"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="dashboard-card">
+          <header>
+            <span>Today's Schedule</span>
+          </header>
+          <div>
+            <ul class="lesson-list" data-today-schedule>
+              <li>No scheduled lessons today. Add items from the parent dashboard.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dashboard-card" id="reading-highlight">
+
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="#math-lessons" aria-current="page">Math Adventures</a></li>
+            <li><a href="#english-lessons">English Explorers</a></li>
+            <li><a href="#science-lessons">Science Lab</a></li>
+            <li><a href="#progress-tracker">Progress Tracker</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>72%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="dashboard">
+      <section class="hero-card">
+        <div>
+          <h1>Welcome back, Superstar!</h1>
+          <p>Your learning journey continues with fun, interactive lessons across Math, English, and Science to mirror the Time4Learning experience. Pick up where you left off or explore something new.</p>
+          <div class="lesson-actions">
+            <a class="button" data-next-lesson href="lessons/lesson1.html">
+              Continue <span data-next-lesson-label>Math Adventures • Lesson 1: Learning Numbers</span>
+            </a>
+            <a class="button secondary" href="#progress-tracker">View Progress</a>
+          </div>
+        </div>
+        <div class="hero-illustration" aria-hidden="true">
+          <img src="assets/learning-illustration.svg" alt="" />
+        </div>
+      </section>
+
+      <section id="today" class="dashboard-grid" aria-label="Today's highlights">
+        <article class="dashboard-card">
+          <header>
+            <span>Today's Focus</span>
+            <span class="status-pill">On Track</span>
+          </header>
+          <div>
+            <h3>Math: Counting &amp; Number Sense</h3>
+            <p>Complete three interactive activities to master counting objects, recognizing numerals, and matching words to numbers.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" style="width: 65%"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="dashboard-card">
           <header>
             <span>Recent Achievements</span>
           </header>
           <div>
             <ul class="lesson-list" data-achievements>
               <li>Complete your first lesson to start earning achievements!</li>
+            <ul class="lesson-list">
+              <li>🏅 Perfect score on "Learning Numbers" quiz</li>
+              <li>⭐ Earned the "Pattern Pro" badge</li>
+              <li>🧠 Reviewed sight words for 10 minutes</li>
             </ul>
           </div>
         </article>
@@ -98,6 +217,7 @@
           </div>
         </article>
       </section>
+
 
       <section id="progress-tracker" class="dashboard-grid" aria-label="Student progress tracker">
         <article class="dashboard-card progress-card" data-attendance-card>
@@ -129,6 +249,64 @@
           </div>
         </article>
 
+        <article class="dashboard-card" id="reading-highlight">
+          <header>
+            <span>Next Up</span>
+          </header>
+          <div>
+            <h3>English: Story Time</h3>
+            <p>Tomorrow you'll explore a short story with new vocabulary words and comprehension questions.</p>
+          </div>
+        </article>
+
+        <article class="dashboard-card" id="science-highlight">
+          <header>
+            <span>Science Spotlight</span>
+          </header>
+          <div>
+            <h3>Science: Weather Watchers</h3>
+            <p>Observe the daily forecast, record temperatures, and compare sunny vs. rainy day outfits.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" style="width: 30%"></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="progress-tracker" class="dashboard-grid" aria-label="Student progress tracker">
+        <article class="dashboard-card progress-card" data-attendance-card>
+          <header>
+            <span>Weekly Goal</span>
+            <span class="status-pill" data-status>3 of 5 days</span>
+          </header>
+          <div>
+            <h3>Attendance</h3>
+            <p>You have logged learning time on three days this week. Keep the streak alive!</p>
+            <div class="progress-track" role="progressbar" aria-label="Weekly attendance" aria-valuemin="0" aria-valuemax="5" aria-valuenow="3" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 60%"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="dashboard-card progress-card" data-subject-progress="math">
+          <header>
+            <span>Math Mastery</span>
+            <span class="status-pill" data-status>0 of 3 lessons</span>
+          </header>
+          <div>
+            <h3>Numbers &amp; Operations</h3>
+            <p>Track growth across counting, comparison, and early operations.</p>
+            <div class="progress-track" role="progressbar" aria-label="Math progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
+            <p>You're progressing quickly through counting, comparing, and matching numbers.</p>
+            <div class="progress-track" role="progressbar" aria-label="Math progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </div>
+        </article>
+
         <article class="dashboard-card progress-card" data-subject-progress="english">
           <header>
             <span>English Explorer</span>
@@ -141,6 +319,10 @@
               <div class="progress-bar" data-progress-bar style="width: 0%"></div>
             </div>
             <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
+            <p>Two stories completed with comprehension badges earned. Next up: character traits.</p>
+            <div class="progress-track" role="progressbar" aria-label="English progress" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
           </div>
         </article>
 
@@ -156,6 +338,10 @@
               <div class="progress-bar" data-progress-bar style="width: 0%"></div>
             </div>
             <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
+            <p>Complete more observations and experiments to power up your scientist level.</p>
+            <div class="progress-track" role="progressbar" aria-label="Science progress" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
           </div>
         </article>
         <div class="progress-reset" role="group" aria-label="Progress controls">
@@ -190,6 +376,101 @@
           </div>
           <a class="button tertiary" href="subjects/science.html">Explore Science Pathways</a>
         </article>
+      <section id="math-lessons" aria-label="Math lessons" class="lesson-list">
+        <a class="lesson-card" data-lesson-id="math1" href="lessons/lesson1.html">
+          <div>
+            <h3>Lesson 1: Learning Numbers</h3>
+            <p>Practice counting and number recognition with an animated quiz.</p>
+          </div>
+          <footer>
+            <span class="lesson-status" data-lesson-status>Not started</span>
+            <div class="progress-track" role="presentation">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </footer>
+        </a>
+
+        <a class="lesson-card" data-lesson-id="math2" href="lessons/lesson2.html">
+          <div>
+            <h3>Lesson 2: Counting Objects</h3>
+            <p>Drag and drop apples into the basket to match the target number.</p>
+          </div>
+          <footer>
+            <span class="lesson-status" data-lesson-status>Not started</span>
+            <div class="progress-track" role="presentation">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </footer>
+        </a>
+
+        <a class="lesson-card" data-lesson-id="math3" href="lessons/lesson3.html">
+          <div>
+            <h3>Lesson 3: Number to Word Matching</h3>
+            <p>Match the numeral to its written word to complete the set.</p>
+          </div>
+          <footer>
+            <span class="lesson-status" data-lesson-status>Not started</span>
+            <div class="progress-track" role="presentation">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </footer>
+        </a>
+      </section>
+
+      <section id="english-lessons" aria-label="English lessons" class="lesson-list">
+        <a class="lesson-card" data-lesson-id="english1" href="lessons/english1.html">
+          <div>
+            <h3>Lesson 4: Story Sequencing</h3>
+            <p>Read a short tale and arrange the events in the order they happened.</p>
+          </div>
+          <footer>
+            <span class="lesson-status" data-lesson-status>Not started</span>
+            <div class="progress-track" role="presentation">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </footer>
+        </a>
+
+        <a class="lesson-card" data-lesson-id="english2" href="lessons/english2.html">
+          <div>
+            <h3>Lesson 5: Vocabulary Builder</h3>
+            <p>Match sight words to their meanings and practice reading aloud.</p>
+          </div>
+          <footer>
+            <span class="lesson-status" data-lesson-status>Not started</span>
+            <div class="progress-track" role="presentation">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </footer>
+        </a>
+      </section>
+
+      <section id="science-lessons" aria-label="Science lessons" class="lesson-list">
+        <a class="lesson-card" data-lesson-id="science1" href="lessons/science1.html">
+          <div>
+            <h3>Lesson 6: Weather Watch</h3>
+            <p>Observe cloud types and choose the right outfit for each forecast.</p>
+          </div>
+          <footer>
+            <span class="lesson-status" data-lesson-status>Not started</span>
+            <div class="progress-track" role="presentation">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </footer>
+        </a>
+
+        <a class="lesson-card" data-lesson-id="science2" href="lessons/science2.html">
+          <div>
+            <h3>Lesson 7: Habitat Match-Up</h3>
+            <p>Pair animals with their homes to learn how they survive and thrive.</p>
+          </div>
+          <footer>
+            <span class="lesson-status" data-lesson-status>Not started</span>
+            <div class="progress-track" role="presentation">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </footer>
+        </a>
       </section>
     </main>
   </div>
