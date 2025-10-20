@@ -22,7 +22,7 @@
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
-        Keep it up! <strong>72%</strong> Course Complete
+        Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
 
@@ -133,6 +133,7 @@
     </main>
   </div>
 
+  <script src="../scripts/progress.js"></script>
   <script>
     const habitatSelects = Array.from(document.querySelectorAll('.habitat-card select'));
     const feedback = document.getElementById('habitat-feedback');
@@ -172,6 +173,7 @@
         feedback.textContent = 'Excellent observations! You paired every animal with the right habitat.';
         feedback.classList.add('success');
         feedback.classList.remove('error');
+        window.LMSProgress?.markLessonComplete('science2');
       } else {
         feedback.textContent = 'Look closely at the habitat clues and adjust any matches that seem out of place.';
         feedback.classList.add('error');

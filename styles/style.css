@@ -271,12 +271,27 @@ button:focus,
   text-decoration: none;
   color: inherit;
   box-shadow: var(--shadow-card);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  border: 2px solid transparent;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
 
 .lesson-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 28px 40px rgb(31 42 68 / 14%);
+}
+
+.lesson-card-completed {
+  border-color: rgb(46 184 114 / 35%);
+  box-shadow: 0 24px 40px rgb(46 184 114 / 18%);
+}
+
+.lesson-status {
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.lesson-card-completed .lesson-status {
+  color: var(--success);
 }
 
 .lesson-card footer {
@@ -296,6 +311,30 @@ button:focus,
 
 .progress-card .progress-track {
   margin-top: 1rem;
+}
+
+.progress-reset {
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+  grid-column: 1 / -1;
+}
+
+.progress-reset p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.reset-message {
+  min-height: 1.25rem;
+  font-weight: 700;
+  color: var(--success);
 }
 
 .progress-bar {
