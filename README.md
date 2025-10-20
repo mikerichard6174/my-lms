@@ -21,12 +21,19 @@ npm test
 This command runs both HTMLHint and Stylelint across the project files.
 
 ## Project Structure
-- `index.html` – landing page linking to each lesson.
-- `lessons/` – individual lesson pages.
+- `index.html` – learner dashboard that surfaces progress, subject navigation, and quick actions.
+- `lessons/` – individual lesson pages for Math, English, and Science activities.
 - `styles/` – shared styling for the site.
+- `scripts/` – shared JavaScript utilities (e.g., localStorage-backed progress tracking).
 - `assets/` – images and media referenced by lessons.
 
+## Features
+- **Subject coverage:** Math (counting, drag-and-drop, word matching), English (story sequencing, vocabulary), and Science (weather decisions, habitat matching) lessons that mirror Time4Learning-style interactivity.
+- **Dynamic progress tracking:** Completing any lesson saves progress to `localStorage`, updates the dashboard meters, and highlights finished lesson cards across visits.
+- **Reset controls:** A “Reset Progress” button on the dashboard clears saved data on the current device so learners can restart.
+- **Accessible interactions:** Activities support keyboard interaction, announce feedback, and expose progress via ARIA attributes.
+
 ## Next Steps
-- Expand shared layout components to reduce reliance on page-level styles.
-- Backfill missing media assets or update lessons to avoid broken references.
-- Build a dashboard layout that more closely matches Time4Learning's user experience.
+- Persist progress to a multi-user backend service instead of browser storage.
+- Add a teacher/parent dashboard with assignment controls and reporting.
+- Layer in audio narration and mini-games to extend the lesson catalog.

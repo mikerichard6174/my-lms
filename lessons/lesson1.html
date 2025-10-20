@@ -14,14 +14,15 @@
         <h2>Subjects</h2>
         <nav aria-label="Subject navigation">
           <ul class="nav-links">
-            <li><a href="../index.html#math" aria-current="page">Math Adventures</a></li>
-            <li><a href="../index.html#reading">Reading World</a></li>
-            <li><a href="../index.html#science">Science Lab</a></li>
+            <li><a href="../index.html#math-lessons" aria-current="page">Math Adventures</a></li>
+            <li><a href="../index.html#english-lessons">English Explorers</a></li>
+            <li><a href="../index.html#science-lessons">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
           </ul>
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
-        Keep it up! <strong>72%</strong> Course Complete
+        Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
 
@@ -75,6 +76,7 @@
     </main>
   </div>
 
+  <script src="../scripts/progress.js"></script>
   <script>
     const quizData = [
       {
@@ -217,6 +219,7 @@
         quizProgress.style.width = "100%";
         progressTrack.setAttribute("aria-valuenow", "100");
         stepCount.textContent = quizData.length;
+        window.LMSProgress?.markLessonComplete("math1");
         nextBtn.disabled = true;
         nextBtn.textContent = "All done";
       }
