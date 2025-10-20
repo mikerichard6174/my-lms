@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 1 Learning Hub</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Grades</h2>
+        <nav aria-label="Grade navigation">
+          <ul class="nav-links nav-links-compact">
+            <li><a href="grade-k.html">Kindergarten</a></li>
+            <li><a href="grade-1.html" aria-current="page">Grade 1</a></li>
+            <li><a href="grade-2.html">Grade 2</a></li>
+            <li><a href="grade-3.html">Grade 3</a></li>
+            <li><a href="grade-4.html">Grade 4</a></li>
+            <li><a href="grade-5.html">Grade 5</a></li>
+            <li><a href="grade-6.html">Grade 6</a></li>
+            <li><a href="grade-7.html">Grade 7</a></li>
+            <li><a href="grade-8.html">Grade 8</a></li>
+            <li><a href="grade-9.html">Grade 9</a></li>
+            <li><a href="grade-10.html">Grade 10</a></li>
+            <li><a href="grade-11.html">Grade 11</a></li>
+            <li><a href="grade-12.html">Grade 12</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-section">
+        <h2>Quick Links</h2>
+        <nav aria-label="Utility navigation">
+          <ul class="nav-links">
+            <li><a href="../index.html">Home Dashboard</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content grade-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Grade 1</span>
+      </nav>
+
+      <header class="grade-header">
+        <div>
+          <h1>Grade 1 Learning Hub</h1>
+          <p data-grade-summary>Strengthen foundational reading, vocabulary, and counting fluency.</p>
+        </div>
+        <aside class="grade-progress-panel" data-grade-progress="grade-1">
+          <span class="grade-level">Level 1</span>
+          <strong data-grade-percent>0%</strong>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <span class="grade-status" data-status>No lessons yet</span>
+        </aside>
+      </header>
+
+      <section class="grade-intro">
+        <div class="grade-intro-card">
+          <h2>What learners experience in Grade 1</h2>
+          <ul>
+            <li>Guided math adventures that move from counting objects to solving early word problems.</li>
+            <li>Interactive reading journeys that mix storytelling, sequencing, and expressive speaking.</li>
+            <li>Hands-on science explorations that invite observation, prediction, and comparison.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="math" class="grade-subject-section">
+        <header class="subject-header">
+          <div>
+            <h2>Math Adventures</h2>
+            <p>Counting, comparing, and building number fluency through playful practice.</p>
+            <p class="goal-line">Family Goal: <span data-goal>No goal set</span></p>
+          </div>
+          <aside class="lesson-progress subject-progress" aria-label="Math progress overview" data-subject-progress="math" data-grade="grade-1">
+            <span>Completed</span>
+            <strong data-status>0 of 0 lessons</strong>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </aside>
+        </header>
+
+        <section class="category-section">
+          <article class="category-card" data-category-progress="counting" data-subject="math" data-grade="grade-1">
+            <header>
+              <h3>Counting &amp; Number Sense</h3>
+              <span data-status>0 of 0 lessons</span>
+            </header>
+            <p>Build comfort naming and comparing numbers using vivid visuals and number talks.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <div class="category-lessons">
+              <a class="lesson-card" data-lesson-id="math1" href="../lessons/lesson1.html">
+                <div>
+                  <h4>Lesson 1: Learning Numbers</h4>
+                  <p>Count objects up to five and match each group to its numeral.</p>
+                </div>
+                <footer>
+                  <span class="lesson-status" data-lesson-status>Not started</span>
+                  <div class="progress-track" role="presentation">
+                    <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                  </div>
+                </footer>
+              </a>
+              <a class="lesson-card" data-lesson-id="math2" href="../lessons/lesson2.html">
+                <div>
+                  <h4>Lesson 2: Counting Objects</h4>
+                  <p>Drag fruit into baskets to compare quantities and build one-to-one correspondence.</p>
+                </div>
+                <footer>
+                  <span class="lesson-status" data-lesson-status>Not started</span>
+                  <div class="progress-track" role="presentation">
+                    <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                  </div>
+                </footer>
+              </a>
+            </div>
+          </article>
+
+          <article class="category-card" data-category-progress="operations" data-subject="math" data-grade="grade-1">
+            <header>
+              <h3>Operations &amp; Problem Solving</h3>
+              <span data-status>0 of 0 lessons</span>
+            </header>
+            <p>Connect number words to digits and reason through early addition and subtraction stories.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <div class="category-lessons">
+              <a class="lesson-card" data-lesson-id="math3" href="../lessons/lesson3.html">
+                <div>
+                  <h4>Lesson 3: Number Word Match</h4>
+                  <p>Match number words to digits and practice reading them aloud.</p>
+                </div>
+                <footer>
+                  <span class="lesson-status" data-lesson-status>Not started</span>
+                  <div class="progress-track" role="presentation">
+                    <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                  </div>
+                </footer>
+              </a>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <section id="english" class="grade-subject-section">
+        <header class="subject-header">
+          <div>
+            <h2>English Explorers</h2>
+            <p>Storytelling, vocabulary, and expressive speaking designed for emerging readers.</p>
+            <p class="goal-line">Family Goal: <span data-goal>No goal set</span></p>
+          </div>
+          <aside class="lesson-progress subject-progress" aria-label="English progress overview" data-subject-progress="english" data-grade="grade-1">
+            <span>Completed</span>
+            <strong data-status>0 of 0 lessons</strong>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </aside>
+        </header>
+
+        <section class="category-section">
+          <article class="category-card" data-category-progress="reading" data-subject="english" data-grade="grade-1">
+            <header>
+              <h3>Reading Comprehension</h3>
+              <span data-status>0 of 0 lessons</span>
+            </header>
+            <p>Retell stories by sequencing events and describing characters with feeling words.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <div class="category-lessons">
+              <a class="lesson-card" data-lesson-id="english1" href="../lessons/english1.html">
+                <div>
+                  <h4>Lesson 4: Story Adventure</h4>
+                  <p>Visit three story stations, order the events, and share how characters feel.</p>
+                </div>
+                <footer>
+                  <span class="lesson-status" data-lesson-status>Not started</span>
+                  <div class="progress-track" role="presentation">
+                    <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                  </div>
+                </footer>
+              </a>
+            </div>
+          </article>
+
+          <article class="category-card" data-category-progress="vocabulary" data-subject="english" data-grade="grade-1">
+            <header>
+              <h3>Vocabulary Building</h3>
+              <span data-status>0 of 0 lessons</span>
+            </header>
+            <p>Practice high-frequency words by building and reading complete sentences aloud.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <div class="category-lessons">
+              <a class="lesson-card" data-lesson-id="english2" href="../lessons/english2.html">
+                <div>
+                  <h4>Lesson 5: Word Builders Workshop</h4>
+                  <p>Arrange word tiles, rehearse the sentence, and record your best reading voice.</p>
+                </div>
+                <footer>
+                  <span class="lesson-status" data-lesson-status>Not started</span>
+                  <div class="progress-track" role="presentation">
+                    <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                  </div>
+                </footer>
+              </a>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <section id="science" class="grade-subject-section">
+        <header class="subject-header">
+          <div>
+            <h2>Science Lab</h2>
+            <p>Encourage curiosity with weather observations and habitat comparisons.</p>
+            <p class="goal-line">Family Goal: <span data-goal>No goal set</span></p>
+          </div>
+          <aside class="lesson-progress subject-progress" aria-label="Science progress overview" data-subject-progress="science" data-grade="grade-1">
+            <span>Completed</span>
+            <strong data-status>0 of 0 lessons</strong>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+          </aside>
+        </header>
+
+        <section class="category-section">
+          <article class="category-card" data-category-progress="weather" data-subject="science" data-grade="grade-1">
+            <header>
+              <h3>Weather &amp; Climate</h3>
+              <span data-status>0 of 0 lessons</span>
+            </header>
+            <p>Track temperature, wind, and clouds with simple instruments and weather journals.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <div class="category-lessons">
+              <a class="lesson-card" data-lesson-id="science1" href="../lessons/science1.html">
+                <div>
+                  <h4>Lesson 6: Weather Watch</h4>
+                  <p>Predict the day's weather using observation cards and temperature clues.</p>
+                </div>
+                <footer>
+                  <span class="lesson-status" data-lesson-status>Not started</span>
+                  <div class="progress-track" role="presentation">
+                    <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                  </div>
+                </footer>
+              </a>
+            </div>
+          </article>
+
+          <article class="category-card" data-category-progress="life" data-subject="science" data-grade="grade-1">
+            <header>
+              <h3>Life Science</h3>
+              <span data-status>0 of 0 lessons</span>
+            </header>
+            <p>Compare animal homes and the needs of living things across different habitats.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <div class="category-lessons">
+              <a class="lesson-card" data-lesson-id="science2" href="../lessons/science2.html">
+                <div>
+                  <h4>Lesson 7: Habitat Match-Up</h4>
+                  <p>Sort animals into their ideal homes and explain why each habitat works best.</p>
+                </div>
+                <footer>
+                  <span class="lesson-status" data-lesson-status>Not started</span>
+                  <div class="progress-track" role="presentation">
+                    <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                  </div>
+                </footer>
+              </a>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="../scripts/progress.js"></script>
+</body>
+</html>

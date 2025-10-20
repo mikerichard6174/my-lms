@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 4 Learning Hub</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Grades</h2>
+        <nav aria-label="Grade navigation">
+          <ul class="nav-links nav-links-compact">
+            <li><a href="grade-k.html" >Kindergarten</a></li>
+            <li><a href="grade-1.html" >Grade 1</a></li>
+            <li><a href="grade-2.html" >Grade 2</a></li>
+            <li><a href="grade-3.html" >Grade 3</a></li>
+            <li><a href="grade-4.html" aria-current="page">Grade 4</a></li>
+            <li><a href="grade-5.html" >Grade 5</a></li>
+            <li><a href="grade-6.html" >Grade 6</a></li>
+            <li><a href="grade-7.html" >Grade 7</a></li>
+            <li><a href="grade-8.html" >Grade 8</a></li>
+            <li><a href="grade-9.html" >Grade 9</a></li>
+            <li><a href="grade-10.html" >Grade 10</a></li>
+            <li><a href="grade-11.html" >Grade 11</a></li>
+            <li><a href="grade-12.html" >Grade 12</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-section">
+        <h2>Quick Links</h2>
+        <nav aria-label="Utility navigation">
+          <ul class="nav-links">
+            <li><a href="../index.html">Home Dashboard</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content grade-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Grade 4</span>
+      </nav>
+
+      <header class="grade-header">
+        <div>
+          <h1>Grade 4 Learning Hub</h1>
+          <p data-grade-summary>Expand critical reading, multi-step problem solving, and earth science projects.</p>
+        </div>
+        <aside class="grade-progress-panel" data-grade-progress="grade-4">
+          <span class="grade-level">Level 4</span>
+          <strong data-grade-percent>0%</strong>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <span class="grade-status" data-status>No lessons yet</span>
+        </aside>
+      </header>
+
+      <section class="grade-intro">
+        <div class="grade-intro-card">
+          <h2>Strengthen intermediate skills</h2>
+          <p>Fourth graders balance rich reading, complex operations, and collaborative science projects.</p>
+        </div>
+      </section>
+
+      <section class="grade-summary-grid">
+
+        <article class="grade-subject-summary" data-subject-progress="math" data-grade="grade-4">
+          <header>
+            <h3>Math Adventures</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Tackle multi-digit multiplication, division, and fraction equivalence.</p>
+          <ul class="grade-topic-list">
+            <li>Multiply and divide multi-digit numbers using visual models.</li>
+            <li>Add and subtract fractions with like denominators.</li>
+            <li>Analyze angle measures and symmetry in geometric figures.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+
+        <article class="grade-subject-summary" data-subject-progress="english" data-grade="grade-4">
+          <header>
+            <h3>English Explorers</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Grow research, note taking, and narrative techniques.</p>
+          <ul class="grade-topic-list">
+            <li>Summarize nonfiction chapters with main idea statements.</li>
+            <li>Compare themes across traditional literature and myths.</li>
+            <li>Draft narratives using dialogue, transitions, and sensory details.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+
+        <article class="grade-subject-summary" data-subject-progress="science" data-grade="grade-4">
+          <header>
+            <h3>Science Lab</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Explore earth systems, energy transfer, and regional ecosystems.</p>
+          <ul class="grade-topic-list">
+            <li>Model erosion and deposition with hands-on simulations.</li>
+            <li>Investigate simple circuits to see how energy flows.</li>
+            <li>Research biomes and present findings with multimedia.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="../scripts/progress.js"></script>
+</body>
+</html>
