@@ -1,0 +1,19 @@
+<svg width="260" height="220" viewBox="0 0 260 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="50" width="240" height="150" rx="24" fill="#ffffff" stroke="#2d74ff" stroke-width="4" opacity="0.8" />
+  <path d="M30 80H230" stroke="#2d74ff" stroke-width="4" stroke-linecap="round" opacity="0.3" />
+  <path d="M30 110H170" stroke="#2d74ff" stroke-width="4" stroke-linecap="round" opacity="0.6" />
+  <path d="M30 140H200" stroke="#2d74ff" stroke-width="4" stroke-linecap="round" opacity="0.45" />
+  <circle cx="75" cy="162" r="16" fill="#2eb872" opacity="0.9" />
+  <circle cx="115" cy="162" r="16" fill="#ffb300" opacity="0.9" />
+  <circle cx="155" cy="162" r="16" fill="#2d74ff" opacity="0.9" />
+  <path d="M110 30C110 18.954 118.954 10 130 10H200C211.046 10 220 18.954 220 30V48H110V30Z" fill="#2d74ff"/>
+  <text x="121" y="38" font-family="Nunito, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#ffffff">Learn</text>
+  <g opacity="0.85">
+    <circle cx="90" cy="150" r="54" fill="#dfe9ff" />
+    <path d="M94 110C94 97.2975 104.297 87 117 87C129.703 87 140 97.2975 140 110V140H94V110Z" fill="#ffffff" />
+    <rect x="102" y="140" width="30" height="32" rx="10" fill="#2d74ff" />
+    <circle cx="110" cy="121" r="4" fill="#2d74ff" />
+    <circle cx="128" cy="121" r="4" fill="#2d74ff" />
+    <path d="M110 132C114 137 124 137 128 132" stroke="#2d74ff" stroke-width="3" stroke-linecap="round" />
+  </g>
+</svg>
