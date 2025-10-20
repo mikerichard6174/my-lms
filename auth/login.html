@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Primary navigation">
+          <ul class="nav-links">
+            <li><a href="../subjects/math.html">Math Adventures</a></li>
+            <li><a href="../subjects/english.html">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Student completion: <strong data-overall-progress>0%</strong>
+      </section>
+    </aside>
+
+    <main class="app-content auth-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Sign In</span>
+      </nav>
+
+      <header class="auth-header">
+        <h1>Welcome back!</h1>
+        <p>Create linked parent and student accounts to personalize assignments, manage goals, and sync progress across devices.</p>
+      </header>
+
+      <section class="auth-section" aria-labelledby="student-login">
+        <h2 id="student-login">Student Login</h2>
+        <form class="auth-form" aria-describedby="student-help">
+          <label>
+            Student Username
+            <input type="text" name="student-username" autocomplete="username" required>
+          </label>
+          <label>
+            Password
+            <input type="password" name="student-password" autocomplete="current-password" required>
+          </label>
+          <button type="submit" class="button">Sign In</button>
+          <p id="student-help" class="form-hint">Accounts will connect to a parent guardian profile for oversight.</p>
+        </form>
+      </section>
+
+      <section class="auth-section" aria-labelledby="parent-login">
+        <h2 id="parent-login">Parent Login</h2>
+        <form class="auth-form" aria-describedby="parent-help">
+          <label>
+            Email
+            <input type="email" name="parent-email" autocomplete="email" required>
+          </label>
+          <label>
+            Password
+            <input type="password" name="parent-password" autocomplete="current-password" required>
+          </label>
+          <label>
+            Student Link Code
+            <input type="text" name="link-code" placeholder="Enter student link code" required>
+          </label>
+          <button type="submit" class="button">Sign In as Parent</button>
+          <p id="parent-help" class="form-hint">Link codes will tie student progress and grades to this parent dashboard.</p>
+        </form>
+      </section>
+
+      <section class="auth-section" aria-labelledby="coming-soon">
+        <h2 id="coming-soon">Coming Soon</h2>
+        <p>Secure authentication, password resets, and household management will activate in a future release. This page establishes the structure so design, routing, and data hooks are ready for integration.</p>
+      </section>
+    </main>
+  </div>
+  <script src="../scripts/progress.js"></script>
+</body>
+</html>

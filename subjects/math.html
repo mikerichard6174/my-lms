@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Adventures</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="math.html" aria-current="page">Math Adventures</a></li>
+            <li><a href="english.html">English Explorers</a></li>
+            <li><a href="science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Math Adventures</span>
+      </nav>
+
+      <header class="subject-header">
+        <div>
+          <h1>Math Adventures</h1>
+          <p>Build foundational numeracy skills through interactive counting, comparison, and early operations lessons.</p>
+          <p class="goal-line">Family Goal: <span data-goal>No goal set</span></p>
+        </div>
+        <aside class="lesson-progress subject-progress" aria-label="Math progress overview" data-subject-progress="math">
+          <span>Completed</span>
+          <strong data-status>0 of 3 lessons</strong>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </aside>
+      </header>
+
+      <section class="category-section">
+        <article class="category-card" data-category-progress="counting" data-subject="math">
+          <header>
+            <h2>Counting &amp; Number Sense</h2>
+            <span data-status>0 of 0 lessons</span>
+          </header>
+          <p>Practice counting objects, recognizing numerals, and matching quantities to number words.</p>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <div class="category-lessons">
+            <a class="lesson-card" data-lesson-id="math1" href="../lessons/lesson1.html">
+              <div>
+                <h3>Lesson 1: Learning Numbers</h3>
+                <p>Count up to five with supportive visuals and sounds.</p>
+              </div>
+              <footer>
+                <span class="lesson-status" data-lesson-status>Not started</span>
+                <div class="progress-track" role="presentation">
+                  <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                </div>
+              </footer>
+            </a>
+            <a class="lesson-card" data-lesson-id="math2" href="../lessons/lesson2.html">
+              <div>
+                <h3>Lesson 2: Counting Objects</h3>
+                <p>Drag apples into the basket to match the target number.</p>
+              </div>
+              <footer>
+                <span class="lesson-status" data-lesson-status>Not started</span>
+                <div class="progress-track" role="presentation">
+                  <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                </div>
+              </footer>
+            </a>
+          </div>
+        </article>
+
+        <article class="category-card" data-category-progress="operations" data-subject="math">
+          <header>
+            <h2>Operations &amp; Word Connections</h2>
+            <span data-status>0 of 0 lessons</span>
+          </header>
+          <p>Connect numerals to their written words and prepare for early addition and subtraction.</p>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <div class="category-lessons">
+            <a class="lesson-card" data-lesson-id="math3" href="../lessons/lesson3.html">
+              <div>
+                <h3>Lesson 3: Number to Word Matching</h3>
+                <p>Match each numeral with its written word to complete the set.</p>
+              </div>
+              <footer>
+                <span class="lesson-status" data-lesson-status>Not started</span>
+                <div class="progress-track" role="presentation">
+                  <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                </div>
+              </footer>
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="../scripts/progress.js"></script>
+</body>
+</html>

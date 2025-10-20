@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parent Dashboard</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Primary navigation">
+          <ul class="nav-links">
+            <li><a href="subjects/math.html">Math Adventures</a></li>
+            <li><a href="subjects/english.html">English Explorers</a></li>
+            <li><a href="subjects/science.html">Science Lab</a></li>
+            <li><a href="index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="parent-dashboard.html" aria-current="page">Parent Controls</a></li>
+            <li><a href="auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Student completion: <strong data-overall-progress>0%</strong>
+      </section>
+    </aside>
+
+    <main class="app-content parent-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Parent Dashboard</span>
+      </nav>
+
+      <header class="parent-header">
+        <h1>Parent Controls</h1>
+        <p>Plan the daily schedule, set achievement goals, and review grades across every subject. Updates save automatically to this device.</p>
+      </header>
+
+      <section class="parent-section" aria-labelledby="schedule-title">
+        <div class="section-header">
+          <h2 id="schedule-title">Daily Schedule Planner</h2>
+          <p>Build a day-by-day roadmap for your learner. Lessons on the schedule feed the student dashboard focus card.</p>
+        </div>
+        <form class="schedule-form" data-schedule-form>
+          <label>
+            Day
+            <select name="day" required>
+              <option value="monday">Monday</option>
+              <option value="tuesday">Tuesday</option>
+              <option value="wednesday">Wednesday</option>
+              <option value="thursday">Thursday</option>
+              <option value="friday">Friday</option>
+              <option value="saturday">Saturday</option>
+              <option value="sunday">Sunday</option>
+            </select>
+          </label>
+          <label>
+            Subject
+            <select name="subject" data-subject-select required></select>
+          </label>
+          <label>
+            Lesson
+            <select name="lesson" data-lesson-select required></select>
+          </label>
+          <label>
+            Start Time
+            <input type="time" name="time" required value="09:00">
+          </label>
+          <label class="notes-field">
+            Notes (optional)
+            <textarea name="notes" rows="1" placeholder="Add reminders or accommodations"></textarea>
+          </label>
+          <button type="submit" class="button">Add to Schedule</button>
+          <p class="form-feedback" aria-live="polite" data-schedule-feedback></p>
+        </form>
+        <div class="schedule-grid" data-schedule-list aria-live="polite"></div>
+      </section>
+
+      <section class="parent-section" aria-labelledby="goals-title">
+        <div class="section-header">
+          <h2 id="goals-title">Subject Goals</h2>
+          <p>Set percent targets and motivational notes for each subject. These goals appear on student progress cards.</p>
+        </div>
+        <div class="goal-grid" data-goal-grid></div>
+      </section>
+
+      <section class="parent-section" aria-labelledby="grades-title">
+        <div class="section-header">
+          <h2 id="grades-title">Grades &amp; Overrides</h2>
+          <p>Review lesson performance and adjust grades or completion status whenever needed.</p>
+        </div>
+        <div class="grade-table" role="table">
+          <div class="grade-row grade-row-header" role="row">
+            <span role="columnheader">Lesson</span>
+            <span role="columnheader">Best Score</span>
+            <span role="columnheader">Grade Override</span>
+            <span role="columnheader">Completion</span>
+          </div>
+          <div data-grade-rows></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="scripts/progress.js"></script>
+  <script src="scripts/parent.js"></script>
+</body>
+</html>

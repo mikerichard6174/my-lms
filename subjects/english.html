@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Explorers</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="math.html">Math Adventures</a></li>
+            <li><a href="english.html" aria-current="page">English Explorers</a></li>
+            <li><a href="science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>English Explorers</span>
+      </nav>
+
+      <header class="subject-header">
+        <div>
+          <h1>English Explorers</h1>
+          <p>Strengthen first-grade reading fluency, comprehension, and vocabulary through interactive storytelling and word play.</p>
+          <p class="goal-line">Family Goal: <span data-goal>No goal set</span></p>
+        </div>
+        <aside class="lesson-progress subject-progress" aria-label="English progress overview" data-subject-progress="english">
+          <span>Completed</span>
+          <strong data-status>0 of 2 lessons</strong>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </aside>
+      </header>
+
+      <section class="category-section">
+        <article class="category-card" data-category-progress="reading" data-subject="english">
+          <header>
+            <h2>Reading Comprehension</h2>
+            <span data-status>0 of 0 lessons</span>
+          </header>
+          <p>Develop story sequencing skills and describe character feelings with guided prompts.</p>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <div class="category-lessons">
+            <a class="lesson-card" data-lesson-id="english1" href="../lessons/english1.html">
+              <div>
+                <h3>Lesson 4: Story Adventure</h3>
+                <p>Join Mia and Scout at the park, sequence picture cards, and share how the characters feel.</p>
+              </div>
+              <footer>
+                <span class="lesson-status" data-lesson-status>Not started</span>
+                <div class="progress-track" role="presentation">
+                  <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                </div>
+              </footer>
+            </a>
+          </div>
+        </article>
+
+        <article class="category-card" data-category-progress="vocabulary" data-subject="english">
+          <header>
+            <h2>Vocabulary Building</h2>
+            <span data-status>0 of 0 lessons</span>
+          </header>
+          <p>Boost recognition of high-frequency words and build complete sentences with hands-on tiles.</p>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <div class="category-lessons">
+            <a class="lesson-card" data-lesson-id="english2" href="../lessons/english2.html">
+              <div>
+                <h3>Lesson 5: Word Builders Workshop</h3>
+                <p>Drag word tiles to fill in sentence blanks, then read each sentence aloud.</p>
+              </div>
+              <footer>
+                <span class="lesson-status" data-lesson-status>Not started</span>
+                <div class="progress-track" role="presentation">
+                  <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                </div>
+              </footer>
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="../scripts/progress.js"></script>
+</body>
+</html>
