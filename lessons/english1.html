@@ -20,11 +20,16 @@
             <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
             <li><a href="../parent-dashboard.html">Parent Controls</a></li>
             <li><a href="../auth/login.html">Sign In</a></li>
+            <li><a href="../index.html#math-lessons">Math Adventures</a></li>
+            <li><a href="../index.html#english-lessons" aria-current="page">English Explorers</a></li>
+            <li><a href="../index.html#science-lessons">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
           </ul>
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
         Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+        Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
 
@@ -161,6 +166,7 @@
       const percent = Math.round((correctSelections / entries.length) * 100);
       const elapsed = performance.now() - lessonStart;
       const isCorrect = correctSelections === entries.length;
+      const isCorrect = Object.entries(selects).every(([key, select]) => select.value === answers[key]);
 
       if (isCorrect) {
         feedback.textContent = "Great sequencing! That's exactly how Penny's adventure happened.";
@@ -172,6 +178,7 @@
           score: 100,
           durationMs: elapsed
         });
+        window.LMSProgress?.markLessonComplete("english1");
       } else {
         feedback.textContent = "Close! Re-read the sentences and try a different order.";
         feedback.classList.remove("success");
@@ -183,6 +190,8 @@
           durationMs: elapsed,
           completed: false
         });
+        progressBar.style.width = "45%";
+        progressTrack.setAttribute("aria-valuenow", "45");
       }
     });
 

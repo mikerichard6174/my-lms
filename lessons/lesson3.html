@@ -20,11 +20,16 @@
             <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
             <li><a href="../parent-dashboard.html">Parent Controls</a></li>
             <li><a href="../auth/login.html">Sign In</a></li>
+            <li><a href="../index.html#math-lessons" aria-current="page">Math Adventures</a></li>
+            <li><a href="../index.html#english-lessons">English Explorers</a></li>
+            <li><a href="../index.html#science-lessons">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
           </ul>
         </nav>
       </section>
       <section class="nav-progress" aria-label="Overall progress">
         Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+        Keep it up! <strong data-overall-progress>72%</strong> Course Complete
       </section>
     </aside>
 
@@ -105,6 +110,7 @@
           score: 100,
           durationMs: duration
         });
+        window.LMSProgress?.markLessonComplete("math3");
       } else if (matches > 0) {
         feedback.textContent = "Great job! Keep matching the rest.";
       }

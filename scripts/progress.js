@@ -97,6 +97,24 @@
     }
   ];
 
+  const STORAGE_KEY = "my-lms-progress-v1";
+
+  const LESSONS = [
+    { id: "math1", subject: "math", name: "Lesson 1: Learning Numbers", path: "lessons/lesson1.html" },
+    { id: "math2", subject: "math", name: "Lesson 2: Counting Objects", path: "lessons/lesson2.html" },
+    { id: "math3", subject: "math", name: "Lesson 3: Number to Word Matching", path: "lessons/lesson3.html" },
+    { id: "english1", subject: "english", name: "Lesson 4: Story Sequencing", path: "lessons/english1.html" },
+    { id: "english2", subject: "english", name: "Lesson 5: Vocabulary Builder", path: "lessons/english2.html" },
+    { id: "science1", subject: "science", name: "Lesson 6: Weather Watch", path: "lessons/science1.html" },
+    { id: "science2", subject: "science", name: "Lesson 7: Habitat Match-Up", path: "lessons/science2.html" }
+  ];
+
+  const SUBJECT_LABELS = {
+    math: "Math Adventures",
+    english: "English Explorers",
+    science: "Science Lab"
+  };
+
   const lessonIndex = Object.fromEntries(LESSONS.map((lesson) => [lesson.id, lesson]));
   const subjectLessons = LESSONS.reduce((acc, lesson) => {
     if (!acc[lesson.subject]) {
@@ -135,6 +153,13 @@
     history: [],
     schedule: [],
     goals: Object.fromEntries(Object.keys(SUBJECTS).map((id) => [id, { targetPercent: null, notes: "" }]))
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+
+  const defaultState = {
+    lessons: LESSONS.reduce((acc, lesson) => {
+      acc[lesson.id] = false;
+      return acc;
+    }, {})
   };
 
   const storageAvailable = (() => {
@@ -215,6 +240,12 @@
             }
           });
         }
+      if (parsed && typeof parsed === "object" && parsed.lessons) {
+        Object.entries(parsed.lessons).forEach(([id, value]) => {
+          if (Object.prototype.hasOwnProperty.call(nextState.lessons, id)) {
+            nextState.lessons[id] = Boolean(value);
+          }
+        });
       }
       return nextState;
     } catch (error) {
@@ -301,6 +332,24 @@
     Object.assign(record, defaultLessonState());
     state.history = state.history.filter((entry) => entry.lessonId !== lessonId);
     persistState();
+  function setLessonState(lessonId, isComplete) {
+    if (!lessonIndex[lessonId]) {
+      return;
+    }
+    if (state.lessons[lessonId] === isComplete) {
+      return;
+    }
+    state.lessons[lessonId] = isComplete;
+    persistState();
+  }
+
+  function markLessonComplete(lessonId) {
+    setLessonState(lessonId, true);
+    updateDashboard();
+  }
+
+  function resetLessonProgress(lessonId) {
+    setLessonState(lessonId, false);
     updateDashboard();
   }
 
@@ -313,6 +362,7 @@
   function getLessonProgress(lessonId) {
     const record = getLessonRecord(lessonId);
     return record ? Boolean(record.completed) : false;
+    return Boolean(state.lessons[lessonId]);
   }
 
   function computeSubjectProgress(subjectId) {
@@ -334,6 +384,9 @@
   function computeOverallProgress() {
     const total = LESSONS.length;
     const completed = Object.values(state.lessons).filter((lesson) => lesson && lesson.completed).length;
+  function computeOverallProgress() {
+    const total = LESSONS.length;
+    const completed = Object.values(state.lessons).filter(Boolean).length;
     const percent = total ? Math.round((completed / total) * 100) : 0;
     return { completed, total, percent };
   }
@@ -624,6 +677,7 @@
     const label = root.querySelector("[data-next-lesson-label]");
     if (label) {
       const subjectLabel = SUBJECTS[lesson.subject]?.label || lesson.subject;
+      const subjectLabel = SUBJECT_LABELS[lesson.subject] || lesson.subject;
       label.textContent = `${subjectLabel} • ${lesson.name}`;
     }
   }
@@ -640,6 +694,8 @@
     updateLessonCards(root);
     updateNextLesson(root);
     updateDynamicHighlights(root);
+    updateLessonCards(root);
+    updateNextLesson(root);
     const resetMessage = root.querySelector("[data-reset-message]");
     if (resetMessage && overall.completed > 0) {
       resetMessage.textContent = "";
@@ -788,5 +844,7 @@
     getSubjectGoal,
     SUBJECTS,
     LESSONS
+    getNextLesson,
+    updateDashboard
   };
 })();
