@@ -3,186 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lesson 1 - Numbers</title>
+  <title>Lesson 1 - Learning Numbers</title>
   <link rel="stylesheet" href="../styles/style.css">
-  <style>
-    .quiz-container {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    .question {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-
-    .question-img {
-      max-width: 200px;
-      margin: 1rem auto;
-      display: block;
-    }
-
-    .options button {
-      display: block;
-      width: 100%;
-      margin: 0.5rem 0;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      background: #eee;
-      transition: background 0.2s ease;
-    }
-
-    .options button:hover {
-      background: #ddd;
-    }
-
-    .correct {
-      background-color: #4CAF50 !important;
-      color: white;
-    }
-
-    .incorrect {
-      background-color: #f44336 !important;
-      color: white;
-    }
-
-    #score {
-      margin-top: 1.5rem;
-      font-weight: bold;
-    }
-
-    /* Progress bar */
-    .progress-container {
-      width: 100%;
-      background: #ddd;
-      border-radius: 20px;
-      height: 20px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-    }
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: #4CAF50;
-      transition: width 0.3s;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <h1>Lesson 1: Learning Numbers</h1>
-  </header>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="../index.html#math-lessons" aria-current="page">Math Adventures</a></li>
+            <li><a href="../index.html#english-lessons">English Explorers</a></li>
+            <li><a href="../index.html#science-lessons">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong>72%</strong> Course Complete
+      </section>
+    </aside>
 
-  <main>
-    <div class="quiz-container">
-      <div class="progress-container">
-        <div id="progress-bar" class="progress-bar"></div>
-      </div>
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Lesson 1</span>
+      </nav>
 
-      <div id="quiz"></div>
-      <p id="score"></p>
-      <button id="next-btn" class="button" style="display:none;">Next Question</button>
-    </div>
-    <a href="../index.html" class="button">Back to Home</a>
-  </main>
+      <header class="lesson-header">
+        <div>
+          <h1>Lesson 1: Learning Numbers</h1>
+          <div class="lesson-meta">
+            <p>Explore counting from one to five with colorful visuals and quick questions.</p>
+            <p><strong>Objective:</strong> Identify quantities and match them to numerals.</p>
+            <ul class="lesson-objectives">
+              <li>Count objects up to five.</li>
+              <li>Recognize the numeral that matches a set of objects.</li>
+              <li>Celebrate success with cheerful sound cues.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Quiz progress overview">
+          <span>Step</span>
+          <strong><span id="step-count">1</span>/3</strong>
+          <p>Answer each question to finish the activity.</p>
+        </aside>
+      </header>
 
-  <!-- Sound effects -->
-  <audio id="correct-sound" src="../assets/correct.mp3"></audio>
-  <audio id="incorrect-sound" src="../assets/incorrect.mp3"></audio>
+      <section class="lesson-content">
+        <div class="progress-track" role="progressbar" aria-label="Quiz completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="quiz-progress" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <article>
+          <figure>
+            <img id="question-img" src="../assets/hand.png" alt="Hand showing five fingers">
+            <figcaption id="question-text">How many fingers do you have on one hand?</figcaption>
+          </figure>
+          <div id="quiz-options" class="quiz-choices"></div>
+        </article>
+
+        <p id="score" class="feedback" aria-live="polite"></p>
+
+        <div class="lesson-actions">
+          <button id="next-btn" class="button" type="button">Next Question</button>
+          <a class="button secondary" href="../index.html">Back to Dashboard</a>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script>
     const quizData = [
       {
         question: "How many fingers do you have on one hand?",
         img: "../assets/hand.png",
+        alt: "Hand showing five fingers",
         options: ["3", "4", "5", "6"],
         correct: 2
       },
       {
         question: "What number comes after 4?",
         img: "../assets/numbers.png",
+        alt: "Number line highlighting the number five",
         options: ["3", "5", "6", "7"],
         correct: 1
       },
       {
         question: "If you have 2 apples and add 2 more, how many do you have?",
         img: "../assets/apples.png",
+        alt: "A basket filled with apples",
         options: ["2", "3", "4", "5"],
         correct: 2
       }
     ];
 
-    let currentQuestion = 0;
-    let score = 0;
-
-    const quizEl = document.getElementById("quiz");
+    const quizProgress = document.getElementById("quiz-progress");
+    const questionText = document.getElementById("question-text");
+    const questionImg = document.getElementById("question-img");
+    const quizOptions = document.getElementById("quiz-options");
     const scoreEl = document.getElementById("score");
     const nextBtn = document.getElementById("next-btn");
-    const progressBar = document.getElementById("progress-bar");
+    const stepCount = document.getElementById("step-count");
+    const progressTrack = document.querySelector(".progress-track[role='progressbar']");
 
-    const correctSound = document.getElementById("correct-sound");
-    const incorrectSound = document.getElementById("incorrect-sound");
+    let audioCtx;
+    let currentQuestion = 0;
+    let score = 0;
+    let hasAnswered = false;
 
-    function loadQuestion() {
-      const q = quizData[currentQuestion];
-      quizEl.innerHTML = `
-        <div class="question">${q.question}</div>
-        <img src="${q.img}" alt="Question Image" class="question-img">
-        <div class="options">
-          ${q.options.map((opt, i) => `<button onclick="checkAnswer(${i})">${opt}</button>`).join("")}
-        </div>
-      `;
-      nextBtn.style.display = "none";
-      scoreEl.textContent = "";
+    const startTone = (frequency, duration, type = "sine") => {
+      if (typeof window.AudioContext !== "function" && typeof window.webkitAudioContext !== "function") {
+        return;
+      }
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      oscillator.type = type;
+      oscillator.frequency.value = frequency;
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      const now = audioCtx.currentTime;
+      gainNode.gain.setValueAtTime(0.0001, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      oscillator.start(now);
+      oscillator.stop(now + duration + 0.02);
+    };
 
-      // Update progress bar
-      progressBar.style.width = ((currentQuestion / quizData.length) * 100) + "%";
+    const playSuccess = () => startTone(880, 0.4, "triangle");
+    const playError = () => startTone(220, 0.5, "sawtooth");
+
+    function updateProgress() {
+      const completion = Math.round((currentQuestion / quizData.length) * 100);
+      quizProgress.style.width = `${completion}%`;
+      progressTrack.setAttribute("aria-valuenow", completion);
+      stepCount.textContent = Math.min(currentQuestion + 1, quizData.length);
     }
 
-    function checkAnswer(selected) {
+    function renderQuestion() {
       const q = quizData[currentQuestion];
-      const buttons = document.querySelectorAll(".options button");
+      hasAnswered = false;
+      questionText.textContent = q.question;
+      questionImg.src = q.img;
+      questionImg.alt = q.alt;
+      quizOptions.innerHTML = "";
+      scoreEl.textContent = "";
+      nextBtn.disabled = true;
+      nextBtn.textContent = currentQuestion === quizData.length - 1 ? "Finish Lesson" : "Next Question";
 
-      buttons.forEach((btn, i) => {
-        if (i === q.correct) btn.classList.add("correct");
-        if (i === selected && selected !== q.correct) btn.classList.add("incorrect");
-        btn.disabled = true;
+      q.options.forEach((opt, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = opt;
+        button.addEventListener("click", () => checkAnswer(index));
+        quizOptions.append(button);
       });
 
-      if (selected === q.correct) {
+      updateProgress();
+    }
+
+    function checkAnswer(selectedIndex) {
+      if (hasAnswered) {
+        return;
+      }
+      hasAnswered = true;
+      const q = quizData[currentQuestion];
+      const buttons = quizOptions.querySelectorAll("button");
+
+      buttons.forEach((btn, index) => {
+        btn.disabled = true;
+        if (index === q.correct) {
+          btn.classList.add("correct");
+        }
+        if (index === selectedIndex && index !== q.correct) {
+          btn.classList.add("incorrect");
+        }
+      });
+
+      if (selectedIndex === q.correct) {
         score++;
-        scoreEl.textContent = "✅ Correct!";
-        correctSound.play();
+        scoreEl.textContent = "✅ Great job!";
+        playSuccess();
       } else {
         scoreEl.textContent = "❌ Try again next time!";
-        incorrectSound.play();
+        playError();
       }
 
-      nextBtn.style.display = "inline-block";
+      nextBtn.disabled = false;
+      nextBtn.focus();
     }
 
     nextBtn.addEventListener("click", () => {
+      if (!hasAnswered) {
+        return;
+      }
       currentQuestion++;
       if (currentQuestion < quizData.length) {
-        loadQuestion();
+        renderQuestion();
       } else {
-        quizEl.innerHTML = `<h2>You finished the quiz!</h2>`;
+        quizOptions.innerHTML = "";
+        questionImg.src = "../assets/apples.png";
+        questionImg.alt = "Celebratory apples forming a heart";
+        questionText.textContent = "Amazing work! You finished the quiz.";
         scoreEl.textContent = `Your score: ${score} / ${quizData.length}`;
-        progressBar.style.width = "100%";
-        nextBtn.style.display = "none";
+        quizProgress.style.width = "100%";
+        progressTrack.setAttribute("aria-valuenow", "100");
+        stepCount.textContent = quizData.length;
+        nextBtn.disabled = true;
+        nextBtn.textContent = "All done";
       }
     });
 
-    // Start first question
-    loadQuestion();
+    renderQuestion();
   </script>
 </body>
 </html>

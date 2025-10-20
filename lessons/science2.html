@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 7 - Habitat Match-Up</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="../index.html#math-lessons">Math Adventures</a></li>
+            <li><a href="../index.html#english-lessons">English Explorers</a></li>
+            <li><a href="../index.html#science-lessons" aria-current="page">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong>72%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Lesson 7</span>
+      </nav>
+
+      <header class="lesson-header">
+        <div>
+          <h1>Lesson 7: Habitat Match-Up</h1>
+          <div class="lesson-meta">
+            <p>Explore different habitats and connect each animal to the place it calls home.</p>
+            <p><strong>Objective:</strong> Recognize how animals are suited to their environments.</p>
+            <ul class="lesson-objectives">
+              <li>Identify key features of common habitats.</li>
+              <li>Explain how animals use their habitats to survive.</li>
+              <li>Compare land, water, and extreme environments.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Habitat progress overview">
+          <span>Matches</span>
+          <strong><span id="habitat-count">0</span>/4</strong>
+          <p>Make all four matches to complete the lab.</p>
+        </aside>
+      </header>
+
+      <section class="lesson-content">
+        <div class="progress-track" role="progressbar" aria-label="Habitat completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="habitat-progress" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <article class="habitat-intro">
+          <h2>Investigate the Habitats</h2>
+          <p>Each card describes a habitat. Choose the animal that would love to live there based on its needs and adaptations.</p>
+        </article>
+
+        <form class="habitat-activity" aria-labelledby="habitat-title" novalidate>
+          <fieldset>
+            <legend id="habitat-title">Match animals to their habitats</legend>
+            <div class="habitat-grid">
+              <section class="habitat-card">
+                <h3>Rainforest Canopy</h3>
+                <p>Tall trees, warm weather, and plenty of fruit.</p>
+                <label for="habitat-1" class="sr-only">Select the animal that lives in the rainforest canopy.</label>
+                <select id="habitat-1" data-answer="sloth" required>
+                  <option value="">Select an animal</option>
+                  <option value="sloth">Sloth</option>
+                  <option value="camel">Camel</option>
+                  <option value="polar-bear">Polar bear</option>
+                  <option value="dolphin">Dolphin</option>
+                </select>
+              </section>
+
+              <section class="habitat-card">
+                <h3>Arctic Ice</h3>
+                <p>Freezing temperatures with floating sea ice.</p>
+                <label for="habitat-2" class="sr-only">Select the animal that lives on Arctic ice.</label>
+                <select id="habitat-2" data-answer="polar-bear" required>
+                  <option value="">Select an animal</option>
+                  <option value="sloth">Sloth</option>
+                  <option value="camel">Camel</option>
+                  <option value="polar-bear">Polar bear</option>
+                  <option value="dolphin">Dolphin</option>
+                </select>
+              </section>
+
+              <section class="habitat-card">
+                <h3>Desert Dunes</h3>
+                <p>Hot days, cool nights, and very little water.</p>
+                <label for="habitat-3" class="sr-only">Select the animal that lives on desert dunes.</label>
+                <select id="habitat-3" data-answer="camel" required>
+                  <option value="">Select an animal</option>
+                  <option value="sloth">Sloth</option>
+                  <option value="camel">Camel</option>
+                  <option value="polar-bear">Polar bear</option>
+                  <option value="dolphin">Dolphin</option>
+                </select>
+              </section>
+
+              <section class="habitat-card">
+                <h3>Coral Reef</h3>
+                <p>Colorful corals in warm ocean water.</p>
+                <label for="habitat-4" class="sr-only">Select the animal that lives in the coral reef.</label>
+                <select id="habitat-4" data-answer="dolphin" required>
+                  <option value="">Select an animal</option>
+                  <option value="sloth">Sloth</option>
+                  <option value="camel">Camel</option>
+                  <option value="polar-bear">Polar bear</option>
+                  <option value="dolphin">Dolphin</option>
+                </select>
+              </section>
+            </div>
+          </fieldset>
+        </form>
+
+        <div class="lesson-actions">
+          <button id="check-habitats" class="button" type="button">Check Matches</button>
+          <button id="reset-habitats" class="button secondary" type="button">Reset</button>
+          <a class="button secondary" href="../index.html">Back to Dashboard</a>
+        </div>
+
+        <p id="habitat-feedback" class="feedback" aria-live="polite"></p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const habitatSelects = Array.from(document.querySelectorAll('.habitat-card select'));
+    const feedback = document.getElementById('habitat-feedback');
+    const progressBar = document.getElementById('habitat-progress');
+    const progressTrack = document.querySelector(".progress-track[aria-label='Habitat completion']");
+    const matchCount = document.getElementById('habitat-count');
+    const checkBtn = document.getElementById('check-habitats');
+    const resetBtn = document.getElementById('reset-habitats');
+
+    function calculateMatches() {
+      let matches = 0;
+      habitatSelects.forEach((select) => {
+        if (select.value === select.dataset.answer) {
+          matches += 1;
+          select.classList.add('correct');
+          select.classList.remove('incorrect');
+        } else {
+          if (select.value) {
+            select.classList.add('incorrect');
+          } else {
+            select.classList.remove('incorrect');
+          }
+          select.classList.remove('correct');
+        }
+      });
+      return matches;
+    }
+
+    checkBtn.addEventListener('click', () => {
+      const matches = calculateMatches();
+      matchCount.textContent = matches;
+      const completion = Math.round((matches / habitatSelects.length) * 100);
+      progressBar.style.width = `${completion}%`;
+      progressTrack.setAttribute('aria-valuenow', completion.toString());
+
+      if (matches === habitatSelects.length) {
+        feedback.textContent = 'Excellent observations! You paired every animal with the right habitat.';
+        feedback.classList.add('success');
+        feedback.classList.remove('error');
+      } else {
+        feedback.textContent = 'Look closely at the habitat clues and adjust any matches that seem out of place.';
+        feedback.classList.add('error');
+        feedback.classList.remove('success');
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      habitatSelects.forEach((select) => {
+        select.value = '';
+        select.classList.remove('correct', 'incorrect');
+      });
+      matchCount.textContent = '0';
+      feedback.textContent = '';
+      feedback.classList.remove('success', 'error');
+      progressBar.style.width = '0%';
+      progressTrack.setAttribute('aria-valuenow', '0');
+      habitatSelects[0].focus();
+    });
+  </script>
+</body>
+</html>

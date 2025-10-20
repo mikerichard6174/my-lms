@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 6 - Weather Watch</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="../index.html#math-lessons">Math Adventures</a></li>
+            <li><a href="../index.html#english-lessons">English Explorers</a></li>
+            <li><a href="../index.html#science-lessons" aria-current="page">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong>72%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Lesson 6</span>
+      </nav>
+
+      <header class="lesson-header">
+        <div>
+          <h1>Lesson 6: Weather Watch</h1>
+          <div class="lesson-meta">
+            <p>Become a meteorologist and choose the best clothing for each forecast.</p>
+            <p><strong>Objective:</strong> Interpret weather clues and plan accordingly.</p>
+            <ul class="lesson-objectives">
+              <li>Identify weather symbols and daily conditions.</li>
+              <li>Select the outfit that keeps you comfortable.</li>
+              <li>Record observations like a scientist.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Weather progress overview">
+          <span>Forecasts</span>
+          <strong><span id="forecast-count">0</span>/3</strong>
+          <p>Get all three forecasts right.</p>
+        </aside>
+      </header>
+
+      <section class="lesson-content">
+        <div class="progress-track" role="progressbar" aria-label="Forecast completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="weather-progress" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <article class="weather-intro">
+          <h2>Today's Weather Report</h2>
+          <p>Tap a forecast to read the clues and then pick the outfit that matches. Some outfits may look fun, but only one will keep you ready for the weather!</p>
+        </article>
+
+        <div class="weather-grid" role="list">
+          <section class="forecast-card" role="listitem">
+            <header>
+              <h3>Sunny &amp; Warm</h3>
+              <p>Temperatures near 80°F with clear skies.</p>
+            </header>
+            <div class="choice-grid">
+              <button type="button" class="choice" data-forecast="sunny" data-choice="shorts">🕶️ Shorts &amp; T-Shirt</button>
+              <button type="button" class="choice" data-forecast="sunny" data-choice="raincoat">🌧️ Raincoat &amp; Boots</button>
+              <button type="button" class="choice" data-forecast="sunny" data-choice="snow">❄️ Puffy Coat &amp; Mittens</button>
+            </div>
+          </section>
+
+          <section class="forecast-card" role="listitem">
+            <header>
+              <h3>Rainy Afternoon</h3>
+              <p>Light showers with cooler breezes.</p>
+            </header>
+            <div class="choice-grid">
+              <button type="button" class="choice" data-forecast="rainy" data-choice="umbrella">☔ Raincoat &amp; Umbrella</button>
+              <button type="button" class="choice" data-forecast="rainy" data-choice="shorts">😎 Shorts &amp; Sandals</button>
+              <button type="button" class="choice" data-forecast="rainy" data-choice="snow">🧤 Wool Hat &amp; Gloves</button>
+            </div>
+          </section>
+
+          <section class="forecast-card" role="listitem">
+            <header>
+              <h3>Snowy Morning</h3>
+              <p>Flurries with a chilly wind.</p>
+            </header>
+            <div class="choice-grid">
+              <button type="button" class="choice" data-forecast="snowy" data-choice="boots">⛄ Coat, Boots &amp; Gloves</button>
+              <button type="button" class="choice" data-forecast="snowy" data-choice="umbrella">🌧️ Raincoat &amp; Umbrella</button>
+              <button type="button" class="choice" data-forecast="snowy" data-choice="shorts">🏖️ Tank Top &amp; Flip Flops</button>
+            </div>
+          </section>
+        </div>
+
+        <div class="lesson-actions">
+          <a class="button secondary" href="../index.html">Back to Dashboard</a>
+        </div>
+
+        <p id="weather-feedback" class="feedback" aria-live="polite"></p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const correctChoices = {
+      sunny: 'shorts',
+      rainy: 'umbrella',
+      snowy: 'boots'
+    };
+
+    const forecastStatus = {
+      sunny: false,
+      rainy: false,
+      snowy: false
+    };
+
+    const progressBar = document.getElementById('weather-progress');
+    const progressTrack = document.querySelector(".progress-track[aria-label='Forecast completion']");
+    const forecastCount = document.getElementById('forecast-count');
+    const feedback = document.getElementById('weather-feedback');
+    const choices = Array.from(document.querySelectorAll('.choice'));
+
+    function updateProgress() {
+      const solved = Object.values(forecastStatus).filter(Boolean).length;
+      forecastCount.textContent = solved;
+      const completion = Math.round((solved / Object.keys(forecastStatus).length) * 100);
+      progressBar.style.width = `${completion}%`;
+      progressTrack.setAttribute('aria-valuenow', completion.toString());
+
+      if (solved === Object.keys(forecastStatus).length) {
+        feedback.textContent = 'Weather hero! You matched every outfit to the perfect forecast.';
+        feedback.classList.add('success');
+        feedback.classList.remove('error');
+      } else if (solved > 0) {
+        feedback.textContent = 'Great choices so far. Keep matching the remaining forecasts!';
+        feedback.classList.add('success');
+        feedback.classList.remove('error');
+      } else {
+        feedback.textContent = '';
+        feedback.classList.remove('success', 'error');
+      }
+    }
+
+    choices.forEach((button) => {
+      button.addEventListener('click', () => {
+        const { forecast, choice } = button.dataset;
+        if (forecastStatus[forecast]) {
+          return;
+        }
+
+        const isCorrect = correctChoices[forecast] === choice;
+
+        if (isCorrect) {
+          button.classList.add('correct');
+          forecastStatus[forecast] = true;
+          choices
+            .filter((btn) => btn.dataset.forecast === forecast)
+            .forEach((btn) => {
+              btn.disabled = true;
+              if (btn !== button) {
+                btn.classList.add('muted');
+              }
+            });
+        } else {
+          button.classList.add('incorrect');
+          button.disabled = true;
+          feedback.textContent = 'Not quite right. Think about the weather clues and try another outfit.';
+          feedback.classList.add('error');
+          feedback.classList.remove('success');
+        }
+        updateProgress();
+      });
+    });
+  </script>
+</body>
+</html>
