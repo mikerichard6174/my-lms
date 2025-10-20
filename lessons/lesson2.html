@@ -1,112 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson 2 - Counting Objects</title>
-<link rel="stylesheet" href="../styles/style.css">
-<style>
-  .lesson-container {
-    max-width: 700px;
-    margin: 2rem auto;
-    text-align: center;
-  }
-
-  .draggable {
-    width: 80px;
-    margin: 0.5rem;
-    cursor: grab;
-  }
-
-  .drop-box {
-    width: 200px;
-    height: 150px;
-    border: 2px dashed #aaa;
-    display: inline-block;
-    vertical-align: top;
-    margin: 1rem;
-    line-height: 150px;
-    font-size: 1.5rem;
-    color: #555;
-  }
-
-  .drop-box.correct {
-    border-color: #4CAF50;
-    color: #4CAF50;
-  }
-
-  .drop-box.incorrect {
-    border-color: #f44336;
-    color: #f44336;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2 - Counting Objects</title>
+  <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="../subjects/math.html" aria-current="page">Math Adventures</a></li>
+            <li><a href="../subjects/english.html">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
 
-<header>
-  <h1>Lesson 2: Counting Objects</h1>
-</header>
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Lesson 2</span>
+      </nav>
 
-<main>
-  <div class="lesson-container">
-    <p>Drag the correct number of apples into the box!</p>
+      <header class="lesson-header">
+        <div>
+          <h1>Lesson 2: Counting Objects</h1>
+          <div class="lesson-meta">
+            <p>Drag the apples into the basket to match the target number.</p>
+            <p><strong>Objective:</strong> Practice one-to-one correspondence by placing the right number of objects.</p>
+            <ul class="lesson-objectives">
+              <li>Drag apples to the basket using a mouse or touch.</li>
+              <li>Count each apple as you move it to the basket.</li>
+              <li>Check your answer and try again if needed.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Activity progress overview">
+          <span>Target</span>
+          <strong><span id="target-count">3</span></strong>
+          <p>Place this many apples in the basket.</p>
+        </aside>
+      </header>
 
-    <div id="dropBox" class="drop-box">Drop Here</div>
+      <section class="lesson-content">
+        <h2>Build Your Basket</h2>
+        <p>Drag apples from the orchard into the basket. When you think you have the right number, choose <em>Check Answer</em>.</p>
 
-    <div id="objects">
-      <img src="../assets/apple.png" class="draggable" draggable="true" id="apple1">
-      <img src="../assets/apple.png" class="draggable" draggable="true" id="apple2">
-      <img src="../assets/apple.png" class="draggable" id="apple3">
-      <img src="../assets/apple.png" class="draggable" id="apple4">
-    </div>
+        <div class="drop-zone" id="basket" aria-label="Apple basket" aria-describedby="basket-count" tabindex="0">
+          <p id="basket-count">Basket has <span id="apples-in-basket">0</span> apples.</p>
+        </div>
 
-    <p id="feedback"></p>
-    <button onclick="checkAnswer()" class="button">Check Answer</button>
+        <div class="drag-bank" id="orchard" aria-label="Apple orchard">
+          <span class="drag-token" role="img" aria-label="apple" draggable="true" data-token-id="apple-1">🍎</span>
+          <span class="drag-token" role="img" aria-label="apple" draggable="true" data-token-id="apple-2">🍎</span>
+          <span class="drag-token" role="img" aria-label="apple" draggable="true" data-token-id="apple-3">🍎</span>
+          <span class="drag-token" role="img" aria-label="apple" draggable="true" data-token-id="apple-4">🍎</span>
+          <span class="drag-token" role="img" aria-label="apple" draggable="true" data-token-id="apple-5">🍎</span>
+        </div>
+
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+
+        <div class="lesson-actions">
+          <button class="button" type="button" id="check-answer">Check Answer</button>
+          <button class="button secondary" type="button" id="reset">Reset Activity</button>
+          <a class="button secondary" href="../index.html">Back to Dashboard</a>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <a href="../index.html" class="button">Back to Home</a>
-</main>
+  <script src="../scripts/progress.js"></script>
+  <script>
+    const lessonId = "math2";
+    const basket = document.getElementById("basket");
+    const orchard = document.getElementById("orchard");
+    const tokens = document.querySelectorAll(".drag-token");
+    const feedback = document.getElementById("feedback");
+    const applesInBasket = document.getElementById("apples-in-basket");
+    const checkButton = document.getElementById("check-answer");
+    const resetButton = document.getElementById("reset");
+    const targetCount = 3;
 
-<script>
-  const dropBox = document.getElementById("dropBox");
-  const objects = document.querySelectorAll(".draggable");
-  const feedback = document.getElementById("feedback");
+    let draggedId = null;
+    let activityStart = performance.now();
 
-  let dragged = null;
-  let countInBox = 0;
+    function updateCount() {
+      const count = basket.querySelectorAll(".drag-token").length;
+      applesInBasket.textContent = count;
+      return count;
+    }
 
-  objects.forEach(obj => {
-    obj.addEventListener("dragstart", e => {
-      dragged = e.target;
+    function handleDragStart(event) {
+      draggedId = event.target.dataset.tokenId;
+      event.dataTransfer.effectAllowed = "move";
+      basket.classList.remove("correct", "incorrect");
+      feedback.textContent = "";
+    }
+
+    function handleDragOver(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+      event.currentTarget.classList.add("is-active");
+    }
+
+    function handleDragLeave(event) {
+      event.currentTarget.classList.remove("is-active");
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+      const dropTarget = event.currentTarget;
+      const token = document.querySelector(`[data-token-id="${draggedId}"]`);
+      if (!token) {
+        return;
+      }
+      dropTarget.classList.remove("is-active");
+      if (!dropTarget.contains(token)) {
+        dropTarget.appendChild(token);
+      }
+      updateCount();
+      draggedId = null;
+    }
+
+    tokens.forEach(token => {
+      token.addEventListener("dragstart", handleDragStart);
+      token.addEventListener("dragend", () => {
+        draggedId = null;
+        basket.classList.remove("is-active");
+        orchard.classList.remove("is-active");
+      });
     });
-  });
 
-  dropBox.addEventListener("dragover", e => {
-    e.preventDefault();
-  });
+    [basket, orchard].forEach(zone => {
+      zone.addEventListener("dragover", handleDragOver);
+      zone.addEventListener("dragleave", handleDragLeave);
+      zone.addEventListener("drop", handleDrop);
+    });
 
-  dropBox.addEventListener("drop", e => {
-    e.preventDefault();
-    if(dragged) {
-      dropBox.appendChild(dragged);
-      countInBox++;
-      dragged = null;
-    }
-  });
+    checkButton.addEventListener("click", () => {
+      const count = updateCount();
+      basket.classList.remove("correct", "incorrect");
+      const elapsed = performance.now() - activityStart;
+      const ratio = Math.max(0, Math.min(count / targetCount, 1));
+      const percent = Math.round(ratio * 100);
+      if (count === targetCount) {
+        basket.classList.add("correct");
+        feedback.textContent = "🍏 Correct! You counted perfectly.";
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed
+        });
+      } else {
+        basket.classList.add("incorrect");
+        feedback.textContent = `Try again. You need ${targetCount} apples.`;
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
+          durationMs: elapsed,
+          completed: false
+        });
+      }
+    });
 
-  function checkAnswer() {
-    const correctNumber = 3; // change as desired
-    if(countInBox === correctNumber) {
-      dropBox.classList.add("correct");
-      dropBox.classList.remove("incorrect");
-      feedback.textContent = "✅ Correct! Well done!";
-    } else {
-      dropBox.classList.add("incorrect");
-      dropBox.classList.remove("correct");
-      feedback.textContent = `❌ Try again. You need ${correctNumber} apples.`;
-    }
-  }
-</script>
+    resetButton.addEventListener("click", () => {
+      tokens.forEach(token => orchard.appendChild(token));
+      basket.classList.remove("correct", "incorrect", "is-active");
+      feedback.textContent = "";
+      updateCount();
+      activityStart = performance.now();
+    });
 
+    updateCount();
+  </script>
 </body>
 </html>

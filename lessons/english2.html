@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5 - Vocabulary Builder</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="../subjects/math.html">Math Adventures</a></li>
+            <li><a href="../subjects/english.html" aria-current="page">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Lesson 5</span>
+      </nav>
+
+      <header class="lesson-header">
+        <div>
+          <h1>Lesson 5: Vocabulary Builder</h1>
+          <div class="lesson-meta">
+            <p>Match each sight word with the definition that best fits.</p>
+            <p><strong>Objective:</strong> Strengthen vocabulary by pairing words with their meanings.</p>
+            <ul class="lesson-objectives">
+              <li>Read sight words with accuracy.</li>
+              <li>Identify word meanings using context.</li>
+              <li>Self-correct using feedback.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Vocabulary progress overview">
+          <span>Words</span>
+          <strong><span id="matched-count">0</span>/4</strong>
+          <p>Match all four words to finish.</p>
+        </aside>
+      </header>
+
+      <section class="lesson-content">
+        <div class="progress-track" role="progressbar" aria-label="Vocabulary completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="vocab-progress" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <form class="matching-activity" aria-labelledby="matching-title" novalidate>
+          <fieldset>
+            <legend id="matching-title">Match the words to their meanings</legend>
+            <div class="matching-grid">
+              <div class="matching-column">
+                <h2>Word Bank</h2>
+                <ul class="word-list">
+                  <li><span aria-hidden="true">📘</span> <strong>glisten</strong></li>
+                  <li><span aria-hidden="true">🎁</span> <strong>generous</strong></li>
+                  <li><span aria-hidden="true">🚶</span> <strong>wander</strong></li>
+                  <li><span aria-hidden="true">💡</span> <strong>idea</strong></li>
+                </ul>
+              </div>
+              <div class="matching-column definitions">
+                <h2>Definitions</h2>
+                <ol class="definition-list">
+                  <li>
+                    <p>To sparkle or shine with reflected light.</p>
+                    <label for="definition-1" class="sr-only">Choose the word that means sparkle or shine.</label>
+                    <select id="definition-1" data-answer="glisten" required>
+                      <option value="">Select a word</option>
+                      <option value="glisten">glisten</option>
+                      <option value="generous">generous</option>
+                      <option value="wander">wander</option>
+                      <option value="idea">idea</option>
+                    </select>
+                  </li>
+                  <li>
+                    <p>A thought or plan that helps solve a problem.</p>
+                    <label for="definition-2" class="sr-only">Choose the word that means thought or plan.</label>
+                    <select id="definition-2" data-answer="idea" required>
+                      <option value="">Select a word</option>
+                      <option value="glisten">glisten</option>
+                      <option value="generous">generous</option>
+                      <option value="wander">wander</option>
+                      <option value="idea">idea</option>
+                    </select>
+                  </li>
+                  <li>
+                    <p>To walk without a specific path or destination.</p>
+                    <label for="definition-3" class="sr-only">Choose the word that means walk without a path.</label>
+                    <select id="definition-3" data-answer="wander" required>
+                      <option value="">Select a word</option>
+                      <option value="glisten">glisten</option>
+                      <option value="generous">generous</option>
+                      <option value="wander">wander</option>
+                      <option value="idea">idea</option>
+                    </select>
+                  </li>
+                  <li>
+                    <p>Happy to share or give to others.</p>
+                    <label for="definition-4" class="sr-only">Choose the word that means happy to share.</label>
+                    <select id="definition-4" data-answer="generous" required>
+                      <option value="">Select a word</option>
+                      <option value="glisten">glisten</option>
+                      <option value="generous">generous</option>
+                      <option value="wander">wander</option>
+                      <option value="idea">idea</option>
+                    </select>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <div class="lesson-actions">
+          <button id="check-matches" class="button" type="button">Check Answers</button>
+          <button id="reset-matches" class="button secondary" type="button">Reset</button>
+          <a class="button secondary" href="../index.html">Back to Dashboard</a>
+        </div>
+
+        <p id="matching-feedback" class="feedback" aria-live="polite"></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="../scripts/progress.js"></script>
+  <script>
+    const lessonId = 'english2';
+    const definitionSelects = Array.from(document.querySelectorAll('.definition-list select'));
+    const feedback = document.getElementById('matching-feedback');
+    const progressBar = document.getElementById('vocab-progress');
+    const progressTrack = document.querySelector(".progress-track[aria-label='Vocabulary completion']");
+    const matchedCount = document.getElementById('matched-count');
+    const checkBtn = document.getElementById('check-matches');
+    const resetBtn = document.getElementById('reset-matches');
+    let lessonStart = performance.now();
+
+    function evaluateMatches() {
+      let correct = 0;
+      for (const select of definitionSelects) {
+        if (select.value === select.dataset.answer) {
+          correct += 1;
+          select.classList.add('correct');
+          select.classList.remove('incorrect');
+        } else {
+          select.classList.remove('correct');
+          if (select.value) {
+            select.classList.add('incorrect');
+          } else {
+            select.classList.remove('incorrect');
+          }
+        }
+      }
+      return correct;
+    }
+
+    checkBtn.addEventListener('click', () => {
+      const correct = evaluateMatches();
+      matchedCount.textContent = correct;
+      const completion = Math.round((correct / definitionSelects.length) * 100);
+      progressBar.style.width = `${completion}%`;
+      progressTrack.setAttribute('aria-valuenow', completion.toString());
+      const elapsed = performance.now() - lessonStart;
+
+      if (correct === definitionSelects.length) {
+        feedback.textContent = 'Fantastic! Every word is paired with the right meaning.';
+        feedback.classList.add('success');
+        feedback.classList.remove('error');
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed
+        });
+      } else {
+        feedback.textContent = 'Keep trying. Review the story and adjust the matches you are unsure about.';
+        feedback.classList.add('error');
+        feedback.classList.remove('success');
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: completion,
+          durationMs: elapsed,
+          completed: false
+        });
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      definitionSelects.forEach((select) => {
+        select.value = '';
+        select.classList.remove('correct', 'incorrect');
+      });
+      matchedCount.textContent = '0';
+      feedback.textContent = '';
+      feedback.classList.remove('success', 'error');
+      progressBar.style.width = '0%';
+      progressTrack.setAttribute('aria-valuenow', '0');
+      definitionSelects[0].focus();
+      lessonStart = performance.now();
+    });
+  </script>
+</body>
+</html>

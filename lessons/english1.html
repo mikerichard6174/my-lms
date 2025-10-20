@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4 - Story Sequencing</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="../subjects/math.html">Math Adventures</a></li>
+            <li><a href="../subjects/english.html" aria-current="page">English Explorers</a></li>
+            <li><a href="../subjects/science.html">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Lesson 4</span>
+      </nav>
+
+      <header class="lesson-header">
+        <div>
+          <h1>Lesson 4: Story Sequencing</h1>
+          <div class="lesson-meta">
+            <p>Read Penny's beach adventure and decide what happened first, next, and last.</p>
+            <p><strong>Objective:</strong> Arrange story events in chronological order.</p>
+            <ul class="lesson-objectives">
+              <li>Identify the beginning, middle, and end of a short story.</li>
+              <li>Use context clues to determine what happens next.</li>
+              <li>Explain why the sequence makes sense.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Sequence progress overview">
+          <span>Step</span>
+          <strong>1/1</strong>
+          <p>Place each event where it belongs.</p>
+        </aside>
+      </header>
+
+      <section class="lesson-content">
+        <article class="story-card">
+          <h2>Penny's Beach Day</h2>
+          <p>Penny loves to look for treasures by the sea. Today she took her bucket and walked along the warm sand.</p>
+          <p>Read the sentences below and decide the order in which they happened.</p>
+        </article>
+
+        <div class="progress-track" role="progressbar" aria-label="Story order completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="sequence-progress" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <form class="sequence-activity" aria-labelledby="sequence-title" novalidate>
+          <fieldset>
+            <legend id="sequence-title">Arrange the events</legend>
+            <div class="sequence-steps">
+              <label for="beginning">
+                Beginning
+                <select id="beginning" required>
+                  <option value="">Choose an event</option>
+                  <option value="shell">Penny found a shiny shell sparkling in the sunshine.</option>
+                  <option value="max">She showed the shell to her brother, Max.</option>
+                  <option value="collection">They added the shell to their treasure collection at home.</option>
+                </select>
+              </label>
+              <label for="middle">
+                Middle
+                <select id="middle" required>
+                  <option value="">Choose an event</option>
+                  <option value="shell">Penny found a shiny shell sparkling in the sunshine.</option>
+                  <option value="max">She showed the shell to her brother, Max.</option>
+                  <option value="collection">They added the shell to their treasure collection at home.</option>
+                </select>
+              </label>
+              <label for="ending">
+                Ending
+                <select id="ending" required>
+                  <option value="">Choose an event</option>
+                  <option value="shell">Penny found a shiny shell sparkling in the sunshine.</option>
+                  <option value="max">She showed the shell to her brother, Max.</option>
+                  <option value="collection">They added the shell to their treasure collection at home.</option>
+                </select>
+              </label>
+            </div>
+            <div class="lesson-actions">
+              <button id="check-sequence" class="button" type="button">Check My Order</button>
+              <button id="reset-sequence" class="button secondary" type="button">Try Again</button>
+              <a class="button secondary" href="../index.html">Back to Dashboard</a>
+            </div>
+          </fieldset>
+        </form>
+
+        <p id="sequence-feedback" class="feedback" aria-live="polite"></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="../scripts/progress.js"></script>
+  <script>
+    const lessonId = "english1";
+    const answers = {
+      beginning: "shell",
+      middle: "max",
+      ending: "collection"
+    };
+
+    const selects = {
+      beginning: document.getElementById("beginning"),
+      middle: document.getElementById("middle"),
+      ending: document.getElementById("ending")
+    };
+
+    const feedback = document.getElementById("sequence-feedback");
+    const progressBar = document.getElementById("sequence-progress");
+    const progressTrack = document.querySelector(".progress-track[aria-label='Story order completion']");
+    const checkBtn = document.getElementById("check-sequence");
+    const resetBtn = document.getElementById("reset-sequence");
+    let lessonStart = performance.now();
+
+    const allValuesSelected = () =>
+      Object.values(selects).every((select) => select.value);
+
+    const hasUniqueChoices = () => {
+      const values = Object.values(selects).map((select) => select.value);
+      return new Set(values).size === values.length;
+    };
+
+    checkBtn.addEventListener("click", () => {
+      if (!allValuesSelected()) {
+        feedback.textContent = "Choose an event for each part of the story.";
+        feedback.classList.remove("success");
+        feedback.classList.add("error");
+        return;
+      }
+
+      if (!hasUniqueChoices()) {
+        feedback.textContent = "Each event should be used only once. Try mixing them up.";
+        feedback.classList.remove("success");
+        feedback.classList.add("error");
+        return;
+      }
+
+      const entries = Object.entries(selects);
+      const correctSelections = entries.filter(([key, select]) => select.value === answers[key]).length;
+      const percent = Math.round((correctSelections / entries.length) * 100);
+      const elapsed = performance.now() - lessonStart;
+      const isCorrect = correctSelections === entries.length;
+
+      if (isCorrect) {
+        feedback.textContent = "Great sequencing! That's exactly how Penny's adventure happened.";
+        feedback.classList.remove("error");
+        feedback.classList.add("success");
+        progressBar.style.width = "100%";
+        progressTrack.setAttribute("aria-valuenow", "100");
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed
+        });
+      } else {
+        feedback.textContent = "Close! Re-read the sentences and try a different order.";
+        feedback.classList.remove("success");
+        feedback.classList.add("error");
+        progressBar.style.width = `${percent}%`;
+        progressTrack.setAttribute("aria-valuenow", String(percent));
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
+          durationMs: elapsed,
+          completed: false
+        });
+      }
+    });
+
+    resetBtn.addEventListener("click", () => {
+      Object.values(selects).forEach((select) => {
+        select.value = "";
+      });
+      feedback.textContent = "";
+      feedback.classList.remove("success", "error");
+      progressBar.style.width = "0%";
+      progressTrack.setAttribute("aria-valuenow", "0");
+      selects.beginning.focus();
+      lessonStart = performance.now();
+    });
+  </script>
+</body>
+</html>

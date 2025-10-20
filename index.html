@@ -1,71 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My LMS Home</title>
-<link rel="stylesheet" href="styles/style.css">
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    margin: 0;
-    padding: 0;
-  }
-
-  header {
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 2rem 1rem;
-  }
-
-  main {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .lesson-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-
-  .lesson-item {
-    background: white;
-    padding: 1rem;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #333;
-    font-size: 1.2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .lesson-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My LMS Home</title>
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
 
-<header>
-  <h1>Welcome to My LMS</h1>
-  <p>Select a lesson to get started!</p>
-</header>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="subjects/math.html">Math Adventures</a></li>
+            <li><a href="subjects/english.html">English Explorers</a></li>
+            <li><a href="subjects/science.html">Science Lab</a></li>
+            <li><a href="#progress-tracker">Progress Tracker</a></li>
+            <li><a href="parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
 
-<main>
-  <div class="lesson-list">
-    <a href="lessons/lesson1.html" class="lesson-item">Lesson 1: Learning Numbers (Multiple Choice Quiz)</a>
-    <a href="lessons/lesson2.html" class="lesson-item">Lesson 2: Counting Objects (Drag-and-Drop)</a>
-    <a href="lessons/lesson3.html" class="lesson-item">Lesson 3: Number to Word Matching</a>
-    <!-- Add more lessons here as you create them -->
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="dashboard">
+      <section class="hero-card">
+        <div>
+          <h1>Welcome back, Superstar!</h1>
+          <p>Your learning journey updates in real time with every lesson you complete. Jump into the next activity or review today's schedule crafted by your parent.</p>
+          <div class="lesson-actions">
+            <a class="button" data-next-lesson href="lessons/lesson1.html">
+              Continue <span data-next-lesson-label>Math Adventures • Lesson 1: Learning Numbers</span>
+            </a>
+            <a class="button secondary" href="parent-dashboard.html">Parent Dashboard</a>
+          </div>
+        </div>
+        <div class="hero-illustration" aria-hidden="true">
+          <img src="assets/learning-illustration.svg" alt="Student studying with books and laptop" />
+        </div>
+      </section>
+
+      <section id="today" class="dashboard-grid" aria-label="Today's highlights">
+        <article class="dashboard-card">
+          <header>
+            <span data-focus-status>Today's Focus</span>
+            <span class="status-pill">Live</span>
+          </header>
+          <div>
+            <h3 data-focus-title>Keep exploring new lessons</h3>
+            <p data-focus-description>Daily recommendations will appear here once lessons are scheduled.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-focus-progress style="width: 0%"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="dashboard-card">
+          <header>
+            <span>Today's Schedule</span>
+          </header>
+          <div>
+            <ul class="lesson-list" data-today-schedule>
+              <li>No scheduled lessons today. Add items from the parent dashboard.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dashboard-card" id="reading-highlight">
+          <header>
+            <span>Recent Achievements</span>
+          </header>
+          <div>
+            <ul class="lesson-list" data-achievements>
+              <li>Complete your first lesson to start earning achievements!</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="dashboard-card" id="science-highlight" data-subject-spotlight>
+          <header>
+            <span>Subject Spotlight</span>
+          </header>
+          <div>
+            <h3>Science Spotlight</h3>
+            <p>You're 0% complete. Focus on discovery activities to boost progress.</p>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <p class="next-up" aria-live="polite">Next Up: <span data-next-up>Math Adventures: Learning Numbers</span></p>
+          </div>
+        </article>
+      </section>
+
+      <section id="progress-tracker" class="dashboard-grid" aria-label="Student progress tracker">
+        <article class="dashboard-card progress-card" data-attendance-card>
+          <header>
+            <span>Weekly Goal</span>
+            <span class="status-pill" data-status>3 of 5 days</span>
+          </header>
+          <div>
+            <h3>Attendance</h3>
+            <p>You have logged learning time on three days this week. Keep the streak alive!</p>
+            <div class="progress-track" role="progressbar" aria-label="Weekly attendance" aria-valuemin="0" aria-valuemax="5" aria-valuenow="3" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 60%"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="dashboard-card progress-card" data-subject-progress="math">
+          <header>
+            <span>Math Mastery</span>
+            <span class="status-pill" data-status>0 of 3 lessons</span>
+          </header>
+          <div>
+            <h3>Numbers &amp; Operations</h3>
+            <p>Track growth across counting, comparison, and early operations.</p>
+            <div class="progress-track" role="progressbar" aria-label="Math progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
+          </div>
+        </article>
+
+        <article class="dashboard-card progress-card" data-subject-progress="english">
+          <header>
+            <span>English Explorer</span>
+            <span class="status-pill" data-status>0 of 2 lessons</span>
+          </header>
+          <div>
+            <h3>Reading Fluency</h3>
+            <p>Strengthen story sequencing and vocabulary with interactive practice.</p>
+            <div class="progress-track" role="progressbar" aria-label="English progress" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
+          </div>
+        </article>
+
+        <article class="dashboard-card progress-card" data-subject-progress="science">
+          <header>
+            <span>Science Scientist</span>
+            <span class="status-pill" data-status>0 of 2 lessons</span>
+          </header>
+          <div>
+            <h3>Inquiry Skills</h3>
+            <p>Complete observations and experiments to power up your scientist level.</p>
+            <div class="progress-track" role="progressbar" aria-label="Science progress" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
+              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+            </div>
+            <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
+          </div>
+        </article>
+        <div class="progress-reset" role="group" aria-label="Progress controls">
+          <button class="button secondary" type="button" data-reset-progress>Reset Progress</button>
+          <p>This clears the saved lesson progress on this device so you can start again.</p>
+          <p class="reset-message" aria-live="polite" data-reset-message></p>
+        </div>
+      </section>
+
+      <section class="subject-overview" aria-label="Subject quick links">
+        <article class="subject-card" data-subject-progress="math">
+          <h2>Math Adventures</h2>
+          <p>Counting, comparing, and building number fluency.</p>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <a class="button tertiary" href="subjects/math.html">Explore Math Pathways</a>
+        </article>
+        <article class="subject-card" data-subject-progress="english">
+          <h2>English Explorers</h2>
+          <p>Story structure, vocabulary, and communication skills.</p>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <a class="button tertiary" href="subjects/english.html">Explore English Pathways</a>
+        </article>
+        <article class="subject-card" data-subject-progress="science">
+          <h2>Science Lab</h2>
+          <p>Investigations, observations, and real-world science connections.</p>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <a class="button tertiary" href="subjects/science.html">Explore Science Pathways</a>
+        </article>
+      </section>
+    </main>
   </div>
-</main>
-
+  <script src="scripts/progress.js"></script>
 </body>
 </html>
