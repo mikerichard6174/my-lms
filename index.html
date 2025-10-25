@@ -3,353 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My LMS Home</title>
+  <title>My Learning Hub · Sign In</title>
   <link rel="stylesheet" href="styles/style.css">
 </head>
-<body>
-  <div class="app-layout">
-    <aside class="app-nav">
-      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+<body class="auth-body">
+  <main class="auth-landing" aria-labelledby="auth-heading">
+    <header class="auth-landing-header">
+      <div>
+        <h1 id="auth-heading">Welcome to My Learning Hub</h1>
+        <p>Select your role to access personalized tools, schedules, and progress tracking.</p>
+      </div>
+      <div class="auth-landing-help">
+        <p><strong>Demo accounts:</strong></p>
+        <ul>
+          <li>Student — <code>student1</code> / <code>StudentPass123!</code></li>
+          <li>Parent — <code>parent1</code> / <code>ParentPass123!</code></li>
+          <li>Teacher — <code>teacher1</code> / <code>TeacherPass123!</code></li>
+          <li>Administrator — <code>admin1</code> / <code>AdminPass123!</code></li>
+        </ul>
+      </div>
+    </header>
 
-      <section class="nav-section">
-        <h2>Grades</h2>
-        <nav aria-label="Grade navigation">
-          <ul class="nav-links nav-links-compact">
-            <li><a href="grades/grade-k.html">Kindergarten</a></li>
-            <li><a href="grades/grade-1.html">Grade 1</a></li>
-            <li><a href="grades/grade-2.html">Grade 2</a></li>
-            <li><a href="grades/grade-3.html">Grade 3</a></li>
-            <li><a href="grades/grade-4.html">Grade 4</a></li>
-            <li><a href="grades/grade-5.html">Grade 5</a></li>
-            <li><a href="grades/grade-6.html">Grade 6</a></li>
-            <li><a href="grades/grade-7.html">Grade 7</a></li>
-            <li><a href="grades/grade-8.html">Grade 8</a></li>
-            <li><a href="grades/grade-9.html">Grade 9</a></li>
-            <li><a href="grades/grade-10.html">Grade 10</a></li>
-            <li><a href="grades/grade-11.html">Grade 11</a></li>
-            <li><a href="grades/grade-12.html">Grade 12</a></li>
-          </ul>
-        </nav>
-      </section>
-
-      <section class="nav-section">
-        <h2>Quick Links</h2>
-        <nav aria-label="Utility navigation">
-          <ul class="nav-links">
-            <li><a href="index.html" aria-current="page">Home Dashboard</a></li>
-            <li><a href="#progress-tracker">Progress Tracker</a></li>
-            <li><a href="parent-dashboard.html">Parent Controls</a></li>
-            <li><a href="auth/login.html">Sign In</a></li>
-          </ul>
-        </nav>
-      </section>
-
-      <section class="nav-progress" aria-label="Overall progress">
-        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
-      </section>
-    </aside>
-
-    <main class="dashboard">
-      <section class="hero-card">
-        <div>
-          <h1>Welcome back, Superstar!</h1>
-          <p>Your learning journey updates in real time with every lesson you complete. Jump into the next activity or review today's schedule crafted by your parent.</p>
-          <div class="lesson-actions">
-            <a class="button" data-next-lesson href="lessons/lesson1.html">
-              Continue <span data-next-lesson-label>Math Adventures • Lesson 1: Learning Numbers</span>
-            </a>
-            <a class="button secondary" href="parent-dashboard.html">Parent Dashboard</a>
-          </div>
-        </div>
-        <div class="hero-illustration" aria-hidden="true">
-          <img src="assets/learning-illustration.svg" alt="Student studying with books and laptop" />
-        </div>
-      </section>
-
-      <section id="today" class="dashboard-grid dashboard-grid-stacked" aria-label="Today's highlights">
-        <article class="dashboard-card">
-          <header>
-            <span data-focus-status>Today's Focus</span>
-            <span class="status-pill">Live</span>
-          </header>
-          <div>
-            <h3 data-focus-title>Keep exploring new lessons</h3>
-            <p data-focus-description>Daily recommendations will appear here once lessons are scheduled.</p>
-            <div class="progress-track" aria-hidden="true">
-              <div class="progress-bar" data-focus-progress style="width: 0%"></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="dashboard-card">
-          <header>
-            <span>Today's Schedule</span>
-          </header>
-          <div>
-            <ul class="lesson-list" data-today-schedule>
-              <li>No scheduled lessons today. Add items from the parent dashboard.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="dashboard-card" id="reading-highlight">
-          <header>
-            <span>Recent Achievements</span>
-          </header>
-          <div>
-            <ul class="lesson-list" data-achievements>
-              <li>Complete your first lesson to start earning achievements!</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="dashboard-card" id="science-highlight" data-subject-spotlight>
-          <header>
-            <span>Subject Spotlight</span>
-          </header>
-          <div>
-            <h3>Science Spotlight</h3>
-            <p>You're 0% complete. Focus on discovery activities to boost progress.</p>
-            <div class="progress-track" aria-hidden="true">
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <p class="next-up" aria-live="polite">Next Up: <span data-next-up>Math Adventures: Learning Numbers</span></p>
-          </div>
-        </article>
-      </section>
-
-      <section id="progress-tracker" class="dashboard-grid" aria-label="Student progress tracker">
-        <article class="dashboard-card progress-card" data-attendance-card>
-          <header>
-            <span>Weekly Goal</span>
-            <span class="status-pill" data-status>3 of 5 days</span>
-          </header>
-          <div>
-            <h3>Attendance</h3>
-            <p>You have logged learning time on three days this week. Keep the streak alive!</p>
-            <div class="progress-track" role="progressbar" aria-label="Weekly attendance" aria-valuemin="0" aria-valuemax="5" aria-valuenow="3" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 60%"></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="dashboard-card progress-card" data-subject-progress="math">
-          <header>
-            <span>Math Mastery</span>
-            <span class="status-pill" data-status>0 of 3 lessons</span>
-          </header>
-          <div>
-            <h3>Numbers &amp; Operations</h3>
-            <p>Track growth across counting, comparison, and early operations.</p>
-            <div class="progress-track" role="progressbar" aria-label="Math progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
-          </div>
-        </article>
-
-        <article class="dashboard-card progress-card" data-subject-progress="english">
-          <header>
-            <span>English Explorer</span>
-            <span class="status-pill" data-status>0 of 2 lessons</span>
-          </header>
-          <div>
-            <h3>Reading Fluency</h3>
-            <p>Strengthen story sequencing and vocabulary with interactive practice.</p>
-            <div class="progress-track" role="progressbar" aria-label="English progress" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
-          </div>
-        </article>
-
-        <article class="dashboard-card progress-card" data-subject-progress="science">
-          <header>
-            <span>Science Scientist</span>
-            <span class="status-pill" data-status>0 of 2 lessons</span>
-          </header>
-          <div>
-            <h3>Inquiry Skills</h3>
-            <p>Complete observations and experiments to power up your scientist level.</p>
-            <div class="progress-track" role="progressbar" aria-label="Science progress" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <p class="goal-line">Goal: <span data-goal>No goal set</span></p>
-          </div>
-        </article>
-        <div class="progress-reset" role="group" aria-label="Progress controls">
-          <button class="button secondary" type="button" data-reset-progress>Reset Progress</button>
-          <p>This clears the saved lesson progress on this device so you can start again.</p>
-          <p class="reset-message" aria-live="polite" data-reset-message></p>
-        </div>
-      </section>
-
-      <section class="grade-directory" aria-label="Browse learning by grade">
-        <header class="grade-directory-header">
-          <h2>Browse Learning by Grade</h2>
-          <p>Select a grade level to explore its subject pathways and detailed lesson plans.</p>
+    <section class="auth-landing-panels" aria-label="Role-based sign in">
+      <article class="auth-panel" data-role="student">
+        <header>
+          <h2>Student Sign In</h2>
+          <p>Access your dashboard, lessons, and progress tracker.</p>
         </header>
-        <div class="grade-grid">
-          <a class="grade-card" data-grade-progress="grade-k" href="grades/grade-k.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">K</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Kindergarten</h3>
-            <p data-grade-summary>Play-based readiness with letters, sounds, and number exploration.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-1" href="grades/grade-1.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">1</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 1</h3>
-            <p data-grade-summary>Strengthen foundational reading, vocabulary, and counting fluency.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-2" href="grades/grade-2.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">2</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 2</h3>
-            <p data-grade-summary>Grow comprehension, multi-digit operations, and simple science investigations.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-3" href="grades/grade-3.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">3</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 3</h3>
-            <p data-grade-summary>Introduce fractions, paragraph reading, and lab-style experiments.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-4" href="grades/grade-4.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">4</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 4</h3>
-            <p data-grade-summary>Expand critical reading, multi-step problem solving, and earth science projects.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-5" href="grades/grade-5.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">5</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 5</h3>
-            <p data-grade-summary>Prepare for middle school with advanced fluency, fractions, and inquiry labs.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-6" href="grades/grade-6.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">6</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 6</h3>
-            <p data-grade-summary>Build middle school readiness across ratios, literary analysis, and ecosystems.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-7" href="grades/grade-7.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">7</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 7</h3>
-            <p data-grade-summary>Connect proportional reasoning, structured writing, and life science labs.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-8" href="grades/grade-8.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">8</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 8</h3>
-            <p data-grade-summary>Solidify algebra foundations, argument writing, and physical science concepts.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-9" href="grades/grade-9.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">9</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 9</h3>
-            <p data-grade-summary>Launch high school pathways with algebra, literary themes, and biology studies.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-10" href="grades/grade-10.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">10</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 10</h3>
-            <p data-grade-summary>Deepen geometry, world literature, and chemistry investigations.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-11" href="grades/grade-11.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">11</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 11</h3>
-            <p data-grade-summary>Prepare for college-level math, American literature, and physics applications.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-          <a class="grade-card" data-grade-progress="grade-12" href="grades/grade-12.html">
-            <div class="grade-card-top">
-              <span class="grade-badge">12</span>
-              <span class="grade-progress-value" data-grade-percent>0%</span>
-            </div>
-            <h3>Grade 12</h3>
-            <p data-grade-summary>Capstone year with calculus readiness, rhetoric, and advanced science research.</p>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
-              <div class="progress-bar" data-progress-bar style="width: 0%"></div>
-            </div>
-            <span class="grade-status" data-status>No lessons yet</span>
-          </a>
-        </div>
-      </section>
-    </main>
-  </div>
-  <script src="scripts/progress.js"></script>
+        <form class="auth-form" data-role-form="student">
+          <label>
+            Username or Email
+            <input type="text" name="identifier" autocomplete="username" required>
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" autocomplete="current-password" required>
+          </label>
+          <button type="submit" class="button">Enter Student Dashboard</button>
+          <p class="form-feedback" data-feedback role="alert" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <article class="auth-panel" data-role="parent">
+        <header>
+          <h2>Parent Sign In</h2>
+          <p>Manage schedules, goals, and view student performance.</p>
+        </header>
+        <form class="auth-form" data-role-form="parent">
+          <label>
+            Email or Username
+            <input type="text" name="identifier" autocomplete="username" required>
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" autocomplete="current-password" required>
+          </label>
+          <button type="submit" class="button">Open Parent Dashboard</button>
+          <p class="form-feedback" data-feedback role="alert" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <article class="auth-panel" data-role="teacher">
+        <header>
+          <h2>Teacher Sign In</h2>
+          <p>Assign lessons, monitor class pacing, and coordinate interventions.</p>
+        </header>
+        <form class="auth-form" data-role-form="teacher">
+          <label>
+            Username or Email
+            <input type="text" name="identifier" autocomplete="username" required>
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" autocomplete="current-password" required>
+          </label>
+          <button type="submit" class="button">Launch Teacher Center</button>
+          <p class="form-feedback" data-feedback role="alert" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <article class="auth-panel" data-role="administrator">
+        <header>
+          <h2>Administrator Sign In</h2>
+          <p>Configure the LMS, manage users, and audit performance across the district.</p>
+        </header>
+        <form class="auth-form" data-role-form="administrator">
+          <label>
+            Username or Email
+            <input type="text" name="identifier" autocomplete="username" required>
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" autocomplete="current-password" required>
+          </label>
+          <button type="submit" class="button">Enter Admin Control Center</button>
+          <p class="form-feedback" data-feedback role="alert" aria-live="polite"></p>
+        </form>
+      </article>
+    </section>
+
+    <footer class="auth-landing-footer">
+      <p>Need an account? Contact your administrator to create linked parent and student profiles.</p>
+    </footer>
+  </main>
+  <script type="module" src="scripts/auth.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@
   <title>Lesson 4 - Story Adventure</title>
   <link rel="stylesheet" href="../styles/style.css">
 </head>
-<body>
+<body data-required-role="student">
   <div class="app-layout">
     <aside class="app-nav">
       <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
@@ -34,10 +34,9 @@
         <h2>Quick Links</h2>
         <nav aria-label="Utility navigation">
           <ul class="nav-links">
-            <li><a href="../index.html">Home Dashboard</a></li>
-            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
-            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
-            <li><a href="../auth/login.html">Sign In</a></li>
+            <li><a href="../frontend/student/dashboard.html">Student Home</a></li>
+            <li><a href="../frontend/student/dashboard.html#progress-tracker">Progress Tracker</a></li>
+            <li><button type="button" class="link-button" data-sign-out>Sign Out</button></li>
           </ul>
         </nav>
       </section>
@@ -48,7 +47,7 @@
 
     <main class="app-content">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <a href="../index.html">Home</a>
+        <a href="../frontend/student/dashboard.html">Home</a>
         <span aria-hidden="true">›</span>
         <a href="../grades/grade-1.html">Grade 1</a>
         <span aria-hidden="true">›</span>
@@ -153,7 +152,7 @@
               <div class="lesson-actions">
                 <button id="share-feeling" class="button" type="submit">Share My Ending</button>
                 <button id="reset-story" class="button secondary" type="button">Start Over</button>
-                <a class="button secondary" href="../index.html">Back to Dashboard</a>
+                <a class="button secondary" href="../frontend/student/dashboard.html">Back to Dashboard</a>
               </div>
             </form>
           </article>
@@ -168,6 +167,7 @@
     </main>
   </div>
 
+  <script type="module" src="../scripts/session.js"></script>
   <script src="../scripts/progress.js"></script>
   <script>
     const lessonId = "english1";

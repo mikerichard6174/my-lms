@@ -6,7 +6,7 @@
   <title>Grade 4 Learning Hub</title>
   <link rel="stylesheet" href="../styles/style.css">
 </head>
-<body>
+<body data-required-role="student">
   <div class="app-layout">
     <aside class="app-nav">
       <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
@@ -34,10 +34,9 @@
         <h2>Quick Links</h2>
         <nav aria-label="Utility navigation">
           <ul class="nav-links">
-            <li><a href="../index.html">Home Dashboard</a></li>
-            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
-            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
-            <li><a href="../auth/login.html">Sign In</a></li>
+            <li><a href="../frontend/student/dashboard.html">Student Home</a></li>
+            <li><a href="../frontend/student/dashboard.html#progress-tracker">Progress Tracker</a></li>
+            <li><button type="button" class="link-button" data-sign-out>Sign Out</button></li>
           </ul>
         </nav>
       </section>
@@ -48,7 +47,7 @@
 
     <main class="app-content grade-content">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <a href="../index.html">Home</a>
+        <a href="../frontend/student/dashboard.html">Student Dashboard</a>
         <span aria-hidden="true">›</span>
         <span>Grade 4</span>
       </nav>
@@ -127,6 +126,7 @@
       </section>
     </main>
   </div>
+  <script type="module" src="../scripts/session.js"></script>
   <script src="../scripts/progress.js"></script>
 </body>
 </html>

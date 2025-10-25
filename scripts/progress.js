@@ -1,5 +1,13 @@
 (function () {
-  const STORAGE_KEY = "my-lms-progress-v2";
+  const STORAGE_KEY_BASE = "my-lms-progress-v2";
+
+  const storageKey = () => {
+    const user = window.LMSUser;
+    if (user && user.id) {
+      return `${STORAGE_KEY_BASE}-${user.id}`;
+    }
+    return STORAGE_KEY_BASE;
+  };
 
   const SUBJECTS = {
     math: {
@@ -276,7 +284,7 @@
       return clone(defaultState);
     }
 
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(storageKey());
     if (!raw) {
       return clone(defaultState);
     }
@@ -347,7 +355,7 @@
     if (!storageAvailable) {
       return;
     }
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    window.localStorage.setItem(storageKey(), JSON.stringify(state));
   }
 
   function cryptoRandomId() {
@@ -920,6 +928,11 @@
       }
     }
   }
+
+  window.addEventListener("lms:user-ready", () => {
+    state = loadState();
+    updateDashboard();
+  });
 
   document.addEventListener("DOMContentLoaded", () => {
     updateDashboard();
