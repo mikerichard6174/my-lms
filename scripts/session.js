@@ -1,10 +1,3 @@
-/**
- * Shared session bootstrapper loaded on every protected portal page.
- * It validates the active JWT, exposes the hydrated LMS user on `window`, and
- * redirects visitors who attempt to open a page outside of their permission
- * scope.
- */
-
 const API_BASE = '/api';
 const SESSION_KEY = 'lms:session';
 const LOGIN_PAGE = '/index.html';
@@ -16,11 +9,6 @@ const roleRedirect = {
   administrator: '/frontend/admin/dashboard.html'
 };
 
-/**
- * Fetches the authenticated session. Redirects to the login hub if the stored
- * token is missing or invalid.
- * @returns {Promise<{token:string, user:object}|null>}
- */
 async function fetchSession() {
   const stored = localStorage.getItem(SESSION_KEY);
   if (!stored) {
@@ -53,11 +41,6 @@ async function fetchSession() {
   }
 }
 
-/**
- * Hydrates DOM placeholders with the active user's display name and hides
- * elements restricted to other roles.
- * @param {{displayName:string, username:string, role:string}} user
- */
 function applyUserContext(user) {
   document.querySelectorAll('[data-user-display-name]').forEach((el) => {
     el.textContent = user.displayName || user.username;
@@ -74,10 +57,6 @@ function applyUserContext(user) {
   });
 }
 
-/**
- * Attaches click handlers that destroy the session token and return the user to
- * the shared login page.
- */
 function bindSignOut() {
   document.querySelectorAll('[data-sign-out]').forEach((button) => {
     button.addEventListener('click', () => {

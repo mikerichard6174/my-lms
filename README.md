@@ -39,14 +39,6 @@ The service boots on port `4000` by default, seeds demo accounts for each role, 
 - `assets/` – images and media referenced by lessons.
 - `backend/` – Express server, SQLite schema bootstrapping, and seeded demo roles.
 
-## Documentation
-
-- [`docs/architecture.md`](docs/architecture.md) – system topology, request flow, and persistence overview.
-- [`docs/backend/api.md`](docs/backend/api.md) – REST endpoint contracts, request/response payloads, and environment configuration.
-- [`docs/frontend/progress-module.md`](docs/frontend/progress-module.md) – public API for the client-side progress engine, DOM hooks, and extension guidance.
-- [`docs/roles-and-permissions.md`](docs/roles-and-permissions.md) – breakdown of each persona, default permissions, and how to extend the RBAC model.
-- [`docs/mockups/`](docs/mockups/) – generator script for the login hub and student dashboard mockups; run it locally to export PNG previews.
-
 ## Features
 - **Role-based access:** A unified login funnels students, parents, teachers, and administrators into tailored dashboards backed by a seeded SQLite user store.
 - **Grade coverage:** Kindergarten through Grade 12 pages outline subject expectations, with Grade 1 offering interactive Math, English, and Science lessons that mirror Time4Learning-style interactivity.

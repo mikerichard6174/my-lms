@@ -1,13 +1,4 @@
 (function () {
-  /**
-   * Progress orchestration module
-   * ------------------------------
-   * This file manages every bit of front-end state related to lessons,
-   * completion metrics, goals, schedules, and dashboard rendering. The
-   * functions are intentionally verbose and accompanied by documentation so
-   * designers, curriculum authors, and engineers can reason about how the
-   * student experience is assembled without tracing through minified logic.
-   */
   const STORAGE_KEY_BASE = "my-lms-progress-v2";
 
   const storageKey = () => {
@@ -288,11 +279,6 @@
 
   let state = loadState();
 
-  /**
-   * Restores persisted progress from localStorage, merging it with defaults so
-   * newly introduced fields receive sensible initial values.
-   * @returns {typeof defaultState}
-   */
   function loadState() {
     if (!storageAvailable) {
       return clone(defaultState);
@@ -365,9 +351,6 @@
     }
   }
 
-  /**
-   * Serialises the current state tree to localStorage (when available).
-   */
   function persistState() {
     if (!storageAvailable) {
       return;
@@ -375,11 +358,6 @@
     window.localStorage.setItem(storageKey(), JSON.stringify(state));
   }
 
-  /**
-   * Generates a stable unique identifier for schedule rows when the browser
-   * supports `crypto.randomUUID`, otherwise falls back to Math.random.
-   * @returns {string}
-   */
   function cryptoRandomId() {
     if (window.crypto && window.crypto.randomUUID) {
       return window.crypto.randomUUID();
@@ -387,11 +365,6 @@
     return `id-${Math.random().toString(16).slice(2, 10)}`;
   }
 
-  /**
-   * Retrieves (and initialises if necessary) the progress record for a lesson.
-   * @param {string} lessonId
-   * @returns {ReturnType<typeof defaultLessonState>|null}
-   */
   function getLessonRecord(lessonId) {
     if (!lessonIndex[lessonId]) {
       return null;
@@ -404,11 +377,6 @@
     return record;
   }
 
-  /**
-   * Applies a shallow merge to a lesson record and persists the change.
-   * @param {string} lessonId
-   * @param {Partial<ReturnType<typeof defaultLessonState>>} partial
-   */
   function setLessonMetrics(lessonId, partial) {
     const record = getLessonRecord(lessonId);
     if (!record) {
@@ -418,12 +386,6 @@
     persistState();
   }
 
-  /**
-   * Records a learner attempt, updating score, attempts, duration, and history
-   * arrays before refreshing dependent UI widgets.
-   * @param {string} lessonId
-   * @param {{score:number|null, durationMs:number, completed:boolean}} options
-   */
   function recordLessonAttempt(lessonId, { score = null, durationMs = 0, completed = false } = {}) {
     const record = getLessonRecord(lessonId);
     if (!record) {
@@ -456,21 +418,10 @@
     updateDashboard();
   }
 
-  /**
-   * Convenience wrapper to flag a lesson as complete while optionally storing
-   * additional attempt metadata.
-   * @param {string} lessonId
-   * @param {{score:number|null, durationMs:number}} details
-   */
   function markLessonComplete(lessonId, details = {}) {
     recordLessonAttempt(lessonId, { ...details, completed: true });
   }
 
-  /**
-   * Clears the persisted data for a specific lesson, effectively returning it
-   * to a "not started" state.
-   * @param {string} lessonId
-   */
   function resetLessonProgress(lessonId) {
     const record = getLessonRecord(lessonId);
     if (!record) {
@@ -482,31 +433,17 @@
     updateDashboard();
   }
 
-  /**
-   * Nukes all learner state. Typically invoked from the parent reset control.
-   */
   function resetAllProgress() {
     state = clone(defaultState);
     persistState();
     updateDashboard();
   }
 
-  /**
-   * Returns whether a given lesson is marked complete.
-   * @param {string} lessonId
-   * @returns {boolean}
-   */
   function getLessonProgress(lessonId) {
     const record = getLessonRecord(lessonId);
     return record ? Boolean(record.completed) : false;
   }
 
-  /**
-   * Calculates progress metrics for a subject, optionally scoped to a grade.
-   * @param {string} subjectId
-   * @param {{gradeId?:string}} options
-   * @returns {{completed:number,total:number,percent:number}}
-   */
   function computeSubjectProgress(subjectId, options = {}) {
     const { gradeId = null } = options || {};
     const lessons = gradeId
@@ -518,12 +455,6 @@
     return { completed, total, percent };
   }
 
-  /**
-   * Calculates progress for a specific subject/category combination.
-   * @param {string} subjectId
-   * @param {string} categoryId
-   * @param {{gradeId?:string}} options
-   */
   function computeCategoryProgress(subjectId, categoryId, options = {}) {
     const { gradeId = null } = options || {};
     const lessons = gradeId
@@ -535,10 +466,6 @@
     return { completed, total, percent };
   }
 
-  /**
-   * Summarises progress across all lessons attached to a grade level.
-   * @param {string} gradeId
-   */
   function computeGradeProgress(gradeId) {
     const lessons = gradeLessons[gradeId] || [];
     const completed = lessons.filter((id) => getLessonProgress(id)).length;
@@ -547,9 +474,6 @@
     return { completed, total, percent };
   }
 
-  /**
-   * Aggregates completion across every available lesson.
-   */
   function computeOverallProgress() {
     const total = LESSONS.length;
     const completed = Object.values(state.lessons).filter((lesson) => lesson && lesson.completed).length;
@@ -557,10 +481,6 @@
     return { completed, total, percent };
   }
 
-  /**
-   * Derives a lightweight attendance metric based on completed lessons per week.
-   * @param {number} goalDays
-   */
   function computeAttendanceProgress(goalDays = 5) {
     const overall = computeOverallProgress();
     const completedDays = Math.min(goalDays, overall.completed);
@@ -568,20 +488,11 @@
     return { completedDays, goalDays, percent };
   }
 
-  /**
-   * Returns the next incomplete lesson (or the final lesson if everything is
-   * complete).
-   */
   function getNextLesson() {
     const next = LESSONS.find((lesson) => !getLessonProgress(lesson.id));
     return next || LESSONS[LESSONS.length - 1];
   }
 
-  /**
-   * Produces a defensive clone of the stored lesson metrics so callers cannot
-   * mutate internal state accidentally.
-   * @param {string} lessonId
-   */
   function getLessonMetrics(lessonId) {
     const record = getLessonRecord(lessonId);
     if (!record) {
@@ -590,10 +501,6 @@
     return clone(record);
   }
 
-  /**
-   * Returns the N most recent completion history entries.
-   * @param {number} limit
-   */
   function getRecentAchievements(limit = 3) {
     return state.history.slice(0, limit).map((entry) => ({
       ...entry,
@@ -601,19 +508,10 @@
     }));
   }
 
-  /**
-   * Fetches the stored subject goal configuration (target percent + notes).
-   * @param {string} subjectId
-   */
   function getSubjectGoal(subjectId) {
     return clone(state.goals[subjectId] || { targetPercent: null, notes: "" });
   }
 
-  /**
-   * Persists subject goal updates triggered from the parent dashboard.
-   * @param {string} subjectId
-   * @param {{targetPercent:number|null, notes:string}} goal
-   */
   function setSubjectGoal(subjectId, goal) {
     if (!Object.prototype.hasOwnProperty.call(state.goals, subjectId)) {
       return;
@@ -627,11 +525,6 @@
     updateDashboard();
   }
 
-  /**
-   * Saves a manual grade override, accepting blank values to clear the grade.
-   * @param {string} lessonId
-   * @param {number|null|string} grade
-   */
   function setLessonGrade(lessonId, grade) {
     const record = getLessonRecord(lessonId);
     if (!record) {
@@ -647,11 +540,6 @@
     updateDashboard();
   }
 
-  /**
-   * Adds a parent-defined schedule entry for the weekly planner.
-   * @param {{lessonId:string, day:string, time:string, notes:string}} item
-   * @returns {object|null}
-   */
   function addScheduleItem({ lessonId, day, time, notes }) {
     if (!lessonIndex[lessonId]) {
       return null;
@@ -669,10 +557,6 @@
     return clone(item);
   }
 
-  /**
-   * Deletes a schedule entry by identifier.
-   * @param {string} id
-   */
   function removeScheduleItem(id) {
     const before = state.schedule.length;
     state.schedule = state.schedule.filter((item) => item.id !== id);
@@ -682,11 +566,6 @@
     }
   }
 
-  /**
-   * Mutates an existing schedule item with the provided partial updates.
-   * @param {string} id
-   * @param {{lessonId?:string, day?:string, time?:string, notes?:string}} updates
-   */
   function updateScheduleItem(id, updates) {
     const item = state.schedule.find((entry) => entry.id === id);
     if (!item) {
@@ -710,10 +589,6 @@
 
   const DAYS_ORDER = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
-  /**
-   * Returns an ordered list of schedule entries for a specific weekday.
-   * @param {string} day
-   */
   function getDaySchedule(day) {
     const normalized = (day || "").toLowerCase();
     const filtered = state.schedule.filter((item) => item.day === normalized);
@@ -723,19 +598,10 @@
       .map((item) => ({ ...item, lesson: lessonIndex[item.lessonId] }));
   }
 
-  /**
-   * Returns the full week of schedule items grouped by day.
-   */
   function getWeeklySchedule() {
     return DAYS_ORDER.map((day) => ({ day, items: getDaySchedule(day) }));
   }
 
-  /**
-   * Generates a human-readable time range using the stored start time and
-   * lesson duration.
-   * @param {string} timeString
-   * @param {number} minutes
-   */
   function formatTimeRange(timeString, minutes) {
     if (!timeString) {
       return "Flexible";
@@ -751,19 +617,11 @@
     return `${format(start)} – ${format(end)}`;
   }
 
-  /**
-   * Convenience helper that returns the schedule entries for the current day.
-   * @param {Date} date
-   */
   function getTodaysSchedule(date = new Date()) {
     const day = DAYS_ORDER[date.getDay() === 0 ? 6 : date.getDay() - 1];
     return getDaySchedule(day);
   }
 
-  /**
-   * Determines the highest priority focus lesson, preferring scheduled items
-   * before falling back to the next incomplete activity.
-   */
   function getTodaysFocus() {
     const schedule = getTodaysSchedule();
     const nextScheduled = schedule.find((item) => !getLessonProgress(item.lessonId));
@@ -784,10 +642,6 @@
     };
   }
 
-  /**
-   * Identifies the subject with the lowest completion percentage so the
-   * dashboard can spotlight areas needing attention.
-   */
   function getSubjectNeedingAttention() {
     const progressEntries = Object.keys(SUBJECTS).map((subjectId) => ({
       subjectId,
@@ -797,10 +651,6 @@
     return progressEntries[0];
   }
 
-  /**
-   * Converts a history entry into a friendly sentence for the achievements list.
-   * @param {{lessonId:string, score:number|null, completedAt:string|null}} entry
-   */
   function formatAchievement(entry) {
     const lesson = lessonIndex[entry.lessonId];
     if (!lesson) {
@@ -814,10 +664,6 @@
     return `🏅 ${lesson.shortName}: Scored ${Math.round(entry.score)}% (${dateLabel})`;
   }
 
-  /**
-   * Syncs lesson cards with completion state, toggling status labels and bars.
-   * @param {ParentNode} root
-   */
   function updateLessonCards(root) {
     root.querySelectorAll("[data-lesson-id]").forEach((card) => {
       const lessonId = card.getAttribute("data-lesson-id");
@@ -834,10 +680,6 @@
     });
   }
 
-  /**
-   * Updates subject summary cards with completion and goal details.
-   * @param {ParentNode} root
-   */
   function updateSubjectCards(root) {
     root.querySelectorAll("[data-subject-progress]").forEach((card) => {
       const subjectId = card.getAttribute("data-subject-progress");
@@ -874,10 +716,6 @@
     });
   }
 
-  /**
-   * Refreshes the category-level cards displayed on subject pages.
-   * @param {ParentNode} root
-   */
   function updateCategoryCards(root) {
     root.querySelectorAll("[data-category-progress]").forEach((card) => {
       const subjectId = card.getAttribute("data-subject");
@@ -895,10 +733,6 @@
     });
   }
 
-  /**
-   * Re-renders progress panels for each grade level.
-   * @param {ParentNode} root
-   */
   function updateGradeCards(root) {
     root.querySelectorAll("[data-grade-progress]").forEach((card) => {
       const gradeId = card.getAttribute("data-grade-progress");
@@ -929,10 +763,6 @@
     });
   }
 
-  /**
-   * Paints the attendance widget with the latest weekly completion tally.
-   * @param {ParentNode} root
-   */
   function updateAttendanceCard(root) {
     const attendanceCard = root.querySelector("[data-attendance-card]");
     if (!attendanceCard) {
@@ -953,11 +783,6 @@
     }
   }
 
-  /**
-   * Writes the overall completion percentage into navigation badges.
-   * @param {ParentNode} root
-   * @param {{percent:number}} overall
-   */
   function updateOverallProgress(root, overall = computeOverallProgress()) {
     const navProgress = root.querySelector("[data-overall-progress]");
     if (navProgress) {
@@ -965,10 +790,6 @@
     }
   }
 
-  /**
-   * Refreshes the "next lesson" quick link on dashboards and nav bars.
-   * @param {ParentNode} root
-   */
   function updateNextLesson(root) {
     const link = root.querySelector("[data-next-lesson]");
     if (!link) {
@@ -983,11 +804,6 @@
     }
   }
 
-  /**
-   * Orchestrates all per-page UI updates to keep progress-driven widgets in
-   * sync.
-   * @param {Document|ParentNode} root
-   */
   function updateDashboard(root = document) {
     if (!root) {
       return;
@@ -1007,11 +823,6 @@
     }
   }
 
-  /**
-   * Hydrates Today’s Focus, achievements, and schedule highlights with live
-   * data each time progress changes.
-   * @param {Document|ParentNode} root
-   */
   function updateDynamicHighlights(root) {
     const focus = getTodaysFocus();
     const focusTitle = root.querySelector("[data-focus-title]");
@@ -1118,13 +929,11 @@
     }
   }
 
-  // Refresh state after the authenticated user context loads.
   window.addEventListener("lms:user-ready", () => {
     state = loadState();
     updateDashboard();
   });
 
-  // Kick off initial rendering and bind reset controls once the DOM is ready.
   document.addEventListener("DOMContentLoaded", () => {
     updateDashboard();
     const resetButton = document.querySelector("[data-reset-progress]");
@@ -1139,10 +948,6 @@
     }
   });
 
-  /**
-   * Public API exposed to other scripts (lessons, dashboards, parent tools).
-   * Keep this list in sync with documentation under docs/frontend/progress-module.md.
-   */
   window.LMSProgress = {
     markLessonComplete,
     resetLessonProgress,

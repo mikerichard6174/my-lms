@@ -1,9 +1,3 @@
-/**
- * Authentication helpers for the multi-role login hub.
- * Each login panel shares this script so form behaviour remains consistent
- * across parent, student, teacher, and administrator flows.
- */
-
 const API_BASE = '/api';
 const SESSION_KEY = 'lms:session';
 
@@ -14,12 +8,6 @@ const redirectMap = {
   administrator: 'frontend/admin/dashboard.html'
 };
 
-/**
- * Updates the inline feedback region for a login form.
- * @param {HTMLFormElement} form
- * @param {string} message
- * @param {'error'|'success'|'info'} type
- */
 function setFeedback(form, message, type = 'error') {
   const feedback = form.querySelector('[data-feedback]');
   if (!feedback) return;
@@ -27,12 +15,6 @@ function setFeedback(form, message, type = 'error') {
   feedback.dataset.state = type;
 }
 
-/**
- * Submits credentials to the backend and stores the resulting session in
- * localStorage. Redirects to the correct portal when authentication succeeds.
- * @param {string} role
- * @param {HTMLFormElement} form
- */
 async function performLogin(role, form) {
   const data = new FormData(form);
   const identifier = data.get('identifier');
@@ -65,9 +47,6 @@ async function performLogin(role, form) {
   }
 }
 
-/**
- * Wires submit handlers for each role-specific form on the login page.
- */
 function bindForms() {
   document.querySelectorAll('[data-role-form]').forEach((form) => {
     const role = form.dataset.roleForm;
@@ -78,10 +57,6 @@ function bindForms() {
   });
 }
 
-/**
- * Checks whether an existing session token is still valid so we can bypass the
- * login screen on repeat visits.
- */
 async function validateExistingSession() {
   const stored = localStorage.getItem(SESSION_KEY);
   if (!stored) return;

@@ -1,13 +1,4 @@
 (function () {
-  /**
-   * Parent dashboard interactions
-   * ------------------------------
-   * This immediately-invoked function expression encapsulates all of the DOM
-   * wiring required for the parent portal. It leans on the shared `LMSProgress`
-   * module for persistence while exposing descriptive comments for every
-   * rendering helper so future contributors can maintain feature parity when the
-   * UI evolves.
-   */
   document.addEventListener("DOMContentLoaded", () => {
     const progress = window.LMSProgress;
     if (!progress) {
@@ -61,10 +52,6 @@
       sunday: "Sunday"
     };
 
-    /**
-     * Populates the grade dropdown. If the page omits the grade selector (e.g.
-     * mobile layouts), we fall back to rendering subjects directly.
-     */
     function renderGradeOptions() {
       if (!gradeSelect) {
         renderSubjectOptions();
@@ -85,10 +72,6 @@
       renderSubjectOptions();
     }
 
-    /**
-     * Refreshes the subject dropdown based on the currently selected grade so
-     * parents only schedule lessons that belong to that grade band.
-     */
     function renderSubjectOptions() {
       if (!subjectSelect) {
         return;
@@ -117,12 +100,6 @@
       updateLessonOptions(subjectSelect.value, selectedGrade);
     }
 
-    /**
-     * Hydrates the lesson dropdown with filtered options for the chosen
-     * subject/grade pairing.
-     * @param {string} subjectId
-     * @param {string} gradeId
-     */
     function updateLessonOptions(subjectId, gradeId) {
       if (!lessonSelect) {
         return;
@@ -145,10 +122,6 @@
       }
     }
 
-    /**
-     * Renders the weekly schedule grid using the persisted parent-defined
-     * schedule items.
-     */
     function renderSchedule() {
       if (!scheduleList) {
         return;
@@ -212,11 +185,6 @@
       });
     }
 
-    /**
-     * Displays a transient status message after schedule mutations.
-     * @param {string} message
-     * @param {boolean} isError
-     */
     function showScheduleFeedback(message, isError = false) {
       if (!scheduleFeedback) {
         return;
@@ -225,10 +193,6 @@
       scheduleFeedback.classList.toggle("error", isError);
     }
 
-    /**
-     * Outputs subject goal cards so guardians can adjust mastery targets and
-     * coaching notes per subject area.
-     */
     function renderGoals() {
       if (!goalGrid) {
         return;
@@ -275,10 +239,6 @@
       });
     }
 
-    /**
-     * Builds the gradebook view of every lesson with best scores, attempts,
-     * manual grade overrides, and completion toggles.
-     */
     function renderGrades() {
       if (!gradeRows) {
         return;

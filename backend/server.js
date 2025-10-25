@@ -1,14 +1,3 @@
-/**
- * LMS backend bootstrapper
- * ------------------------
- * This module configures a lightweight Express API that powers the proof-of-concept
- * learning management system. It exposes authentication routes, seeds the SQLite
- * datastore with demo roles/users, and publishes helpers for role-aware access
- * control. The inline documentation is intentionally exhaustive so future
- * contributors can trace how authentication, authorization, and persistence work
- * without reverse-engineering the code.
- */
-
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -25,8 +14,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// SQLite lives inside backend/data so local development never needs a separate
-// database server. The directory is created lazily to avoid install-time issues.
 const dataDirectory = path.resolve(__dirname, 'data');
 fs.mkdirSync(dataDirectory, { recursive: true });
 const dbFile = process.env.DB_PATH || path.join(dataDirectory, 'lms.db');
@@ -35,14 +22,6 @@ const db = new Database(dbFile);
 const JWT_SECRET = process.env.JWT_SECRET || 'development-secret';
 const TOKEN_TTL = process.env.JWT_TTL || '12h';
 
-/**
- * bootstraps the relational schema and demo data.
- *
- * The LMS prototype relies on four roles and a handful of seed users so the
- * front-end portals (student, parent, teacher, admin) can demonstrate role-based
- * navigation immediately after `npm start`. This helper creates the tables if
- * they are missing and idempotently inserts demo rows.
- */
 function bootstrapSchema() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS roles (
@@ -155,8 +134,6 @@ function bootstrapSchema() {
 
 bootstrapSchema();
 
-// Pre-compiled prepared statements minimise duplicated SQL strings and keep the
-// rest of the code focused on business logic.
 const statements = {
   roles: db.prepare('SELECT id, name, description, permissions FROM roles'),
   userByIdentifier: db.prepare(`
@@ -173,11 +150,6 @@ const statements = {
   `)
 };
 
-/**
- * Normalises raw database user rows into safe JSON payloads.
- * @param {import('better-sqlite3').RowObject} row
- * @returns {{id:number, username:string, email:string, displayName:string, role:string, permissions:string[], parentId:number|null}|null}
- */
 function sanitizeUser(row) {
   if (!row) return null;
   return {
@@ -191,11 +163,6 @@ function sanitizeUser(row) {
   };
 }
 
-/**
- * Generates a signed JWT for the authenticated user.
- * @param {{id:number, role:string, permissions:string[]}} user
- * @returns {string}
- */
 function createToken(user) {
   return jwt.sign({
     sub: user.id,
@@ -204,14 +171,6 @@ function createToken(user) {
   }, JWT_SECRET, { expiresIn: TOKEN_TTL });
 }
 
-/**
- * Express middleware that verifies incoming Bearer tokens and populates
- * `req.user` with the hydrated session user. Rejects missing or invalid tokens
- * with a 401 response.
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
- */
 function authenticate(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
@@ -231,12 +190,6 @@ function authenticate(req, res, next) {
   }
 }
 
-/**
- * Factory middleware that enforces role-based access control. Only users whose
- * role is present in `allowedRoles` can proceed past this middleware.
- * @param {string[]} allowedRoles
- * @returns {import('express').RequestHandler}
- */
 function authorize(allowedRoles) {
   return (req, res, next) => {
     if (!req.user) {
@@ -249,12 +202,6 @@ function authorize(allowedRoles) {
   };
 }
 
-/**
- * POST /api/auth/login
- * Authenticates a user by username or email and issues a signed JWT for
- * subsequent requests. Rejects mismatched role expectations so each portal can
- * enforce which audience is allowed to sign in from a specific form.
- */
 app.post('/api/auth/login', (req, res) => {
   const { identifier, password, expectedRole } = req.body;
   if (!identifier || !password) {
@@ -279,20 +226,10 @@ app.post('/api/auth/login', (req, res) => {
   });
 });
 
-/**
- * GET /api/auth/me
- * Returns the hydrated user payload tied to the supplied Bearer token. Used by
- * the front-end to resume sessions on refresh.
- */
 app.get('/api/auth/me', authenticate, (req, res) => {
   res.json({ user: req.user });
 });
 
-/**
- * GET /api/roles
- * Public endpoint that lists all roles and their serialized permission scopes.
- * Enables admin tooling to populate dropdowns without requiring authentication.
- */
 app.get('/api/roles', (req, res) => {
   const roles = statements.roles.all().map(role => ({
     id: role.id,
@@ -303,11 +240,6 @@ app.get('/api/roles', (req, res) => {
   res.json({ roles });
 });
 
-/**
- * GET /api/users/:id
- * Example of a protected administrative route that requires both a valid token
- * and the administrator role. Returns a sanitized user document on success.
- */
 app.get('/api/users/:id', authenticate, authorize(['administrator']), (req, res) => {
   const userRow = statements.userById.get(Number(req.params.id));
   if (!userRow) {
