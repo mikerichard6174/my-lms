@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science Lab</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Subjects</h2>
+        <nav aria-label="Subject navigation">
+          <ul class="nav-links">
+            <li><a href="math.html">Math Adventures</a></li>
+            <li><a href="english.html">English Explorers</a></li>
+            <li><a href="science.html" aria-current="page">Science Lab</a></li>
+            <li><a href="../index.html#progress-tracker">Progress Tracker</a></li>
+            <li><a href="../parent-dashboard.html">Parent Controls</a></li>
+            <li><a href="../auth/login.html">Sign In</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Science Lab</span>
+      </nav>
+
+      <header class="subject-header">
+        <div>
+          <h1>Science Lab</h1>
+          <p>Investigate weather patterns, animal habitats, and the natural world with hands-on science explorations.</p>
+          <p class="goal-line">Family Goal: <span data-goal>No goal set</span></p>
+        </div>
+        <aside class="lesson-progress subject-progress" aria-label="Science progress overview" data-subject-progress="science">
+          <span>Completed</span>
+          <strong data-status>0 of 2 lessons</strong>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </aside>
+      </header>
+
+      <section class="category-section">
+        <article class="category-card" data-category-progress="weather" data-subject="science">
+          <header>
+            <h2>Weather &amp; Climate</h2>
+            <span data-status>0 of 0 lessons</span>
+          </header>
+          <p>Observe weather conditions and choose the best preparations for each forecast.</p>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <div class="category-lessons">
+            <a class="lesson-card" data-lesson-id="science1" href="../lessons/science1.html">
+              <div>
+                <h3>Lesson 6: Weather Watch</h3>
+                <p>Match weather icons to activities and record your observations.</p>
+              </div>
+              <footer>
+                <span class="lesson-status" data-lesson-status>Not started</span>
+                <div class="progress-track" role="presentation">
+                  <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                </div>
+              </footer>
+            </a>
+          </div>
+        </article>
+
+        <article class="category-card" data-category-progress="life" data-subject="science">
+          <header>
+            <h2>Life Science</h2>
+            <span data-status>0 of 0 lessons</span>
+          </header>
+          <p>Explore where animals live and how their homes keep them safe.</p>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <div class="category-lessons">
+            <a class="lesson-card" data-lesson-id="science2" href="../lessons/science2.html">
+              <div>
+                <h3>Lesson 7: Habitat Match-Up</h3>
+                <p>Pair each animal with the habitat that fits it best.</p>
+              </div>
+              <footer>
+                <span class="lesson-status" data-lesson-status>Not started</span>
+                <div class="progress-track" role="presentation">
+                  <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+                </div>
+              </footer>
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="../scripts/progress.js"></script>
+</body>
+</html>
