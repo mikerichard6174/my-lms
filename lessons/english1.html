@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4 - Story Adventure</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body data-required-role="student">
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Grades</h2>
+        <nav aria-label="Grade navigation">
+          <ul class="nav-links nav-links-compact">
+            <li><a href="../grades/grade-k.html">Kindergarten</a></li>
+            <li><a href="../grades/grade-1.html">Grade 1</a></li>
+            <li><a href="../grades/grade-2.html">Grade 2</a></li>
+            <li><a href="../grades/grade-3.html">Grade 3</a></li>
+            <li><a href="../grades/grade-4.html">Grade 4</a></li>
+            <li><a href="../grades/grade-5.html">Grade 5</a></li>
+            <li><a href="../grades/grade-6.html">Grade 6</a></li>
+            <li><a href="../grades/grade-7.html">Grade 7</a></li>
+            <li><a href="../grades/grade-8.html">Grade 8</a></li>
+            <li><a href="../grades/grade-9.html">Grade 9</a></li>
+            <li><a href="../grades/grade-10.html">Grade 10</a></li>
+            <li><a href="../grades/grade-11.html">Grade 11</a></li>
+            <li><a href="../grades/grade-12.html">Grade 12</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-section">
+        <h2>Quick Links</h2>
+        <nav aria-label="Utility navigation">
+          <ul class="nav-links">
+            <li><a href="../frontend/student/dashboard.html">Student Home</a></li>
+            <li><a href="../frontend/student/dashboard.html#progress-tracker">Progress Tracker</a></li>
+            <li><button type="button" class="link-button" data-sign-out>Sign Out</button></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../frontend/student/dashboard.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="../grades/grade-1.html">Grade 1</a>
+        <span aria-hidden="true">›</span>
+        <a href="../grades/grade-1.html#english">English Explorers</a>
+        <span aria-hidden="true">›</span>
+        <span>Lesson 4</span>
+      </nav>
+
+      <header class="lesson-header">
+        <div>
+          <h1>Lesson 4: Story Adventure</h1>
+          <div class="lesson-meta">
+            <p>Join Mia and her puppy Scout on their park adventure. Help retell the story in the right order and share how Mia felt at the end.</p>
+            <p><strong>Objective:</strong> Retell a short story by identifying the beginning, middle, and end with supporting details.</p>
+            <ul class="lesson-objectives">
+              <li>Listen to or read a grade-level passage with expression.</li>
+              <li>Sequence story picture cards to show what happens first, next, and last.</li>
+              <li>Describe a character's feelings using sentence starters.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Story adventure progress">
+          <span>Story Steps</span>
+          <strong><span id="story-steps-complete">0</span>/3</strong>
+          <p>Complete all three story stations.</p>
+        </aside>
+      </header>
+
+      <section class="lesson-content">
+        <article class="story-card story-intro" aria-labelledby="story-intro-title">
+          <div class="story-illustration" aria-hidden="true">🐶🌳</div>
+          <div>
+            <h2 id="story-intro-title">Mia and Scout Take a Stroll</h2>
+            <p>Mia packed a picnic and clipped on Scout's leash. Together they walked to the park, looked for ducks, and met a new friend on the playground.</p>
+            <p class="story-actions">
+              <button id="read-story" class="button tertiary" type="button">🔊 Read the Story Aloud</button>
+              <span id="read-status" role="status" aria-live="polite"></span>
+            </p>
+          </div>
+        </article>
+
+        <section class="story-stations" aria-label="Story adventure stations">
+          <article class="station" data-station="listen">
+            <header>
+              <h3>Station 1: Picture the Story</h3>
+              <p>Tap each card to reveal the event before you sort them.</p>
+            </header>
+            <div class="card-tray" role="list">
+              <button class="story-card-tile" data-event="duck" draggable="true" role="listitem" aria-describedby="event-duck">
+                <span class="tile-art" aria-hidden="true">🦆</span>
+                <span class="tile-text" id="event-duck">Mia and Scout sprinkled crumbs and watched the ducks splash.</span>
+              </button>
+              <button class="story-card-tile" data-event="swing" draggable="true" role="listitem" aria-describedby="event-swing">
+                <span class="tile-art" aria-hidden="true">🛝</span>
+                <span class="tile-text" id="event-swing">They pushed a new friend on the swings and giggled together.</span>
+              </button>
+              <button class="story-card-tile" data-event="picnic" draggable="true" role="listitem" aria-describedby="event-picnic">
+                <span class="tile-art" aria-hidden="true">🧺</span>
+                <span class="tile-text" id="event-picnic">They spread out a picnic blanket and shared crunchy apples.</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="station" data-station="sequence">
+            <header>
+              <h3>Station 2: Order the Adventure</h3>
+              <p>Drag or tap to place the cards in the timeline.</p>
+            </header>
+            <div class="story-timeline" role="list">
+              <div class="timeline-slot" data-slot="beginning" tabindex="0" aria-label="Beginning slot" role="listitem"></div>
+              <div class="timeline-slot" data-slot="middle" tabindex="0" aria-label="Middle slot" role="listitem"></div>
+              <div class="timeline-slot" data-slot="ending" tabindex="0" aria-label="Ending slot" role="listitem"></div>
+            </div>
+            <button id="check-timeline" class="button" type="button">Check My Timeline</button>
+          </article>
+
+          <article class="station" data-station="feelings">
+            <header>
+              <h3>Station 3: How Did Mia Feel?</h3>
+              <p>Choose the feeling that matches the ending and finish the sentence.</p>
+            </header>
+            <form id="feelings-form" class="feelings-form" novalidate>
+              <fieldset>
+                <legend class="sr-only">Describe Mia's feeling</legend>
+                <div class="feeling-choices" role="radiogroup" aria-label="Mia felt">
+                  <label class="feeling-option">
+                    <input type="radio" name="feeling" value="proud" required>
+                    <span>proud</span>
+                  </label>
+                  <label class="feeling-option">
+                    <input type="radio" name="feeling" value="sleepy">
+                    <span>sleepy</span>
+                  </label>
+                  <label class="feeling-option">
+                    <input type="radio" name="feeling" value="grumpy">
+                    <span>grumpy</span>
+                  </label>
+                </div>
+                <label class="sentence-builder" for="feeling-detail">Finish the sentence</label>
+                <textarea id="feeling-detail" rows="2" maxlength="120" placeholder="Mia felt..." required></textarea>
+              </fieldset>
+              <div class="lesson-actions">
+                <button id="share-feeling" class="button" type="submit">Share My Ending</button>
+                <button id="reset-story" class="button secondary" type="button">Start Over</button>
+                <a class="button secondary" href="../frontend/student/dashboard.html">Back to Dashboard</a>
+              </div>
+            </form>
+          </article>
+        </section>
+
+        <div class="progress-track" role="progressbar" aria-label="Story adventure completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="story-progress" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <p id="story-feedback" class="feedback" aria-live="polite"></p>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="../scripts/session.js"></script>
+  <script src="../scripts/progress.js"></script>
+  <script>
+    const lessonId = "english1";
+    const correctOrder = ["picnic", "duck", "swing"];
+    const stationStatus = {
+      listen: false,
+      sequence: false,
+      feelings: false
+    };
+
+    const storyTiles = Array.from(document.querySelectorAll(".story-card-tile"));
+    const timelineSlots = Array.from(document.querySelectorAll(".timeline-slot"));
+    const cardTray = document.querySelector(".card-tray");
+    const timelineButton = document.getElementById("check-timeline");
+    const feelingsForm = document.getElementById("feelings-form");
+    const feelingsReset = document.getElementById("reset-story");
+    const storyFeedback = document.getElementById("story-feedback");
+    const progressBar = document.getElementById("story-progress");
+    const progressTrack = document.querySelector(".progress-track[aria-label='Story adventure completion']");
+    const stepsComplete = document.getElementById("story-steps-complete");
+    const readButton = document.getElementById("read-story");
+    const readStatus = document.getElementById("read-status");
+
+    let lessonStart = performance.now();
+    let selectedTile = null;
+
+    function updateProgressDisplay() {
+      const completedCount = Object.values(stationStatus).filter(Boolean).length;
+      const percent = Math.round((completedCount / 3) * 100);
+      stepsComplete.textContent = completedCount.toString();
+      progressBar.style.width = `${percent}%`;
+      progressTrack.setAttribute("aria-valuenow", percent.toString());
+    }
+
+    function announce(message) {
+      storyFeedback.textContent = message;
+    }
+
+    function markStationComplete(station) {
+      if (!stationStatus[station]) {
+        stationStatus[station] = true;
+        updateProgressDisplay();
+      }
+    }
+
+    function setTileActive(tile) {
+      selectedTile?.classList.remove("selected");
+      selectedTile = tile;
+      tile?.classList.add("selected");
+    }
+
+    storyTiles.forEach((tile) => {
+      tile.addEventListener("click", () => {
+        setTileActive(tile);
+      });
+
+      tile.addEventListener("dragstart", (event) => {
+        event.dataTransfer.setData("text/plain", tile.dataset.event);
+        event.dataTransfer.effectAllowed = "move";
+        setTileActive(tile);
+      });
+    });
+
+    function placeTileInSlot(tile, slot) {
+      const existingTile = slot.querySelector(".story-card-tile");
+      if (existingTile) {
+        document.querySelector(".card-tray")?.appendChild(existingTile);
+      }
+      slot.innerHTML = "";
+      slot.appendChild(tile);
+      tile.classList.remove("selected");
+      tile.setAttribute("draggable", "true");
+      tile.focus();
+      selectedTile = null;
+    }
+
+    timelineSlots.forEach((slot) => {
+      slot.addEventListener("click", () => {
+        if (selectedTile) {
+          placeTileInSlot(selectedTile, slot);
+        }
+      });
+
+      slot.addEventListener("dragenter", (event) => {
+        event.preventDefault();
+        slot.classList.add("active");
+      });
+
+      slot.addEventListener("dragover", (event) => {
+        event.preventDefault();
+      });
+
+      slot.addEventListener("dragleave", () => {
+        slot.classList.remove("active");
+      });
+
+      slot.addEventListener("drop", (event) => {
+        event.preventDefault();
+        slot.classList.remove("active");
+        const eventId = event.dataTransfer.getData("text/plain");
+        const tile = document.querySelector(`.story-card-tile[data-event="${eventId}"]`);
+        if (tile) {
+          placeTileInSlot(tile, slot);
+        }
+      });
+    });
+
+    timelineButton.addEventListener("click", () => {
+      const slotOrder = timelineSlots.map((slot) => slot.querySelector(".story-card-tile")?.dataset.event ?? null);
+      if (slotOrder.includes(null)) {
+        announce("Fill each part of the timeline before checking.");
+        storyFeedback.classList.remove("success");
+        storyFeedback.classList.add("error");
+        return;
+      }
+
+      const correctCount = slotOrder.filter((eventId, index) => eventId === correctOrder[index]).length;
+      const percent = Math.round((correctCount / correctOrder.length) * 100);
+      if (correctCount === correctOrder.length) {
+        announce("Wonderful sequencing! Mia's day makes sense from beginning to end.");
+        storyFeedback.classList.add("success");
+        storyFeedback.classList.remove("error");
+        markStationComplete("sequence");
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
+          durationMs: performance.now() - lessonStart,
+          completed: false
+        });
+      } else {
+        announce("Almost there! Switch the cards that feel out of order.");
+        storyFeedback.classList.add("error");
+        storyFeedback.classList.remove("success");
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
+          durationMs: performance.now() - lessonStart,
+          completed: false
+        });
+      }
+    });
+
+    feelingsForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(feelingsForm);
+      const feeling = formData.get("feeling");
+      const detail = formData.get("feeling-detail").trim();
+
+      if (!feeling || !detail) {
+        storyFeedback.textContent = "Pick a feeling and finish the sentence.";
+        storyFeedback.classList.add("error");
+        storyFeedback.classList.remove("success");
+        return;
+      }
+
+      const elapsed = performance.now() - lessonStart;
+      const feelingSentence = detail.startsWith("Mia") ? detail : `Mia felt ${feeling} because ${detail}`;
+      announce(`Thanks for sharing! ${feelingSentence}`);
+      storyFeedback.classList.add("success");
+      storyFeedback.classList.remove("error");
+      markStationComplete("feelings");
+
+      if (Object.values(stationStatus).every(Boolean)) {
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: elapsed,
+          reflections: feelingSentence
+        });
+      } else {
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: 80,
+          durationMs: elapsed,
+          completed: false,
+          reflections: feelingSentence
+        });
+      }
+    });
+
+    feelingsReset.addEventListener("click", () => {
+      stationStatus.sequence = false;
+      stationStatus.feelings = false;
+      storyFeedback.textContent = "";
+      storyFeedback.classList.remove("success", "error");
+
+      timelineSlots.forEach((slot) => {
+        const tile = slot.querySelector(".story-card-tile");
+        if (tile) {
+          document.querySelector(".card-tray")?.appendChild(tile);
+        }
+        slot.innerHTML = "";
+      });
+
+      storyTiles.forEach((tile) => {
+        tile.classList.remove("selected");
+        tile.setAttribute("draggable", "true");
+      });
+
+      feelingsForm.reset();
+      updateProgressDisplay();
+      lessonStart = performance.now();
+    });
+
+    readButton.addEventListener("click", () => {
+      markStationComplete("listen");
+      updateProgressDisplay();
+
+      if (!window.speechSynthesis) {
+        readStatus.textContent = "Read the story together using your best storyteller voice.";
+        return;
+      }
+
+      const storyText = "Mia packed a picnic and walked to the park with Scout. They fed the ducks, played on the swings with a new friend, and ended the day with a crunchy apple picnic.";
+      const utterance = new SpeechSynthesisUtterance(storyText);
+      utterance.lang = "en-US";
+      utterance.rate = 0.95;
+
+      utterance.onstart = () => {
+        readStatus.textContent = "Listening...";
+      };
+
+      utterance.onend = () => {
+        readStatus.textContent = "Story finished!";
+      };
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+    });
+
+    if (cardTray) {
+      cardTray.addEventListener("dragover", (event) => {
+        event.preventDefault();
+      });
+
+      cardTray.addEventListener("drop", (event) => {
+        event.preventDefault();
+        const eventId = event.dataTransfer.getData("text/plain");
+        const tile = document.querySelector(`.story-card-tile[data-event="${eventId}"]`);
+        if (tile) {
+          tile.classList.remove("selected");
+          cardTray.appendChild(tile);
+          selectedTile = null;
+        }
+      });
+    }
+
+    updateProgressDisplay();
+  </script>
+</body>
+</html>

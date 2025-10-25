@@ -1,118 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson 3 - Number to Word</title>
-<link rel="stylesheet" href="../styles/style.css">
-<style>
-  .lesson-container {
-    max-width: 700px;
-    margin: 2rem auto;
-    text-align: center;
-  }
-
-  .draggable {
-    display: inline-block;
-    margin: 0.5rem;
-    padding: 0.75rem 1rem;
-    background: #4CAF50;
-    color: white;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: grab;
-  }
-
-  .drop-box {
-    display: inline-block;
-    width: 150px;
-    height: 60px;
-    border: 2px dashed #aaa;
-    margin: 0.5rem;
-    line-height: 60px;
-    font-size: 1.1rem;
-    color: #555;
-  }
-
-  .drop-box.correct {
-    border-color: #4CAF50;
-    color: #4CAF50;
-  }
-
-  .drop-box.incorrect {
-    border-color: #f44336;
-    color: #f44336;
-  }
-
-  #feedback {
-    margin-top: 1rem;
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3 - Number to Word Matching</title>
+  <link rel="stylesheet" href="../styles/style.css">
 </head>
-<body>
+<body data-required-role="student">
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Grades</h2>
+        <nav aria-label="Grade navigation">
+          <ul class="nav-links nav-links-compact">
+            <li><a href="../grades/grade-k.html">Kindergarten</a></li>
+            <li><a href="../grades/grade-1.html">Grade 1</a></li>
+            <li><a href="../grades/grade-2.html">Grade 2</a></li>
+            <li><a href="../grades/grade-3.html">Grade 3</a></li>
+            <li><a href="../grades/grade-4.html">Grade 4</a></li>
+            <li><a href="../grades/grade-5.html">Grade 5</a></li>
+            <li><a href="../grades/grade-6.html">Grade 6</a></li>
+            <li><a href="../grades/grade-7.html">Grade 7</a></li>
+            <li><a href="../grades/grade-8.html">Grade 8</a></li>
+            <li><a href="../grades/grade-9.html">Grade 9</a></li>
+            <li><a href="../grades/grade-10.html">Grade 10</a></li>
+            <li><a href="../grades/grade-11.html">Grade 11</a></li>
+            <li><a href="../grades/grade-12.html">Grade 12</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-section">
+        <h2>Quick Links</h2>
+        <nav aria-label="Utility navigation">
+          <ul class="nav-links">
+            <li><a href="../frontend/student/dashboard.html">Student Home</a></li>
+            <li><a href="../frontend/student/dashboard.html#progress-tracker">Progress Tracker</a></li>
+            <li><button type="button" class="link-button" data-sign-out>Sign Out</button></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
 
-<header>
-  <h1>Lesson 3: Number to Word Matching</h1>
-</header>
+    <main class="app-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../frontend/student/dashboard.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="../grades/grade-1.html">Grade 1</a>
+        <span aria-hidden="true">›</span>
+        <a href="../grades/grade-1.html#math">Math Adventures</a>
+        <span aria-hidden="true">›</span>
+        <span>Lesson 3</span>
+      </nav>
 
-<main>
-  <div class="lesson-container">
-    <p>Drag the number onto the box with the matching word!</p>
+      <header class="lesson-header">
+        <div>
+          <h1>Lesson 3: Number to Word Matching</h1>
+          <div class="lesson-meta">
+            <p>Connect each number to the word that names it.</p>
+            <p><strong>Objective:</strong> Reinforce number-word recognition with quick drag-and-drop matches.</p>
+            <ul class="lesson-objectives">
+              <li>Drag number tiles onto the matching word cards.</li>
+              <li>Watch the cards highlight when you match correctly.</li>
+              <li>Complete all matches to unlock a celebration message.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="lesson-progress" aria-label="Activity progress overview">
+          <span>Matches</span>
+          <strong><span id="matches-complete">0</span>/3</strong>
+          <p>Each number has one matching word.</p>
+        </aside>
+      </header>
 
-    <div id="dropArea">
-      <div class="drop-box" data-number="1">one</div>
-      <div class="drop-box" data-number="2">two</div>
-      <div class="drop-box" data-number="3">three</div>
-    </div>
+      <section class="lesson-content">
+        <h2>Match the Numbers</h2>
+        <p>Drag each number tile to the word that describes it. The card turns green when you get it right!</p>
 
-    <div id="numbers">
-      <div class="draggable" draggable="true" data-number="1">1</div>
-      <div class="draggable" draggable="true" data-number="2">2</div>
-      <div class="draggable" draggable="true" data-number="3">3</div>
-    </div>
+        <div class="drop-zone word-bank" id="word-bank" aria-label="Word cards">
+          <div class="word-drop" data-number="1" data-word="one">one</div>
+          <div class="word-drop" data-number="2" data-word="two">two</div>
+          <div class="word-drop" data-number="3" data-word="three">three</div>
+        </div>
 
-    <p id="feedback"></p>
+        <div class="drag-bank" id="number-bank" aria-label="Number tiles">
+          <div class="number-chip" draggable="true" data-number="1">1</div>
+          <div class="number-chip" draggable="true" data-number="2">2</div>
+          <div class="number-chip" draggable="true" data-number="3">3</div>
+        </div>
+
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+
+        <div class="lesson-actions">
+          <button class="button" type="button" id="reset">Start Over</button>
+          <a class="button secondary" href="../frontend/student/dashboard.html">Back to Dashboard</a>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <a href="../index.html" class="button">Back to Home</a>
-</main>
+  <script type="module" src="../scripts/session.js"></script>
+  <script src="../scripts/progress.js"></script>
+  <script>
+    const lessonId = "math3";
+    const wordBank = document.getElementById("word-bank");
+    const numberTiles = document.querySelectorAll(".number-chip");
+    const wordCards = document.querySelectorAll(".word-drop");
+    const feedback = document.getElementById("feedback");
+    const matchesComplete = document.getElementById("matches-complete");
+    const resetButton = document.getElementById("reset");
 
-<script>
-const draggables = document.querySelectorAll(".draggable");
-const dropBoxes = document.querySelectorAll(".drop-box");
-const feedback = document.getElementById("feedback");
-let dragged = null;
+    let draggedNumber = null;
+    let matches = 0;
+    let activityStart = performance.now();
 
-draggables.forEach(item => {
-  item.addEventListener("dragstart", e => dragged = e.target);
-});
-
-dropBoxes.forEach(box => {
-  box.addEventListener("dragover", e => e.preventDefault());
-  box.addEventListener("drop", e => {
-    e.preventDefault();
-    if(dragged) {
-      const draggedNumber = dragged.getAttribute("data-number");
-      const boxNumber = box.getAttribute("data-number");
-
-      if(draggedNumber === boxNumber) {
-        box.classList.add("correct");
-        box.classList.remove("incorrect");
-        feedback.textContent = "✅ Correct!";
-        // Optional: remove dragged element
-        dragged.style.display = "none";
-      } else {
-        box.classList.add("incorrect");
-        box.classList.remove("correct");
-        feedback.textContent = "❌ Try again!";
+    function updateMatches() {
+      matches = wordBank.querySelectorAll(".word-drop.correct").length;
+      matchesComplete.textContent = matches;
+      if (matches === wordCards.length) {
+        feedback.textContent = "🎉 Fantastic! You matched every number.";
+        const duration = performance.now() - activityStart;
+        window.LMSProgress?.markLessonComplete(lessonId, {
+          score: 100,
+          durationMs: duration
+        });
+      } else if (matches > 0) {
+        feedback.textContent = "Great job! Keep matching the rest.";
       }
-      dragged = null;
     }
-  });
-});
-</script>
 
+    function handleDragStart(event) {
+      draggedNumber = event.target.dataset.number;
+      event.dataTransfer.effectAllowed = "move";
+      feedback.textContent = "";
+    }
+
+    function handleDragOver(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+      if (!draggedNumber) {
+        return;
+      }
+      const dropTarget = event.currentTarget;
+      const expectedNumber = dropTarget.dataset.number;
+      if (draggedNumber === expectedNumber) {
+        dropTarget.classList.add("correct");
+        dropTarget.classList.remove("incorrect");
+        dropTarget.textContent = `${dropTarget.dataset.word} ✓`;
+        const tile = document.querySelector(`.number-chip[data-number="${draggedNumber}"]`);
+        if (tile) {
+          tile.setAttribute("draggable", "false");
+          tile.classList.add("disabled");
+          tile.style.opacity = "0.3";
+        }
+        updateMatches();
+      } else {
+        dropTarget.classList.add("incorrect");
+        dropTarget.classList.remove("correct");
+        feedback.textContent = "Keep trying! Check the word again.";
+        const percent = Math.round((matches / wordCards.length) * 100);
+        window.LMSProgress?.recordLessonAttempt?.(lessonId, {
+          score: percent,
+          durationMs: performance.now() - activityStart,
+          completed: false
+        });
+      }
+      draggedNumber = null;
+    }
+
+    function resetActivity() {
+      wordCards.forEach(card => {
+        card.classList.remove("correct", "incorrect");
+        card.textContent = card.dataset.word;
+      });
+      numberTiles.forEach(tile => {
+        tile.setAttribute("draggable", "true");
+        tile.classList.remove("disabled");
+        tile.style.opacity = "1";
+      });
+      feedback.textContent = "";
+      matches = 0;
+      matchesComplete.textContent = "0";
+      activityStart = performance.now();
+    }
+
+    numberTiles.forEach(tile => {
+      tile.addEventListener("dragstart", handleDragStart);
+      tile.addEventListener("dragend", () => {
+        draggedNumber = null;
+      });
+    });
+
+    wordCards.forEach(card => {
+      card.addEventListener("dragover", handleDragOver);
+      card.addEventListener("drop", handleDrop);
+    });
+
+    resetButton.addEventListener("click", resetActivity);
+  </script>
 </body>
 </html>

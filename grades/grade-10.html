@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 10 Learning Hub</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body data-required-role="student">
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Grades</h2>
+        <nav aria-label="Grade navigation">
+          <ul class="nav-links nav-links-compact">
+            <li><a href="grade-k.html" >Kindergarten</a></li>
+            <li><a href="grade-1.html" >Grade 1</a></li>
+            <li><a href="grade-2.html" >Grade 2</a></li>
+            <li><a href="grade-3.html" >Grade 3</a></li>
+            <li><a href="grade-4.html" >Grade 4</a></li>
+            <li><a href="grade-5.html" >Grade 5</a></li>
+            <li><a href="grade-6.html" >Grade 6</a></li>
+            <li><a href="grade-7.html" >Grade 7</a></li>
+            <li><a href="grade-8.html" >Grade 8</a></li>
+            <li><a href="grade-9.html" >Grade 9</a></li>
+            <li><a href="grade-10.html" aria-current="page">Grade 10</a></li>
+            <li><a href="grade-11.html" >Grade 11</a></li>
+            <li><a href="grade-12.html" >Grade 12</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-section">
+        <h2>Quick Links</h2>
+        <nav aria-label="Utility navigation">
+          <ul class="nav-links">
+            <li><a href="../frontend/student/dashboard.html">Student Home</a></li>
+            <li><a href="../frontend/student/dashboard.html#progress-tracker">Progress Tracker</a></li>
+            <li><button type="button" class="link-button" data-sign-out>Sign Out</button></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content grade-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../frontend/student/dashboard.html">Student Dashboard</a>
+        <span aria-hidden="true">›</span>
+        <span>Grade 10</span>
+      </nav>
+
+      <header class="grade-header">
+        <div>
+          <h1>Grade 10 Learning Hub</h1>
+          <p data-grade-summary>Deepen geometry, world literature, and chemistry investigations.</p>
+        </div>
+        <aside class="grade-progress-panel" data-grade-progress="grade-10">
+          <span class="grade-level">Level 10</span>
+          <strong data-grade-percent>0%</strong>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <span class="grade-status" data-status>No lessons yet</span>
+        </aside>
+      </header>
+
+      <section class="grade-intro">
+        <div class="grade-intro-card">
+          <h2>Expand global perspectives</h2>
+          <p>Sophomores blend logical reasoning, literary analysis, and chemical inquiry to see connections across disciplines.</p>
+        </div>
+      </section>
+
+      <section class="grade-summary-grid">
+
+        <article class="grade-subject-summary" data-subject-progress="math" data-grade="grade-10">
+          <header>
+            <h3>Math Adventures</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Master Euclidean geometry, proofs, and trigonometric ratios.</p>
+          <ul class="grade-topic-list">
+            <li>Write two-column proofs using postulates and theorems.</li>
+            <li>Apply similarity and congruence to real-world design challenges.</li>
+            <li>Solve right triangles with sine, cosine, and tangent.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+
+        <article class="grade-subject-summary" data-subject-progress="english" data-grade="grade-10">
+          <header>
+            <h3>English Explorers</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Analyze world literature and craft sophisticated responses.</p>
+          <ul class="grade-topic-list">
+            <li>Compare cultural perspectives across global texts.</li>
+            <li>Evaluate author's purpose and tone in translation.</li>
+            <li>Compose analytical essays integrating secondary sources.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+
+        <article class="grade-subject-summary" data-subject-progress="science" data-grade="grade-10">
+          <header>
+            <h3>Science Lab</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Investigate chemical reactions, stoichiometry, and energetics.</p>
+          <ul class="grade-topic-list">
+            <li>Balance chemical equations and predict products.</li>
+            <li>Calculate molar relationships using dimensional analysis.</li>
+            <li>Measure enthalpy changes through calorimetry labs.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="../scripts/session.js"></script>
+  <script src="../scripts/progress.js"></script>
+</body>
+</html>
