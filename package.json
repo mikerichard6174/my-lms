@@ -6,8 +6,17 @@
   "scripts": {
     "test": "npm run lint",
     "lint": "npm run lint:html && npm run lint:css",
-    "lint:html": "htmlhint \"index.html\" \"lessons/**/*.html\"",
-    "lint:css": "stylelint \"**/*.css\""
+    "lint:html": "htmlhint \"index.html\" \"frontend/**/*.html\" \"grades/**/*.html\" \"lessons/**/*.html\" \"auth/**/*.html\"",
+    "lint:css": "stylelint \"**/*.css\"",
+    "backend:start": "node backend/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "htmlhint": "^1.7.1",

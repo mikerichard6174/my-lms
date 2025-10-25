@@ -1,5 +1,8 @@
 node_modules/
 
+# Generated assets
+docs/mockups/*.png
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

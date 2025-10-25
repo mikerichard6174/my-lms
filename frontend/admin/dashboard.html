@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrator Control Center</title>
+  <link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body data-required-role="administrator">
+  <div class="app-layout">
+    <aside class="app-nav" data-role="administrator">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>System Views</h2>
+        <nav aria-label="System navigation">
+          <ul class="nav-links">
+            <li><a href="#org-health">Organization Health</a></li>
+            <li><a href="#user-management">User Management</a></li>
+            <li><a href="#compliance">Compliance</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-section">
+        <h2>Quick Actions</h2>
+        <nav aria-label="Administrator utilities">
+          <ul class="nav-links">
+            <li><a href="../teacher/dashboard.html">Teacher Console</a></li>
+            <li><a href="../parent/dashboard.html">Parent Oversight</a></li>
+            <li><button type="button" class="link-button" data-sign-out>Sign Out</button></li>
+          </ul>
+        </nav>
+      </section>
+    </aside>
+
+    <main class="app-content admin-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../student/dashboard.html">Student Dashboard</a>
+        <span aria-hidden="true">›</span>
+        <span>Administrator Control Center</span>
+      </nav>
+
+      <header class="admin-header">
+        <h1>Administrator Control Center</h1>
+        <p>Oversee organization-wide performance, manage user roles, and configure integrations.</p>
+      </header>
+
+      <section class="admin-section" id="org-health" aria-labelledby="health-heading">
+        <div class="section-header">
+          <h2 id="health-heading">Organization Health</h2>
+          <p>High-level visibility into enrollment, active sessions, and curriculum coverage.</p>
+        </div>
+        <div class="admin-grid">
+          <article class="admin-card">
+            <h3>Active Users</h3>
+            <p><strong>128</strong> users signed in today</p>
+            <p class="meta">Students 96 · Teachers 18 · Parents 10 · Admins 4</p>
+          </article>
+          <article class="admin-card">
+            <h3>Lesson Completion</h3>
+            <p><strong>72%</strong> of assigned lessons completed</p>
+            <p class="meta">Goal 80% · Trend ▲ 3% week over week</p>
+          </article>
+          <article class="admin-card">
+            <h3>System Status</h3>
+            <p>All services operational</p>
+            <p class="meta">Authentication · Schedules · Reporting</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="admin-section" id="user-management" aria-labelledby="users-heading">
+        <div class="section-header">
+          <h2 id="users-heading">User Management</h2>
+          <p>Create users, adjust permissions, and link student accounts to guardians.</p>
+        </div>
+        <form class="admin-form">
+          <label>
+            Role
+            <select name="role">
+              <option value="student">Student</option>
+              <option value="parent">Parent</option>
+              <option value="teacher">Teacher</option>
+              <option value="administrator">Administrator</option>
+            </select>
+          </label>
+          <label>
+            Username
+            <input type="text" name="username" placeholder="Unique username">
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="name@example.com">
+          </label>
+          <label>
+            Temporary Password
+            <input type="password" name="password" placeholder="Generate secure password">
+          </label>
+          <button class="button" type="button">Create User</button>
+        </form>
+        <div class="admin-table" role="table">
+          <div class="admin-row admin-row-header" role="row">
+            <span role="columnheader">User</span>
+            <span role="columnheader">Role</span>
+            <span role="columnheader">Linked Accounts</span>
+            <span role="columnheader">Actions</span>
+          </div>
+          <div class="admin-row" role="row">
+            <span role="cell">Mia Avery</span>
+            <span role="cell">Student</span>
+            <span role="cell">Parent: Jordan Avery</span>
+            <span role="cell"><button class="button secondary" type="button">Manage</button></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="compliance" aria-labelledby="compliance-heading">
+        <div class="section-header">
+          <h2 id="compliance-heading">Compliance &amp; Integrations</h2>
+          <p>Configure SIS sync, curriculum imports, and auditing exports.</p>
+        </div>
+        <div class="admin-grid">
+          <article class="admin-card">
+            <h3>Curriculum Providers</h3>
+            <p>OpenStax, CK-12, and local uploads connected</p>
+            <button class="button secondary" type="button">Manage Integrations</button>
+          </article>
+          <article class="admin-card">
+            <h3>Data Retention</h3>
+            <p>Compliant with COPPA and FERPA policies</p>
+            <button class="button secondary" type="button">Review Policies</button>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="../../scripts/session.js"></script>
+</body>
+</html>

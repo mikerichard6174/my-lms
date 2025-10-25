@@ -1,10 +1,20 @@
 (function () {
+  /**
+   * Parent dashboard interactions
+   * ------------------------------
+   * This immediately-invoked function expression encapsulates all of the DOM
+   * wiring required for the parent portal. It leans on the shared `LMSProgress`
+   * module for persistence while exposing descriptive comments for every
+   * rendering helper so future contributors can maintain feature parity when the
+   * UI evolves.
+   */
   document.addEventListener("DOMContentLoaded", () => {
     const progress = window.LMSProgress;
     if (!progress) {
       return;
     }
 
+    const gradeSelect = document.querySelector("[data-grade-select]");
     const subjectSelect = document.querySelector("[data-subject-select]");
     const lessonSelect = document.querySelector("[data-lesson-select]");
     const scheduleForm = document.querySelector("[data-schedule-form]");
@@ -15,11 +25,29 @@
 
     const SUBJECTS = progress.SUBJECTS || {};
     const LESSONS = progress.LESSONS || [];
+    const GRADES = progress.GRADES || [];
     const lessonsBySubject = LESSONS.reduce((acc, lesson) => {
       if (!acc[lesson.subject]) {
         acc[lesson.subject] = [];
       }
       acc[lesson.subject].push(lesson);
+      return acc;
+    }, {});
+
+    const lessonsByGrade = LESSONS.reduce((acc, lesson) => {
+      if (!acc[lesson.grade]) {
+        acc[lesson.grade] = [];
+      }
+      acc[lesson.grade].push(lesson);
+      return acc;
+    }, {});
+
+    const lessonsByGradeSubject = LESSONS.reduce((acc, lesson) => {
+      const key = `${lesson.grade}:${lesson.subject}`;
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(lesson);
       return acc;
     }, {});
 
@@ -33,12 +61,51 @@
       sunday: "Sunday"
     };
 
+    /**
+     * Populates the grade dropdown. If the page omits the grade selector (e.g.
+     * mobile layouts), we fall back to rendering subjects directly.
+     */
+    function renderGradeOptions() {
+      if (!gradeSelect) {
+        renderSubjectOptions();
+        return;
+      }
+      gradeSelect.innerHTML = "";
+      const defaultGrade = GRADES.find((grade) => (lessonsByGrade[grade.id] || []).length) || GRADES[0];
+      GRADES.forEach((grade) => {
+        const option = document.createElement("option");
+        option.value = grade.id;
+        option.textContent = grade.label;
+        option.selected = defaultGrade ? grade.id === defaultGrade.id : false;
+        gradeSelect.append(option);
+      });
+      gradeSelect.addEventListener("change", () => {
+        renderSubjectOptions();
+      });
+      renderSubjectOptions();
+    }
+
+    /**
+     * Refreshes the subject dropdown based on the currently selected grade so
+     * parents only schedule lessons that belong to that grade band.
+     */
     function renderSubjectOptions() {
       if (!subjectSelect) {
         return;
       }
       subjectSelect.innerHTML = "";
-      Object.values(SUBJECTS).forEach((subject, index) => {
+      const selectedGrade = gradeSelect ? gradeSelect.value : null;
+      const gradeSubjects = selectedGrade
+        ? new Set((lessonsByGrade[selectedGrade] || []).map((lesson) => lesson.subject))
+        : null;
+      const orderedSubjects = gradeSubjects && gradeSubjects.size
+        ? Array.from(gradeSubjects)
+        : Object.keys(SUBJECTS);
+      orderedSubjects.forEach((subjectId, index) => {
+        const subject = SUBJECTS[subjectId];
+        if (!subject) {
+          return;
+        }
         const option = document.createElement("option");
         option.value = subject.id;
         option.textContent = subject.label;
@@ -47,14 +114,22 @@
         }
         subjectSelect.append(option);
       });
-      updateLessonOptions(subjectSelect.value);
+      updateLessonOptions(subjectSelect.value, selectedGrade);
     }
 
-    function updateLessonOptions(subjectId) {
+    /**
+     * Hydrates the lesson dropdown with filtered options for the chosen
+     * subject/grade pairing.
+     * @param {string} subjectId
+     * @param {string} gradeId
+     */
+    function updateLessonOptions(subjectId, gradeId) {
       if (!lessonSelect) {
         return;
       }
-      const lessons = lessonsBySubject[subjectId] || [];
+      const lessons = gradeId
+        ? lessonsByGradeSubject[`${gradeId}:${subjectId}`] || []
+        : lessonsBySubject[subjectId] || [];
       lessonSelect.innerHTML = "";
       lessons.forEach((lesson) => {
         const option = document.createElement("option");
@@ -70,6 +145,10 @@
       }
     }
 
+    /**
+     * Renders the weekly schedule grid using the persisted parent-defined
+     * schedule items.
+     */
     function renderSchedule() {
       if (!scheduleList) {
         return;
@@ -100,7 +179,10 @@
             header.append(time);
             const label = document.createElement("span");
             const subjectLabel = SUBJECTS[item.lesson?.subject]?.label || item.lesson?.subject || "";
-            label.textContent = `${item.lesson?.shortName || item.lesson?.name || "Lesson"} • ${subjectLabel}`;
+            const gradeLabel = item.lesson?.grade
+              ? GRADES.find((grade) => grade.id === item.lesson.grade)?.label || ""
+              : "";
+            label.textContent = `${item.lesson?.shortName || item.lesson?.name || "Lesson"} • ${subjectLabel}${gradeLabel ? ` • ${gradeLabel}` : ""}`;
             header.append(label);
             li.append(header);
             if (item.notes) {
@@ -130,6 +212,11 @@
       });
     }
 
+    /**
+     * Displays a transient status message after schedule mutations.
+     * @param {string} message
+     * @param {boolean} isError
+     */
     function showScheduleFeedback(message, isError = false) {
       if (!scheduleFeedback) {
         return;
@@ -138,6 +225,10 @@
       scheduleFeedback.classList.toggle("error", isError);
     }
 
+    /**
+     * Outputs subject goal cards so guardians can adjust mastery targets and
+     * coaching notes per subject area.
+     */
     function renderGoals() {
       if (!goalGrid) {
         return;
@@ -184,6 +275,10 @@
       });
     }
 
+    /**
+     * Builds the gradebook view of every lesson with best scores, attempts,
+     * manual grade overrides, and completion toggles.
+     */
     function renderGrades() {
       if (!gradeRows) {
         return;
@@ -197,7 +292,11 @@
 
         const lessonCell = document.createElement("span");
         lessonCell.setAttribute("role", "cell");
-        lessonCell.innerHTML = `<strong>${lesson.name}</strong><small>${SUBJECTS[lesson.subject]?.label || ""}</small>`;
+        const subjectLabel = SUBJECTS[lesson.subject]?.label || "";
+        const gradeLabel = lesson.grade
+          ? GRADES.find((grade) => grade.id === lesson.grade)?.label || ""
+          : "";
+        lessonCell.innerHTML = `<strong>${lesson.name}</strong><small>${subjectLabel}</small>${gradeLabel ? `<small>${gradeLabel}</small>` : ""}`;
 
         const scoreCell = document.createElement("span");
         scoreCell.setAttribute("role", "cell");
@@ -244,7 +343,8 @@
 
     if (subjectSelect) {
       subjectSelect.addEventListener("change", (event) => {
-        updateLessonOptions(event.target.value);
+        const selectedGrade = gradeSelect ? gradeSelect.value : null;
+        updateLessonOptions(event.target.value, selectedGrade);
       });
     }
 
@@ -264,15 +364,26 @@
           notes: formData.get("notes")
         });
         showScheduleFeedback("Scheduled successfully!");
+        const selectedGrade = gradeSelect ? gradeSelect.value : null;
+        const selectedSubject = subjectSelect ? subjectSelect.value : null;
         scheduleForm.reset();
-        updateLessonOptions(subjectSelect.value);
+        if (gradeSelect && selectedGrade) {
+          gradeSelect.value = selectedGrade;
+        }
+        if (subjectSelect && selectedSubject) {
+          subjectSelect.value = selectedSubject;
+        }
+        updateLessonOptions(subjectSelect ? subjectSelect.value : null, selectedGrade);
         renderSchedule();
         renderGoals();
         renderGrades();
       });
     }
 
-    renderSubjectOptions();
+    renderGradeOptions();
+    if (!gradeSelect) {
+      renderSubjectOptions();
+    }
     renderSchedule();
     renderGoals();
     renderGrades();

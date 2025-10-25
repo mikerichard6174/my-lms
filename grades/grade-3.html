@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 3 Learning Hub</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body data-required-role="student">
+  <div class="app-layout">
+    <aside class="app-nav">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Grades</h2>
+        <nav aria-label="Grade navigation">
+          <ul class="nav-links nav-links-compact">
+            <li><a href="grade-k.html" >Kindergarten</a></li>
+            <li><a href="grade-1.html" >Grade 1</a></li>
+            <li><a href="grade-2.html" >Grade 2</a></li>
+            <li><a href="grade-3.html" aria-current="page">Grade 3</a></li>
+            <li><a href="grade-4.html" >Grade 4</a></li>
+            <li><a href="grade-5.html" >Grade 5</a></li>
+            <li><a href="grade-6.html" >Grade 6</a></li>
+            <li><a href="grade-7.html" >Grade 7</a></li>
+            <li><a href="grade-8.html" >Grade 8</a></li>
+            <li><a href="grade-9.html" >Grade 9</a></li>
+            <li><a href="grade-10.html" >Grade 10</a></li>
+            <li><a href="grade-11.html" >Grade 11</a></li>
+            <li><a href="grade-12.html" >Grade 12</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-section">
+        <h2>Quick Links</h2>
+        <nav aria-label="Utility navigation">
+          <ul class="nav-links">
+            <li><a href="../frontend/student/dashboard.html">Student Home</a></li>
+            <li><a href="../frontend/student/dashboard.html#progress-tracker">Progress Tracker</a></li>
+            <li><button type="button" class="link-button" data-sign-out>Sign Out</button></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-progress" aria-label="Overall progress">
+        Keep it up! <strong data-overall-progress>0%</strong> Course Complete
+      </section>
+    </aside>
+
+    <main class="app-content grade-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../frontend/student/dashboard.html">Student Dashboard</a>
+        <span aria-hidden="true">›</span>
+        <span>Grade 3</span>
+      </nav>
+
+      <header class="grade-header">
+        <div>
+          <h1>Grade 3 Learning Hub</h1>
+          <p data-grade-summary>Introduce fractions, paragraph reading, and lab-style experiments.</p>
+        </div>
+        <aside class="grade-progress-panel" data-grade-progress="grade-3">
+          <span class="grade-level">Level 3</span>
+          <strong data-grade-percent>0%</strong>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+          <span class="grade-status" data-status>No lessons yet</span>
+        </aside>
+      </header>
+
+      <section class="grade-intro">
+        <div class="grade-intro-card">
+          <h2>Transition to upper elementary</h2>
+          <p>Third graders tackle multiplication, analyze longer texts, and plan investigations with evidence.</p>
+        </div>
+      </section>
+
+      <section class="grade-summary-grid">
+
+        <article class="grade-subject-summary" data-subject-progress="math" data-grade="grade-3">
+          <header>
+            <h3>Math Adventures</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Build multiplication fluency, fractions, and problem-solving stamina.</p>
+          <ul class="grade-topic-list">
+            <li>Master multiplication and division facts through 10 × 10.</li>
+            <li>Represent fractions on number lines and in area models.</li>
+            <li>Solve multi-step problems that mix the four operations.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+
+        <article class="grade-subject-summary" data-subject-progress="english" data-grade="grade-3">
+          <header>
+            <h3>English Explorers</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Analyze informational and literary texts while writing with structure.</p>
+          <ul class="grade-topic-list">
+            <li>Identify main ideas and supporting details in articles.</li>
+            <li>Explore characters' traits and motivations in chapter books.</li>
+            <li>Compose opinion pieces with reasons, evidence, and conclusions.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+
+        <article class="grade-subject-summary" data-subject-progress="science" data-grade="grade-3">
+          <header>
+            <h3>Science Lab</h3>
+            <span data-status>No lessons yet</span>
+          </header>
+          <p>Run investigations about forces, life systems, and Earth patterns.</p>
+          <ul class="grade-topic-list">
+            <li>Design experiments to test balanced and unbalanced forces.</li>
+            <li>Model plant adaptations that help survival in different climates.</li>
+            <li>Track weather data to recognize seasonal patterns.</li>
+          </ul>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" data-progress-track>
+            <div class="progress-bar" data-progress-bar style="width: 0%"></div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="../scripts/session.js"></script>
+  <script src="../scripts/progress.js"></script>
+</body>
+</html>

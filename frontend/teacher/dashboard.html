@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Command Center</title>
+  <link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body data-required-role="teacher">
+  <div class="app-layout">
+    <aside class="app-nav" data-role="teacher">
+      <div class="nav-brand"><span>🌟</span> My Learning Hub</div>
+      <section class="nav-section">
+        <h2>Classrooms</h2>
+        <nav aria-label="Class navigation">
+          <ul class="nav-links">
+            <li><a href="#class-list">My Classes</a></li>
+            <li><a href="#assignments">Assignments</a></li>
+            <li><a href="#interventions">Interventions</a></li>
+          </ul>
+        </nav>
+      </section>
+      <section class="nav-section">
+        <h2>Quick Actions</h2>
+        <nav aria-label="Teacher utilities">
+          <ul class="nav-links">
+            <li><a href="../student/dashboard.html">Preview Student View</a></li>
+            <li><a href="../parent/dashboard.html">Parent Contacts</a></li>
+            <li><button type="button" class="link-button" data-sign-out>Sign Out</button></li>
+          </ul>
+        </nav>
+      </section>
+    </aside>
+
+    <main class="app-content teacher-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../student/dashboard.html">Student Dashboard</a>
+        <span aria-hidden="true">›</span>
+        <span>Teacher Command Center</span>
+      </nav>
+
+      <header class="teacher-header">
+        <h1>Teacher Command Center</h1>
+        <p>Monitor class progress, assign new lessons, and coordinate interventions across your roster.</p>
+      </header>
+
+      <section class="teacher-section" id="class-list" aria-labelledby="class-overview">
+        <div class="section-header">
+          <h2 id="class-overview">My Classes</h2>
+          <p>Track attendance, pacing, and recent submissions for each class section.</p>
+        </div>
+        <div class="teacher-grid" data-class-grid>
+          <article class="teacher-card">
+            <h3>Grade 1 Homeroom</h3>
+            <p>4 lessons assigned this week · 92% completion</p>
+            <button class="button secondary" type="button">Open Class Board</button>
+          </article>
+          <article class="teacher-card">
+            <h3>Grade 2 Literacy</h3>
+            <p>3 lessons assigned this week · 76% completion</p>
+            <button class="button secondary" type="button">Open Class Board</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="teacher-section" id="assignments" aria-labelledby="assignment-tools">
+        <div class="section-header">
+          <h2 id="assignment-tools">Assignments</h2>
+          <p>Choose curriculum modules and schedule due dates. Coming integrations will connect to third-party content providers.</p>
+        </div>
+        <form class="teacher-form">
+          <label>
+            Class
+            <select name="class">
+              <option>Grade 1 Homeroom</option>
+              <option>Grade 2 Literacy</option>
+            </select>
+          </label>
+          <label>
+            Lesson Bundle
+            <select name="bundle">
+              <option>Math · Counting &amp; Comparing</option>
+              <option>English · Story Adventure Series</option>
+              <option>Science · Weather Explorers</option>
+            </select>
+          </label>
+          <label>
+            Due Date
+            <input type="date" name="due-date">
+          </label>
+          <button class="button" type="button">Assign Lessons</button>
+        </form>
+      </section>
+
+      <section class="teacher-section" id="interventions" aria-labelledby="intervention-tracker">
+        <div class="section-header">
+          <h2 id="intervention-tracker">Intervention Tracker</h2>
+          <p>Identify learners who need support based on performance thresholds.</p>
+        </div>
+        <div class="teacher-grid">
+          <article class="teacher-card attention">
+            <h3>Needs Review</h3>
+            <ul>
+              <li>Mia Avery · Math Lesson 2 · Attempted twice</li>
+              <li>Jordan Lee · English Lesson 3 · Reading fluency flag</li>
+            </ul>
+            <button class="button secondary" type="button">Create Support Plan</button>
+          </article>
+          <article class="teacher-card">
+            <h3>Celebrations</h3>
+            <ul>
+              <li>Aaron Kim · Science Lesson 2 · Perfect score</li>
+              <li>Lina Patel · English Lesson 5 · Reading level increase</li>
+            </ul>
+            <button class="button secondary" type="button">Share Kudos</button>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="../../scripts/session.js"></script>
+</body>
+</html>
